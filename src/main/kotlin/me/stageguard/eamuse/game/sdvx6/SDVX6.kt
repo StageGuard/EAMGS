@@ -13,11 +13,12 @@ const val SDVX6_20210830 = "KFC:J:F:A:2021083100"
 val sdvx6RouteHandlers = arrayOf(
     Common, Shop, Longue, // common
     New, HiScore, Load, LoadScore, LoadRival,  // profile
+    Save, SaveScore, SaveCourse, // save
     *defaultSDVX6Handler("frozen", "save_e", "save_mega", "play_e", "play_s", "entry_s", "entry_e", "exception")
 )
 
 val sdvx6DatabaseTables = listOf(
-    CourseRecordTable, ItemTable, MixTable, ParamTable, PlayRecordTable, SkillTable, UserProfileTable
+    CourseRecordTable, ItemTable, ParamTable, PlayRecordTable, SkillTable, UserProfileTable
 )
 
 

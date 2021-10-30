@@ -3,6 +3,8 @@
 package me.stageguard.eamuse.game.sdvx6.model
 
 import me.stageguard.eamuse.database.AddableTable
+import me.stageguard.eamuse.game.sdvx6.model.CourseRecordTable.bindTo
+import me.stageguard.eamuse.game.sdvx6.model.CourseRecordTable.primaryKey
 import org.ktorm.dsl.AssignmentsBuilder
 import org.ktorm.entity.Entity
 import org.ktorm.schema.int
@@ -10,6 +12,7 @@ import org.ktorm.schema.long
 import org.ktorm.schema.varchar
 
 object PlayRecordTable : AddableTable<PlayRecord>("sdvx6_play_record") {
+    val __id = int("__id").primaryKey().bindTo { it.__id }
     val refId = varchar("refId").bindTo { it.refId }
     val mid = long("mid").bindTo { it.mid }
     val type = long("type").bindTo { it.type }
@@ -35,6 +38,7 @@ object PlayRecordTable : AddableTable<PlayRecord>("sdvx6_play_record") {
     }
 
     override val createStatement = """
+        `__id` INT NOT NULL AUTO_INCREMENT,
         `refId` varchar(16) NOT NULL,
         `mid` bigint NOT NULL,
         `type` bigint NOT NULL,
@@ -45,12 +49,13 @@ object PlayRecordTable : AddableTable<PlayRecord>("sdvx6_play_record") {
         `buttonRate` int NOT NULL,
         `longRate` int NOT NULL,
         `volRate` int NOT NULL,
-        UNIQUE KEY `ref_unique_id` (`refId`)
+        PRIMARY KEY (`__id`)
     """.trimIndent()
 }
 
 interface PlayRecord : Entity<PlayRecord> {
     companion object : Entity.Factory<PlayRecord>()
+    var __id: Int
     var refId: String
     var mid: Long
     var type: Long

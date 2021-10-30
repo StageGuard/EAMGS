@@ -3,6 +3,8 @@
 package me.stageguard.eamuse.game.sdvx6.model
 
 import me.stageguard.eamuse.database.AddableTable
+import me.stageguard.eamuse.game.sdvx6.model.CourseRecordTable.bindTo
+import me.stageguard.eamuse.game.sdvx6.model.CourseRecordTable.primaryKey
 import org.ktorm.dsl.AssignmentsBuilder
 import org.ktorm.entity.Entity
 import org.ktorm.schema.int
@@ -10,6 +12,7 @@ import org.ktorm.schema.long
 import org.ktorm.schema.varchar
 
 object UserProfileTable : AddableTable<UserProfile>("sdvx6_profile") {
+    val __id = int("__id").primaryKey().bindTo { it.__id }
     val refId = varchar("refId").bindTo { it.refId }
     val id = int("id").bindTo { it.id }
     val name = varchar("name").bindTo { it.name }
@@ -81,6 +84,7 @@ object UserProfileTable : AddableTable<UserProfile>("sdvx6_profile") {
     }
 
     override val createStatement = """
+        `__id` INT NOT NULL AUTO_INCREMENT,
         `refId` varchar(16) NOT NULL,
         `id` int NOT NULL,
         `name` varchar(10) NOT NULL,
@@ -114,13 +118,15 @@ object UserProfileTable : AddableTable<UserProfile>("sdvx6_profile") {
         `sortType` int NOT NULL,
         `expPoint` int NOT NULL,
         `mUserCnt` int NOT NULL,
-        UNIQUE KEY `ref_unique_id` (`refId`)
+        UNIQUE KEY `ref_unique_id` (`refId`),
+        PRIMARY KEY (`__id`)
     """.trimIndent()
 }
 
 interface UserProfile : Entity<UserProfile> {
     companion object : Entity.Factory<UserProfile>()
     var refId: String
+    var __id: Int
     var id: Int
     var name: String
     var appeal: Int

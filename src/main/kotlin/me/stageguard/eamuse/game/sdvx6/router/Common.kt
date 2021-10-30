@@ -1,6 +1,7 @@
 package me.stageguard.eamuse.game.sdvx6.router
 
 import com.buttongames.butterflycore.xml.kbinxml.KXmlBuilder
+import me.stageguard.eamuse.config
 import me.stageguard.eamuse.game.sdvx6.SDVX6SkillCourseSessions
 import me.stageguard.eamuse.game.sdvx6.SDVX6Events
 import me.stageguard.eamuse.game.sdvx6.SDVX6_SONG_COUNT
@@ -25,13 +26,15 @@ object Common : SDVX6RouteHandler("common") {
 
         // unlock all songs
         resp = resp.e("music_limited")
-        repeat(SDVX6_SONG_COUNT) { song ->
-            repeat(5) { type ->
-                resp = resp.e("info")
-                    .s32("music_id", song + 1).up()
-                    .u8("music_type", type).up()
-                    .u8("limited", 3).up()
-                resp = resp.up()
+        if (config.sdvx.unlockAllSongs) {
+            repeat(SDVX6_SONG_COUNT) { song ->
+                repeat(5) { type ->
+                    resp = resp.e("info")
+                        .s32("music_id", song + 1).up()
+                        .u8("music_type", type).up()
+                        .u8("limited", 3).up()
+                    resp = resp.up()
+                }
             }
         }
         resp = resp.up()

@@ -85,7 +85,7 @@ object Load : SDVX6RouteHandler("load") {
             .u8("early_late_disp", profile.earlyLateDisp).up()
             .s32("draw_adjust", profile.drawAdjust).up()
             .u8("eff_c_left", profile.effCLeft).up()
-            .u8("eff_c_right", profile.effCLeft).up()
+            .u8("eff_c_right", profile.effCRight).up()
             .u8("narrow_down", profile.narrowDown).up()
 
             .str("kac_id", profile.name).up()
