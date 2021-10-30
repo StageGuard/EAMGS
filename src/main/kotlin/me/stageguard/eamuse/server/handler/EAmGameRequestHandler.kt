@@ -37,12 +37,23 @@ object EAmGameRequestHandler : SimpleChannelInboundHandler<RequestPacket>() {
                     "doesn't have annotation ${RouteModel::class.simpleName}"
                 )
             } else {
-                if ((modelAnno.name.contains("*") || modelAnno.name.contains(msg.model)) &&
-                    "${msg.module}.${msg.method}" == command
-                ) {
+                if ("${msg.module}.${msg.method}" != command) return@forEach
+                // general model
+                if (modelAnno.name.contains("*")) {
                     val handled = runBlocking(EAmusementGameServer.coroutineContext) { handler.handle(msg) }
                     ctx.fireChannelRead(ResponsePacket(handled, msg))
                     return
+                }
+                // game specific model
+                modelAnno.name.forEach { singleModel ->
+                    val (reqModel, reqVersion) = msg.model.split(":").run { first() to last() }
+                    val (routeModel, routeVersion) = singleModel.split(":").run { first() to last() }
+
+                    if (reqModel == routeModel && reqVersion == routeVersion) {
+                        val handled = runBlocking(EAmusementGameServer.coroutineContext) { handler.handle(msg) }
+                        ctx.fireChannelRead(ResponsePacket(handled, msg))
+                        return
+                    }
                 }
             }
         }

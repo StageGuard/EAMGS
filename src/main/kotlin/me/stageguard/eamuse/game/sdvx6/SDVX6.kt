@@ -9,7 +9,7 @@ import me.stageguard.eamuse.server.RouteModel
 import org.w3c.dom.Element
 
 
-const val SDVX6_20210830 = "KFC:J:F:A:2021083100"
+const val SDVX6_20210830 = "KFC:2021083100"
 val sdvx6RouteHandlers = arrayOf(
     Common, Shop, Longue, // common
     New, HiScore, Load, LoadScore, LoadRival,  // profile

@@ -6,14 +6,13 @@ import com.buttongames.butterflycore.xml.XmlUtils
 import com.buttongames.butterflycore.xml.kbinxml.KXmlBuilder
 import com.jamesmurty.utils.BaseXMLBuilder
 import io.netty.handler.codec.http.HttpResponseStatus
+import kotlinx.coroutines.runBlocking
 import me.stageguard.eamuse.database.Database
 import me.stageguard.eamuse.database.model.EAmuseCard
 import me.stageguard.eamuse.database.model.EAmuseCardTable
-import me.stageguard.eamuse.server.InvalidRequestException
-import me.stageguard.eamuse.server.RouteCollection
-import me.stageguard.eamuse.server.RouteHandler
-import me.stageguard.eamuse.server.RouteModel
+import me.stageguard.eamuse.server.*
 import me.stageguard.eamuse.server.packet.RequestPacket
+import me.stageguard.eamuse.server.packet.ResponsePacket
 import org.ktorm.dsl.eq
 import org.ktorm.entity.find
 import org.ktorm.entity.sequenceOf
@@ -49,8 +48,16 @@ class CardManager(
                                 "RouteHandler ${c::class.simpleName} " +
                                 "doesn't have annotation ${RouteModel::class.simpleName}"
                             )
-                        } else if (modelAnno.name.contains(packet.model)) {
-                            return@run c.check(cardInfo)
+                        } else {
+                            // game specific model
+                            modelAnno.name.forEach { singleModel ->
+                                val (reqModel, reqVersion) = packet.model.split(":").run { first() to last() }
+                                val (routeModel, routeVersion) = singleModel.split(":").run { first() to last() }
+
+                                if (reqModel == routeModel && reqVersion == routeVersion) {
+                                    return@run c.check(cardInfo)
+                                }
+                            }
                         }
                     }
                     false
