@@ -50,11 +50,11 @@ object Facility : RouteCollection("facility") {
                             .s32("notchcount", 0).up()
                             .s32("supplylimit", 114514).up(2)
                         .e("url")
-                            .str("eapass", "https://eagate.573.jp/").up()
-                            .str("arcadefan", "https://eagate.573.jp/").up()
-                            .str("konaminetdx", "https://eagate.573.jp/").up()
-                            .str("konamiid", "https://eagate.573.jp/").up()
-                            .str("eagate", "https://eagate.573.jp/")
+                            .str("eapass", "Do not ").up()
+                            .str("arcadefan", "use it ").up()
+                            .str("konaminetdx", "for ").up()
+                            .str("konamiid", "commercial ").up()
+                            .str("eagate", "use")
         }
     }
 }

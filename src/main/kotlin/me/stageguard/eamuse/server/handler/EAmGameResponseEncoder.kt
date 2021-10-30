@@ -40,12 +40,6 @@ object EAmGameResponseEncoder : SimpleChannelInboundHandler<ResponsePacket>() {
             val response = DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK)
 
             val content = kotlin.run {
-                //TODO: delete this after testing
-                File("response/${System.currentTimeMillis()}.${msg.srcReqPackage.module}.${msg.srcReqPackage.method}.xml").also {
-                    it.parentFile.mkdirs()
-                    it.createNewFile()
-                    it.writeText(bos.toString())
-                }
                 var respBytes = bos.toByteArray()
                 bos.flush()
                 bos.close()
@@ -58,7 +52,7 @@ object EAmGameResponseEncoder : SimpleChannelInboundHandler<ResponsePacket>() {
             }.also { response.content().writeBytes(it) }
 
             response.headers().run {
-                add("X-Powered-By", "Asphyxia")
+                add("X-Powered-By", "StageGuard")
                 //add("X-Compress", msg.srcReqPackage.compressScheme ?: "none")
                 if (msg.srcReqPackage.eAmuseInfo != null) {
                     add("X-Eamuse-Info", msg.srcReqPackage.eAmuseInfo)

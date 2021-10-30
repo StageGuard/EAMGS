@@ -42,7 +42,7 @@ object Service : RouteCollection("services") {
         "sidmgr" to globalServerHost,
         "globby" to globalServerHost,
         "ntp" to "ntp://pool.ntp.org/",
-        "keepalive" to "http://${config.server.globalHost}/keepalive?pa=${config.server.globalHost}&ia=${config.server.globalHost}&ga=${config.server.globalHost}&ma=${config.server.globalHost}&t1=2&t2=10"
+        "keepalive" to "http://127.0.0.1/core/keepalive?pa=127.0.0.1&ia=127.0.0.1&ga=127.0.0.1&ma=127.0.0.1&t1=2&t2=10"
     )
 
     @RouteModel

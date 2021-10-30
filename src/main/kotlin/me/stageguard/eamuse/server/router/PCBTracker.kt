@@ -19,14 +19,14 @@ object PCBTracker : RouteCollection("pcbtracker") {
                 .e("pcbtracker")
                 .a("ecenable", if (config.server.isPaseliEnabled) "1" else "0")
 
-            //if (config.server.isMaintenanceMode) {
+            if (config.server.isMaintenanceMode) {
                 resp = resp
                     .a("eclimit", "0")
                     .a("expire", "1200")
                     .a("limit", "0")
                     .a("status", "0")
                     .a("time", (System.currentTimeMillis() / 1000).toString())
-            //}
+            }
 
             return resp
         }
