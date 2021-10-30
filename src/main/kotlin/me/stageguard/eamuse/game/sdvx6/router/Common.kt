@@ -36,6 +36,16 @@ object Common : SDVX6RouteHandler("common") {
                     resp = resp.up()
                 }
             }
+        } else {
+            (1530..SDVX6_SONG_COUNT + 1).forEach { egnsid ->
+                repeat(5) { type ->
+                    resp = resp.e("info")
+                        .s32("music_id", egnsid + 1).up()
+                        .u8("music_type", type).up()
+                        .u8("limited", config.sdvx.newMusicLimitType).up()
+                    resp = resp.up()
+                }
+            }
         }
         resp = resp.up()
 

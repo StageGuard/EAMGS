@@ -47,7 +47,8 @@ data class ApplicationConfiguration(
         val unlockAllAppealCards: Boolean = true,
         val customEntryInformation: String = "",
         val customGameOverInformation: String = "",
-        val useBlasterPass: Boolean = true
+        val useBlasterPass: Boolean = true,
+        val newMusicLimitType: Int = 2
     )
 }
 
