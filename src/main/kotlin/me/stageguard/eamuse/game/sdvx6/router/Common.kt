@@ -9,7 +9,6 @@ import org.w3c.dom.Element
 @RouteModel(SDVX6_20210831, SDVX6_20210830)
 object Common : SDVX6RouteHandler("common") {
     override suspend fun processGameNode(gameNode: Element): KXmlBuilder {
-
         // events
         var resp = createGameResponseNode().e("event")
         SDVX6Events.forEach { ev ->
@@ -20,27 +19,16 @@ object Common : SDVX6RouteHandler("common") {
         // extend
         resp = resp.e("extend").up()
 
-        // unlock all songs
+        // music library
         resp = resp.e("music_limited")
-        if (config.sdvx.unlockAllSongs) {
-            repeat(SDVX6_SONG_COUNT) { song ->
-                repeat(5) { type ->
-                    resp = resp.e("info")
-                        .s32("music_id", song + 1).up()
-                        .u8("music_type", type).up()
-                        .u8("limited", 3).up()
-                    resp = resp.up()
-                }
-            }
-        } else {
-            (1530..SDVX6_SONG_COUNT + 1).forEach { egnsid ->
-                repeat(5) { type ->
-                    resp = resp.e("info")
-                        .s32("music_id", egnsid + 1).up()
-                        .u8("music_type", type).up()
-                        .u8("limited", config.sdvx.newMusicLimitType).up()
-                    resp = resp.up()
-                }
+
+        sdvx6MusicLibrary.forEach { (mid, music) ->
+            music.difficulties.forEach { difficulty ->
+                resp = resp.e("info")
+                    .s32("music_id", mid).up()
+                    .u8("music_type", difficulty.type).up()
+                    .u8("limited", if(config.sdvx.unlockAllSongs) 3 else difficulty.limited).up()
+                resp = resp.up()
             }
         }
         resp = resp.up()
