@@ -12,7 +12,10 @@ import me.stageguard.eamuse.game.sdvx6.data.*
 import me.stageguard.eamuse.json
 import me.stageguard.eamuse.server.RouteModel
 import org.intellij.lang.annotations.Language
+import org.slf4j.LoggerFactory
 import org.w3c.dom.Element
+
+private val LOGGER = LoggerFactory.getLogger("SDVX6")
 
 /* Routers */
 const val SDVX6_20210830 = "KFC:20210830"
@@ -87,6 +90,28 @@ val sdvx6Events = listOf(
     "DISP_PASELI_BANNER"
 )
 
+/* Appeal cards */
+val sdvx6AppealCards: Map<Int, SDVX6AppealCard> = run {
+    val cards: MutableMap<Int, SDVX6AppealCard> = mutableMapOf()
+    Load::class.java.getResourceAsStream("/sdvx6/appeal_card.xml")?.run {
+        try { XmlUtils.byteArrayToXmlFile(readAllBytes()) } catch (_: Exception) { null }
+    } ?.childElements ?.forEach { c ->
+        val cardInfo = c.firstChild("info") ?: return@forEach
+        val cardId = c.getAttribute("id").toInt()
+        cards[cardId] = SDVX6AppealCard(
+            cardId,
+            cardInfo.childNodeValue("texture") ?: return@forEach,
+            cardInfo.childNodeValue("title") ?: return@forEach,
+            cardInfo.childNodeValue("rarity") ?.toInt() ?: return@forEach,
+            cardInfo.childNodeValue("limited") ?.toInt() ?: return@forEach
+        )
+    }
+
+    cards.also {
+        if (it.isEmpty()) LOGGER.warn("Appeal cards are empty, check if resources/sdvx6/appeal_card.xml exists in jar!")
+    }
+}
+
 /* Music library */
 val SDVX_DIFFICULTY_VALUE = arrayOf("novice", "advanced", "exhaust", "infinite", "maximum")
 val sdvx6MusicLibrary: Map<Int, SDVX6Music> = run {
@@ -94,7 +119,7 @@ val sdvx6MusicLibrary: Map<Int, SDVX6Music> = run {
 
     arrayOf("music_db.xml", "music_db.merged.xml").forEach _ignoreLabel@ { file ->
         Common::class.java.getResourceAsStream("/sdvx6/$file")?.run {
-            XmlUtils.byteArrayToXmlFile(this.readAllBytes())
+            try { XmlUtils.byteArrayToXmlFile(readAllBytes()) } catch (_: Exception) { null }
         } ?.childElements ?.forEach { m ->
             val musicInfo = m.firstChild("info") ?: return@forEach
             val difficulties = m.firstChild("difficulty") ?: return@forEach
@@ -121,7 +146,9 @@ val sdvx6MusicLibrary: Map<Int, SDVX6Music> = run {
         }
     }
 
-    musicLibs
+    musicLibs.also {
+        if (it.isEmpty()) LOGGER.warn("Music library are empty, check if resources/sdvx6/music_db.xml music_db.merged.xml and exist in jar!")
+    }
 }
 
 /* Skill course  */

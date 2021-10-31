@@ -11,6 +11,7 @@ import me.stageguard.eamuse.game.sdvx6.model.*
 import me.stageguard.eamuse.game.sdvx6.SDVX6RouteHandler
 import me.stageguard.eamuse.game.sdvx6.SDVX6_20210830
 import me.stageguard.eamuse.game.sdvx6.SDVX6_20210831
+import me.stageguard.eamuse.game.sdvx6.sdvx6AppealCards
 import org.ktorm.dsl.eq
 import org.ktorm.dsl.notEq
 import org.ktorm.entity.*
@@ -54,7 +55,7 @@ object Load : SDVX6RouteHandler("load") {
         }
 
         if (config.sdvx.unlockAllAppealCards) {
-            repeat(6000) { items.add(Item { type = 1; id = it.toLong(); param = 1 }) }
+            sdvx6AppealCards.forEach { (id, _) -> items.add(Item { type = 1; this.id = id.toLong(); param = 1 }) }
         }
 
         // make generator always power 100%
