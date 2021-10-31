@@ -55,7 +55,7 @@ object EAmusementGameServer : CoroutineScope {
                     ch.pipeline()
                         .addLast("decoder", HttpRequestDecoder())
                         .addLast("encoder", HttpResponseEncoder())
-                        .addLast("aggregator", HttpObjectAggregator(1024 * 1024))
+                        .addLast("aggregator", HttpObjectAggregator(8 * 1024 * 1024))
                         .addLast("eamuseDecoder", EAmGameRequestDecoder)
                         .addLast("eamuseProcessor", EAmGameRequestHandler)
                         .addLast("eamuseEncoder", EAmGameResponseEncoder)
