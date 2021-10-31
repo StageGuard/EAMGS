@@ -24,11 +24,13 @@ object Common : SDVX6RouteHandler("common") {
 
         sdvx6MusicLibrary.forEach { (mid, music) ->
             music.difficulties.forEach { difficulty ->
-                resp = resp.e("info")
-                    .s32("music_id", mid).up()
-                    .u8("music_type", difficulty.type).up()
-                    .u8("limited", if(config.sdvx.unlockAllSongs) 3 else difficulty.limited).up()
-                resp = resp.up()
+                if (difficulty.limited != 3 && config.sdvx.unlockAllSongs) {
+                    resp = resp.e("info")
+                        .s32("music_id", mid).up()
+                        .u8("music_type", difficulty.type).up()
+                        .u8("limited", 3).up()
+                    resp = resp.up()
+                }
             }
         }
         resp = resp.up()
