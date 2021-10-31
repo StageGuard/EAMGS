@@ -6,6 +6,18 @@ import me.stageguard.eamuse.game.sdvx6.*
 import me.stageguard.eamuse.server.RouteModel
 import org.w3c.dom.Element
 
+val songsToUnlock by lazy {
+    val songs: MutableList<Pair<Int, Int>> = mutableListOf()
+    sdvx6MusicLibrary.forEach { (mid, music) ->
+        music.difficulties.forEach { difficulty ->
+            if (difficulty.limited != 3) {
+                songs.add(mid to difficulty.type)
+            }
+        }
+    }
+    songs.toList()
+}
+
 @RouteModel(SDVX6_20210831, SDVX6_20210830)
 object Common : SDVX6RouteHandler("common") {
     override suspend fun processGameNode(gameNode: Element): KXmlBuilder {
@@ -21,16 +33,13 @@ object Common : SDVX6RouteHandler("common") {
 
         // music library
         resp = resp.e("music_limited")
-
-        sdvx6MusicLibrary.forEach { (mid, music) ->
-            music.difficulties.forEach { difficulty ->
-                if (difficulty.limited != 3 && config.sdvx.unlockAllSongs) {
-                    resp = resp.e("info")
-                        .s32("music_id", mid).up()
-                        .u8("music_type", difficulty.type).up()
-                        .u8("limited", 3).up()
-                    resp = resp.up()
-                }
+        if (config.sdvx.unlockAllSongs) {
+            songsToUnlock.forEach { (mid, type) ->
+                resp = resp.e("info")
+                    .s32("music_id", mid).up()
+                    .u8("music_type", type).up()
+                    .u8("limited", 3).up()
+                resp = resp.up()
             }
         }
         resp = resp.up()
