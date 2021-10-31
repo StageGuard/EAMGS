@@ -6,8 +6,6 @@ import com.buttongames.butterflycore.xml.kbinxml.childElements
 import com.buttongames.butterflycore.xml.kbinxml.firstChild
 import com.buttongames.butterflycore.xml.kbinxml.kbinDecodeToString
 import me.stageguard.eamuse.childNodeValue
-import me.stageguard.eamuse.game.sdvx6.SDVX6Music
-import me.stageguard.eamuse.game.sdvx6.SDVX6MusicDifficulty
 import me.stageguard.eamuse.game.sdvx6.router.Common
 import java.io.File
 import java.util.*

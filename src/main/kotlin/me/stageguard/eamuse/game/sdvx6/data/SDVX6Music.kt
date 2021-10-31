@@ -1,4 +1,4 @@
-package me.stageguard.eamuse.game.sdvx6
+package me.stageguard.eamuse.game.sdvx6.data
 
 data class SDVX6Music(
     val id: Int,

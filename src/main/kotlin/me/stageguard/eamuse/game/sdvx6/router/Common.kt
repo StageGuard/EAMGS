@@ -23,7 +23,7 @@ object Common : SDVX6RouteHandler("common") {
     override suspend fun handle(gameNode: Element): KXmlBuilder {
         // events
         var resp = createGameResponseNode().e("event")
-        SDVX6Events.forEach { ev ->
+        sdvx6Events.forEach { ev ->
             resp = resp.e("info").str("event_id", ev).up(2)
         }
         resp = resp.up()
@@ -46,7 +46,7 @@ object Common : SDVX6RouteHandler("common") {
 
         // skill course
         resp = resp.e("skill_course")
-        SDVX6SkillCourseSessions.value.forEach { season ->
+        sdvx6SkillCourseSessions.value.forEach { season ->
             season.courses.forEach { course ->
                 resp = resp.e("info")
                     .s32("season_id", season.id).up()
