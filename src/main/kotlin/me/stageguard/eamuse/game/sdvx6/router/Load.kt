@@ -1,8 +1,8 @@
 package me.stageguard.eamuse.game.sdvx6.router
 
 import com.buttongames.butterflycore.xml.kbinxml.KXmlBuilder
-import com.buttongames.butterflycore.xml.kbinxml.firstChild
 import io.netty.handler.codec.http.HttpResponseStatus
+import me.stageguard.eamuse.childNodeValue
 import me.stageguard.eamuse.config
 import me.stageguard.eamuse.database.Database
 import me.stageguard.eamuse.server.InvalidRequestException
@@ -20,7 +20,7 @@ import java.util.concurrent.atomic.AtomicInteger
 @RouteModel(SDVX6_20210831, SDVX6_20210830)
 object Load : SDVX6RouteHandler("load") {
     override suspend fun processGameNode(gameNode: Element): KXmlBuilder {
-        val refId = gameNode.firstChild("refid")?.firstChild?.nodeValue
+        val refId = gameNode.childNodeValue("refid")
             ?: throw InvalidRequestException(HttpResponseStatus.BAD_REQUEST)
 
         val profile = Database.query { db -> db.sequenceOf(UserProfileTable).find { it.refId eq refId } }
@@ -176,7 +176,7 @@ object Load : SDVX6RouteHandler("load") {
 @RouteModel(SDVX6_20210831, SDVX6_20210830)
 object LoadScore : SDVX6RouteHandler("load_m") {
     override suspend fun processGameNode(gameNode: Element): KXmlBuilder {
-        val refId = gameNode.firstChild("refid")?.firstChild?.nodeValue
+        val refId = gameNode.childNodeValue("refid")
             ?: throw InvalidRequestException(HttpResponseStatus.BAD_REQUEST)
 
         val playRecords = Database.query { db -> db.sequenceOf(PlayRecordTable).filter { it.refId eq refId }.toList() } ?: listOf()
@@ -201,7 +201,7 @@ object LoadScore : SDVX6RouteHandler("load_m") {
 @RouteModel(SDVX6_20210831, SDVX6_20210830)
 object LoadRival : SDVX6RouteHandler("load_r") {
     override suspend fun processGameNode(gameNode: Element): KXmlBuilder {
-        val refId = gameNode.firstChild("refid")?.firstChild?.nodeValue
+        val refId = gameNode.childNodeValue("refid")
             ?: throw InvalidRequestException(HttpResponseStatus.BAD_REQUEST)
 
         val rivalProfiles = Database.query { db -> db.sequenceOf(UserProfileTable).filter { it.refId notEq refId }.toList() } ?: listOf()

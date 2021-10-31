@@ -5,6 +5,7 @@ package me.stageguard.eamuse.game.sdvx6.router
 import com.buttongames.butterflycore.xml.kbinxml.KXmlBuilder
 import com.buttongames.butterflycore.xml.kbinxml.firstChild
 import io.netty.handler.codec.http.HttpResponseStatus
+import me.stageguard.eamuse.childNodeValue
 import me.stageguard.eamuse.database.Database
 import me.stageguard.eamuse.game.sdvx6.model.UserProfile
 import me.stageguard.eamuse.game.sdvx6.model.UserProfileTable
@@ -24,9 +25,9 @@ import kotlin.random.Random
 @RouteModel(SDVX6_20210831, SDVX6_20210830)
 object New : SDVX6RouteHandler("new") {
     override suspend fun processGameNode(gameNode: Element): KXmlBuilder {
-        val refId = gameNode.firstChild("refid")?.firstChild?.nodeValue
+        val refId = gameNode.childNodeValue("refid")
             ?: throw InvalidRequestException(HttpResponseStatus.BAD_REQUEST)
-        val name = gameNode.firstChild("name")?.firstChild?.nodeValue ?: "GUEST"
+        val name = gameNode.childNodeValue("name") ?: "GUEST"
 
         Database.query { db ->
             db.sequenceOf(UserProfileTable).find { it.refId eq refId }.run {

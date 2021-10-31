@@ -1,5 +1,7 @@
 package me.stageguard.eamuse
 
+import com.buttongames.butterflycore.xml.kbinxml.firstChild
+import org.w3c.dom.Element
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
@@ -27,3 +29,5 @@ inline fun <R> retry(
     }
     return Result.failure(exception!!)
 }
+
+fun Element.childNodeValue(name: String) = firstChild(name) ?.firstChild ?.nodeValue

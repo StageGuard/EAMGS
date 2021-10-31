@@ -5,6 +5,7 @@ import com.buttongames.butterflycore.xml.kbinxml.childElements
 import com.buttongames.butterflycore.xml.kbinxml.firstChild
 import io.netty.handler.codec.http.HttpResponseStatus
 import me.stageguard.eamuse.database.Database
+import me.stageguard.eamuse.childNodeValue
 import me.stageguard.eamuse.game.sdvx6.SDVX6RouteHandler
 import me.stageguard.eamuse.game.sdvx6.SDVX6_20210830
 import me.stageguard.eamuse.game.sdvx6.SDVX6_20210831
@@ -18,8 +19,6 @@ import org.ktorm.entity.find
 import org.ktorm.entity.sequenceOf
 import org.ktorm.entity.toList
 import org.w3c.dom.Element
-
-private fun Element.childNodeValue(name: String) = firstChild(name) ?.firstChild ?.nodeValue
 
 @RouteModel(SDVX6_20210831, SDVX6_20210830)
 object Save : SDVX6RouteHandler("save") {
