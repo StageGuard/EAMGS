@@ -24,7 +24,7 @@ import kotlin.random.Random
 
 @RouteModel(SDVX6_20210831, SDVX6_20210830)
 object New : SDVX6RouteHandler("new") {
-    override suspend fun processGameNode(gameNode: Element): KXmlBuilder {
+    override suspend fun handle(gameNode: Element): KXmlBuilder {
         val refId = gameNode.childNodeValue("refid")
             ?: throw InvalidRequestException(HttpResponseStatus.BAD_REQUEST)
         val name = gameNode.childNodeValue("name") ?: "GUEST"

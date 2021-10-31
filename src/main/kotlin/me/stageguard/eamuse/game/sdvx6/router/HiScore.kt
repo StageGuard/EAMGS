@@ -14,7 +14,7 @@ import org.w3c.dom.Element
 
 @RouteModel(SDVX6_20210831, SDVX6_20210830)
 object HiScore : SDVX6RouteHandler("hiscore") {
-    override suspend fun processGameNode(gameNode: Element): KXmlBuilder {
+    override suspend fun handle(gameNode: Element): KXmlBuilder {
         val allRecords = Database.query { db -> db.sequenceOf(PlayRecordTable).toList() } ?: listOf()
 
         val profiles = (Database.query { db -> db.sequenceOf(UserProfileTable).toList() } ?: listOf()).groupBy { it.refId }

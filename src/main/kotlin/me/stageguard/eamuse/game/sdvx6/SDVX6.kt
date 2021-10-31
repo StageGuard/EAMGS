@@ -65,7 +65,7 @@ private fun defaultSDVX6Handler(vararg method: String) : Array<out SDVX6RouteHan
     return method.map { m ->
         @RouteModel(SDVX6_20210831, SDVX6_20210830)
         object : SDVX6RouteHandler(m) {
-            override suspend fun processGameNode(gameNode: Element): KXmlBuilder {
+            override suspend fun handle(gameNode: Element): KXmlBuilder {
                 return createGameResponseNode()
             }
         }

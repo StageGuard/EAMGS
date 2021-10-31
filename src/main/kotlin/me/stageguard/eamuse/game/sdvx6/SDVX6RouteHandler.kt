@@ -7,10 +7,10 @@ import me.stageguard.eamuse.server.packet.RequestPacket
 import org.w3c.dom.Element
 
 abstract class SDVX6RouteHandler(method: String) : RouteHandler("sv6_$method") {
-    abstract suspend fun processGameNode(gameNode: Element) : KXmlBuilder
+    abstract suspend fun handle(gameNode: Element) : KXmlBuilder
 
     override suspend fun handle(packet: RequestPacket): KXmlBuilder {
-        return processGameNode(XmlUtils.nodeAtPath(packet.content, "/game") as Element)
+        return handle(XmlUtils.nodeAtPath(packet.content, "/game") as Element)
     }
 
     fun createGameResponseNode(): KXmlBuilder = KXmlBuilder.create("response")

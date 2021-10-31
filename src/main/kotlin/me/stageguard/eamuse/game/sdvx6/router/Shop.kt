@@ -11,7 +11,7 @@ import org.w3c.dom.Element
 object Shop : SDVX6RouteHandler("shop") {
     private const val SHOP_NXT_TIME = (1000 * 5 * 60).toLong()
 
-    override suspend fun processGameNode(gameNode: Element): KXmlBuilder {
+    override suspend fun handle(gameNode: Element): KXmlBuilder {
         return createGameResponseNode().u32("nxt_time", SHOP_NXT_TIME)
     }
 }

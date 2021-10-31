@@ -20,7 +20,7 @@ val songsToUnlock by lazy {
 
 @RouteModel(SDVX6_20210831, SDVX6_20210830)
 object Common : SDVX6RouteHandler("common") {
-    override suspend fun processGameNode(gameNode: Element): KXmlBuilder {
+    override suspend fun handle(gameNode: Element): KXmlBuilder {
         // events
         var resp = createGameResponseNode().e("event")
         SDVX6Events.forEach { ev ->

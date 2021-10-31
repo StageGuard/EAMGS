@@ -11,7 +11,7 @@ import org.w3c.dom.Element
 object Longue : SDVX6RouteHandler("lounge") {
     private const val INTERVAL = 30.toLong()
 
-    override suspend fun processGameNode(gameNode: Element): KXmlBuilder {
+    override suspend fun handle(gameNode: Element): KXmlBuilder {
         return createGameResponseNode().u32("interval", INTERVAL)
     }
 }

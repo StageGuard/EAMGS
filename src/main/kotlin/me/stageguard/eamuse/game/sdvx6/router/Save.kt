@@ -22,7 +22,7 @@ import org.w3c.dom.Element
 
 @RouteModel(SDVX6_20210831, SDVX6_20210830)
 object Save : SDVX6RouteHandler("save") {
-    override suspend fun processGameNode(gameNode: Element): KXmlBuilder {
+    override suspend fun handle(gameNode: Element): KXmlBuilder {
         val refId = gameNode.childNodeValue("refid")
             ?: throw InvalidRequestException(HttpResponseStatus.BAD_REQUEST)
 
@@ -138,7 +138,7 @@ object Save : SDVX6RouteHandler("save") {
 
 @RouteModel(SDVX6_20210831, SDVX6_20210830)
 object SaveScore : SDVX6RouteHandler("save_m") {
-    override suspend fun processGameNode(gameNode: Element): KXmlBuilder {
+    override suspend fun handle(gameNode: Element): KXmlBuilder {
         val refId = gameNode.childNodeValue("refid")
             ?: throw InvalidRequestException(HttpResponseStatus.BAD_REQUEST)
 
@@ -191,7 +191,7 @@ object SaveScore : SDVX6RouteHandler("save_m") {
 
 @RouteModel(SDVX6_20210831, SDVX6_20210830)
 object SaveCourse : SDVX6RouteHandler("save_c") {
-    override suspend fun processGameNode(gameNode: Element): KXmlBuilder {
+    override suspend fun handle(gameNode: Element): KXmlBuilder {
         val refId = gameNode.childNodeValue("refid")
             ?: throw InvalidRequestException(HttpResponseStatus.BAD_REQUEST)
 

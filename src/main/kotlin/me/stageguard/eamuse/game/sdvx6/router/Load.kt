@@ -19,7 +19,7 @@ import java.util.concurrent.atomic.AtomicInteger
 
 @RouteModel(SDVX6_20210831, SDVX6_20210830)
 object Load : SDVX6RouteHandler("load") {
-    override suspend fun processGameNode(gameNode: Element): KXmlBuilder {
+    override suspend fun handle(gameNode: Element): KXmlBuilder {
         val refId = gameNode.childNodeValue("refid")
             ?: throw InvalidRequestException(HttpResponseStatus.BAD_REQUEST)
 
@@ -175,7 +175,7 @@ object Load : SDVX6RouteHandler("load") {
 
 @RouteModel(SDVX6_20210831, SDVX6_20210830)
 object LoadScore : SDVX6RouteHandler("load_m") {
-    override suspend fun processGameNode(gameNode: Element): KXmlBuilder {
+    override suspend fun handle(gameNode: Element): KXmlBuilder {
         val refId = gameNode.childNodeValue("refid")
             ?: throw InvalidRequestException(HttpResponseStatus.BAD_REQUEST)
 
@@ -200,7 +200,7 @@ object LoadScore : SDVX6RouteHandler("load_m") {
 
 @RouteModel(SDVX6_20210831, SDVX6_20210830)
 object LoadRival : SDVX6RouteHandler("load_r") {
-    override suspend fun processGameNode(gameNode: Element): KXmlBuilder {
+    override suspend fun handle(gameNode: Element): KXmlBuilder {
         val refId = gameNode.childNodeValue("refid")
             ?: throw InvalidRequestException(HttpResponseStatus.BAD_REQUEST)
 
