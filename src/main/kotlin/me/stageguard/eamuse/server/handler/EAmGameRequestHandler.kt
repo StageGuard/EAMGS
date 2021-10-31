@@ -49,7 +49,7 @@ object EAmGameRequestHandler : SimpleChannelInboundHandler<RequestPacket>() {
                     val (reqModel, reqVersion) = msg.model.split(":").run { first() to last() }
                     val (routeModel, routeVersion) = singleModel.split(":").run { first() to last() }
 
-                    if (reqModel == routeModel && reqVersion == routeVersion) {
+                    if (reqModel == routeModel && reqVersion.startsWith(routeVersion)) {
                         val handled = runBlocking(EAmusementGameServer.coroutineContext) { handler.handle(msg) }
                         ctx.fireChannelRead(ResponsePacket(handled, msg))
                         return

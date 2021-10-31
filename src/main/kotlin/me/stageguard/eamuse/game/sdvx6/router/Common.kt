@@ -2,15 +2,11 @@ package me.stageguard.eamuse.game.sdvx6.router
 
 import com.buttongames.butterflycore.xml.kbinxml.KXmlBuilder
 import me.stageguard.eamuse.config
-import me.stageguard.eamuse.game.sdvx6.SDVX6SkillCourseSessions
-import me.stageguard.eamuse.game.sdvx6.SDVX6Events
-import me.stageguard.eamuse.game.sdvx6.SDVX6_SONG_COUNT
+import me.stageguard.eamuse.game.sdvx6.*
 import me.stageguard.eamuse.server.RouteModel
-import me.stageguard.eamuse.game.sdvx6.SDVX6RouteHandler
-import me.stageguard.eamuse.game.sdvx6.SDVX6_20210830
 import org.w3c.dom.Element
 
-@RouteModel(SDVX6_20210830)
+@RouteModel(SDVX6_20210831, SDVX6_20210830)
 object Common : SDVX6RouteHandler("common") {
     override suspend fun processGameNode(gameNode: Element): KXmlBuilder {
 

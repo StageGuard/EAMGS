@@ -54,7 +54,7 @@ class CardManager(
                                 val (reqModel, reqVersion) = packet.model.split(":").run { first() to last() }
                                 val (routeModel, routeVersion) = singleModel.split(":").run { first() to last() }
 
-                                if (reqModel == routeModel && reqVersion == routeVersion) {
+                                if (reqModel == routeModel && reqVersion.startsWith(routeVersion)) {
                                     return@run c.check(cardInfo)
                                 }
                             }

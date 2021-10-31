@@ -12,6 +12,7 @@ import me.stageguard.eamuse.server.InvalidRequestException
 import me.stageguard.eamuse.server.RouteModel
 import me.stageguard.eamuse.game.sdvx6.SDVX6RouteHandler
 import me.stageguard.eamuse.game.sdvx6.SDVX6_20210830
+import me.stageguard.eamuse.game.sdvx6.SDVX6_20210831
 import org.ktorm.dsl.eq
 import org.ktorm.entity.find
 import org.ktorm.entity.map
@@ -20,7 +21,7 @@ import org.w3c.dom.Element
 import kotlin.properties.Delegates
 import kotlin.random.Random
 
-@RouteModel(SDVX6_20210830)
+@RouteModel(SDVX6_20210831, SDVX6_20210830)
 object New : SDVX6RouteHandler("new") {
     override suspend fun processGameNode(gameNode: Element): KXmlBuilder {
         val refId = gameNode.firstChild("refid")?.firstChild?.nodeValue

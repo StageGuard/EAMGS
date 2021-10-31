@@ -7,11 +7,12 @@ import me.stageguard.eamuse.game.sdvx6.model.PlayRecordTable
 import me.stageguard.eamuse.game.sdvx6.model.UserProfileTable
 import me.stageguard.eamuse.game.sdvx6.SDVX6RouteHandler
 import me.stageguard.eamuse.game.sdvx6.SDVX6_20210830
+import me.stageguard.eamuse.game.sdvx6.SDVX6_20210831
 import org.ktorm.entity.sequenceOf
 import org.ktorm.entity.toList
 import org.w3c.dom.Element
 
-@RouteModel(SDVX6_20210830)
+@RouteModel(SDVX6_20210831, SDVX6_20210830)
 object HiScore : SDVX6RouteHandler("hiscore") {
     override suspend fun processGameNode(gameNode: Element): KXmlBuilder {
         val allRecords = Database.query { db -> db.sequenceOf(PlayRecordTable).toList() } ?: listOf()
