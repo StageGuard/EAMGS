@@ -11,9 +11,7 @@ import io.netty.handler.codec.http.HttpRequestDecoder
 import io.netty.handler.codec.http.HttpResponseEncoder
 import kotlinx.coroutines.*
 import me.stageguard.eamuse.config
-import me.stageguard.eamuse.server.handler.EAmGameRequestDecoder
-import me.stageguard.eamuse.server.handler.EAmGameRequestHandler
-import me.stageguard.eamuse.server.handler.EAmGameResponseEncoder
+import me.stageguard.eamuse.server.handler.*
 import org.slf4j.LoggerFactory
 import java.net.InetAddress
 import java.util.concurrent.atomic.AtomicInteger
@@ -56,9 +54,11 @@ object EAmusementGameServer : CoroutineScope {
                         .addLast("decoder", HttpRequestDecoder())
                         .addLast("encoder", HttpResponseEncoder())
                         .addLast("aggregator", HttpObjectAggregator(8 * 1024 * 1024))
+                        .addLast("selector", RequestSelector)
                         .addLast("eamuseDecoder", EAmGameRequestDecoder)
                         .addLast("eamuseProcessor", EAmGameRequestHandler)
                         .addLast("eamuseEncoder", EAmGameResponseEncoder)
+                        .addLast("apiHandler", APIRequestHandler)
                 }
             })
         val channelFuture = bootstrap.bind(InetAddress.getByName(host), port).syncUninterruptibly().channel()

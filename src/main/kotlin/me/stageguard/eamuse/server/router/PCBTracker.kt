@@ -6,7 +6,7 @@ import me.stageguard.eamuse.config
 import me.stageguard.eamuse.server.RouteCollection
 import me.stageguard.eamuse.server.RouteHandler
 import me.stageguard.eamuse.server.RouteModel
-import me.stageguard.eamuse.server.packet.RequestPacket
+import me.stageguard.eamuse.server.packet.EAGRequestPacket
 
 object PCBTracker : RouteCollection("pcbtracker") {
     override val routers: Set<RouteHandler>
@@ -14,7 +14,7 @@ object PCBTracker : RouteCollection("pcbtracker") {
 
     @RouteModel
     object Alive : RouteHandler("alive") {
-        override suspend fun handle(packet: RequestPacket): BaseXMLBuilder {
+        override suspend fun handle(packet: EAGRequestPacket): BaseXMLBuilder {
             var resp = KXmlBuilder.create("response")
                 .e("pcbtracker")
                 .a("ecenable", if (config.server.isPaseliEnabled) "1" else "0")

@@ -6,13 +6,11 @@ import com.buttongames.butterflycore.xml.XmlUtils
 import com.buttongames.butterflycore.xml.kbinxml.KXmlBuilder
 import com.jamesmurty.utils.BaseXMLBuilder
 import io.netty.handler.codec.http.HttpResponseStatus
-import kotlinx.coroutines.runBlocking
 import me.stageguard.eamuse.database.Database
 import me.stageguard.eamuse.database.model.EAmuseCard
 import me.stageguard.eamuse.database.model.EAmuseCardTable
 import me.stageguard.eamuse.server.*
-import me.stageguard.eamuse.server.packet.RequestPacket
-import me.stageguard.eamuse.server.packet.ResponsePacket
+import me.stageguard.eamuse.server.packet.EAGRequestPacket
 import org.ktorm.dsl.eq
 import org.ktorm.entity.find
 import org.ktorm.entity.sequenceOf
@@ -32,7 +30,7 @@ class CardManager(
     class Inquire(private vararg val checkers: ProfileChecker) : RouteHandler("inquire") {
         private val LOGGER = LoggerFactory.getLogger(Inquire::class.java)
 
-        override suspend fun handle(packet: RequestPacket): BaseXMLBuilder {
+        override suspend fun handle(packet: EAGRequestPacket): BaseXMLBuilder {
             val cardnmgNode = XmlUtils.nodeAtPath(packet.content, "/cardmng")
             val cardNfcId = cardnmgNode.attributes.getNamedItem("cardid").nodeValue
 
@@ -78,7 +76,7 @@ class CardManager(
 
     @RouteModel
     object GetRefId : RouteHandler("getrefid") {
-        override suspend fun handle(packet: RequestPacket): BaseXMLBuilder {
+        override suspend fun handle(packet: EAGRequestPacket): BaseXMLBuilder {
             val cardmngNode = XmlUtils.nodeAtPath(packet.content, "/cardmng")
             val cardNfcId = cardmngNode.attributes.getNamedItem("cardid").nodeValue
             val pin = cardmngNode.attributes.getNamedItem("passwd").nodeValue
@@ -118,7 +116,7 @@ class CardManager(
 
     @RouteModel
     object AuthPass : RouteHandler("authpass") {
-        override suspend fun handle(packet: RequestPacket): BaseXMLBuilder {
+        override suspend fun handle(packet: EAGRequestPacket): BaseXMLBuilder {
             val cardmngNode = XmlUtils.nodeAtPath(packet.content, "/cardmng")
             val pin = cardmngNode.attributes.getNamedItem("pass").nodeValue
             val refId = cardmngNode.attributes.getNamedItem("refid").nodeValue
@@ -135,7 +133,7 @@ class CardManager(
 
     @RouteModel
     object BindModel : RouteHandler("bindmodel") {
-        override suspend fun handle(packet: RequestPacket): BaseXMLBuilder {
+        override suspend fun handle(packet: EAGRequestPacket): BaseXMLBuilder {
             val cardmngNode = XmlUtils.nodeAtPath(packet.content, "/cardmng")
             val refid = cardmngNode.attributes.getNamedItem("refid").nodeValue
 

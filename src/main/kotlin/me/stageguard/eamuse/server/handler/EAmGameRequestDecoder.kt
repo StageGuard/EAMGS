@@ -10,26 +10,24 @@ import io.netty.channel.ChannelHandlerContext
 import io.netty.channel.SimpleChannelInboundHandler
 import io.netty.channel.socket.SocketChannel
 import io.netty.handler.codec.http.*
-import me.stageguard.eamuse.server.packet.RequestPacket
+import me.stageguard.eamuse.server.SelectorType
+import me.stageguard.eamuse.server.packet.EAGRequestPacket
 import org.slf4j.LoggerFactory
 import org.w3c.dom.Element
 import java.net.URLDecoder
 import java.nio.charset.Charset
 
 @ChannelHandler.Sharable
-object EAmGameRequestDecoder : SimpleChannelInboundHandler<FullHttpRequest>() {
+object EAmGameRequestDecoder : SimpleChannelInboundHandler<SelectorType.EAGameClientRequest>() {
     private val LOGGER = LoggerFactory.getLogger(EAmGameRequestDecoder.javaClass)
 
     override fun channelReadComplete(ctx: ChannelHandlerContext) { ctx.flush() }
 
-    override fun channelRead0(ctx: ChannelHandlerContext, msg: FullHttpRequest) {
-        if(msg.method().name() != "POST") {
-            ctx.writeAndFlush(badRequest())
-            ctx.close()
-            return
-        }
-
-        val parameters = URLDecoder.decode(msg.uri(), Charset.defaultCharset()).split("?").runCatching {
+    override fun channelRead0(
+        ctx: ChannelHandlerContext,
+        msg: SelectorType.EAGameClientRequest
+    ) {
+        val parameters = URLDecoder.decode(msg.request.uri(), Charset.defaultCharset()).split("?").runCatching {
             val path = getOrNull(0)
             val parameters = getOrNull(1)
             check(path != null && (path.isEmpty() || path == "/") && parameters != null)
@@ -61,12 +59,12 @@ object EAmGameRequestDecoder : SimpleChannelInboundHandler<FullHttpRequest>() {
             return
         }
 
-        val eAmuseInfo: String? = msg.headers()["X-Eamuse-Info"]
-        val compressScheme: String? = msg.headers()["X-Compress"]
+        val eAmuseInfo: String? = msg.request.headers()["X-Eamuse-Info"]
+        val compressScheme: String? = msg.request.headers()["X-Compress"]
         var requestBody = kotlin.run {
-            val contentLength = msg.content().readableBytes()
+            val contentLength = msg.request.content().readableBytes()
             val unpooled = Unpooled.wrappedBuffer(ByteArray(contentLength))
-            val originByteBuf = msg.content()
+            val originByteBuf = msg.request.content()
             originByteBuf.readBytes(unpooled, 0, contentLength)
             unpooled.array().also { unpooled.release() }
         }
@@ -107,7 +105,7 @@ object EAmGameRequestDecoder : SimpleChannelInboundHandler<FullHttpRequest>() {
             return
         }
 
-        ctx.fireChannelRead(RequestPacket(requestModel, requestModule, requestMethod, eAmuseInfo, compressScheme, moduleNode))
+        ctx.fireChannelRead(EAGRequestPacket(requestModel, requestModule, requestMethod, eAmuseInfo, compressScheme, moduleNode))
     }
 
     private fun badRequest() = DefaultFullHttpResponse(

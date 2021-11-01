@@ -9,13 +9,13 @@ import io.netty.handler.codec.http.HttpResponseStatus
 import io.netty.handler.codec.http.HttpVersion
 import kotlinx.coroutines.runBlocking
 import me.stageguard.eamuse.server.*
-import me.stageguard.eamuse.server.packet.RequestPacket
-import me.stageguard.eamuse.server.packet.ResponsePacket
+import me.stageguard.eamuse.server.packet.EAGRequestPacket
+import me.stageguard.eamuse.server.packet.EAGResponsePacket
 import org.slf4j.LoggerFactory
 import kotlin.reflect.full.findAnnotation
 
 @ChannelHandler.Sharable
-object EAmGameRequestHandler : SimpleChannelInboundHandler<RequestPacket>() {
+object EAmGameRequestHandler : SimpleChannelInboundHandler<EAGRequestPacket>() {
 
     private val LOGGER = LoggerFactory.getLogger(EAmGameRequestHandler.javaClass)
 
@@ -27,7 +27,7 @@ object EAmGameRequestHandler : SimpleChannelInboundHandler<RequestPacket>() {
 
     override fun channelReadComplete(ctx: ChannelHandlerContext) { ctx.flush() }
 
-    override fun channelRead0(ctx: ChannelHandlerContext, msg: RequestPacket) {
+    override fun channelRead0(ctx: ChannelHandlerContext, msg: EAGRequestPacket) {
         routers.forEach { (command, handler) ->
             val modelAnno = handler::class.findAnnotation<RouteModel>()
             if (modelAnno == null) {
@@ -41,7 +41,7 @@ object EAmGameRequestHandler : SimpleChannelInboundHandler<RequestPacket>() {
                 // general model
                 if (modelAnno.name.contains("*")) {
                     val handled = runBlocking(EAmusementGameServer.coroutineContext) { handler.handle(msg) }
-                    ctx.fireChannelRead(ResponsePacket(handled, msg))
+                    ctx.fireChannelRead(EAGResponsePacket(handled, msg))
                     return
                 }
                 // game specific model
@@ -51,7 +51,7 @@ object EAmGameRequestHandler : SimpleChannelInboundHandler<RequestPacket>() {
 
                     if (reqModel == routeModel && reqVersion.startsWith(routeVersion)) {
                         val handled = runBlocking(EAmusementGameServer.coroutineContext) { handler.handle(msg) }
-                        ctx.fireChannelRead(ResponsePacket(handled, msg))
+                        ctx.fireChannelRead(EAGResponsePacket(handled, msg))
                         return
                     }
                 }

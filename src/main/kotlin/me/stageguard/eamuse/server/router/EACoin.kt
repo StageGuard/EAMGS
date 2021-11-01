@@ -10,7 +10,7 @@ import me.stageguard.eamuse.server.InvalidRequestException
 import me.stageguard.eamuse.server.RouteCollection
 import me.stageguard.eamuse.server.RouteHandler
 import me.stageguard.eamuse.server.RouteModel
-import me.stageguard.eamuse.server.packet.RequestPacket
+import me.stageguard.eamuse.server.packet.EAGRequestPacket
 import org.ktorm.dsl.eq
 import org.ktorm.entity.find
 import org.ktorm.entity.sequenceOf
@@ -21,7 +21,7 @@ object EACoin : RouteCollection("eacoin") {
 
     @RouteModel
     object Checkin : RouteHandler("checkin") {
-        override suspend fun handle(packet: RequestPacket): BaseXMLBuilder {
+        override suspend fun handle(packet: EAGRequestPacket): BaseXMLBuilder {
             val cardId = XmlUtils.strAtPath(packet.content, "/eacoin/cardid")
             val pin = XmlUtils.strAtPath(packet.content, "/eacoin/passwd")
 
@@ -43,7 +43,7 @@ object EACoin : RouteCollection("eacoin") {
 
     @RouteModel
     object Consume : RouteHandler("consume") {
-        override suspend fun handle(packet: RequestPacket): BaseXMLBuilder {
+        override suspend fun handle(packet: EAGRequestPacket): BaseXMLBuilder {
             return KXmlBuilder.create("response")
                 .e("eacoin")
                 .u8("acstatus", 0).up()
@@ -54,7 +54,7 @@ object EACoin : RouteCollection("eacoin") {
 
     @RouteModel
     object Checkout : RouteHandler("checkout") {
-        override suspend fun handle(packet: RequestPacket): BaseXMLBuilder {
+        override suspend fun handle(packet: EAGRequestPacket): BaseXMLBuilder {
             return KXmlBuilder.create("response").e("eacoin")
         }
     }

@@ -2,7 +2,7 @@ package me.stageguard.eamuse.server.packet
 
 import org.w3c.dom.Element
 
-data class RequestPacket(
+data class EAGRequestPacket(
     val model: String,
     val module: String,
     val method: String,

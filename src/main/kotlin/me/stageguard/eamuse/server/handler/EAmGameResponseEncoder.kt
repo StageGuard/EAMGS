@@ -12,21 +12,20 @@ import io.netty.handler.codec.http.HttpHeaderNames
 import io.netty.handler.codec.http.HttpResponseStatus
 import io.netty.handler.codec.http.HttpVersion
 import io.netty.util.ReferenceCountUtil
-import me.stageguard.eamuse.server.packet.ResponsePacket
+import me.stageguard.eamuse.server.packet.EAGResponsePacket
 import org.slf4j.LoggerFactory
 import java.io.ByteArrayOutputStream
-import java.io.File
 import javax.xml.transform.OutputKeys
 import javax.xml.transform.TransformerFactory
 import javax.xml.transform.dom.DOMSource
 import javax.xml.transform.stream.StreamResult
 
 @ChannelHandler.Sharable
-object EAmGameResponseEncoder : SimpleChannelInboundHandler<ResponsePacket>() {
+object EAmGameResponseEncoder : SimpleChannelInboundHandler<EAGResponsePacket>() {
 
     private val LOGGER = LoggerFactory.getLogger(EAmGameResponseEncoder.javaClass)
 
-    override fun channelRead0(ctx: ChannelHandlerContext, msg: ResponsePacket) {
+    override fun channelRead0(ctx: ChannelHandlerContext, msg: EAGResponsePacket) {
         try {
             val bos = ByteArrayOutputStream().also {
                 val transformerFactory = TransformerFactory.newInstance()

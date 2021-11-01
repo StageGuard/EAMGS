@@ -6,7 +6,7 @@ import me.stageguard.eamuse.config
 import me.stageguard.eamuse.server.RouteCollection
 import me.stageguard.eamuse.server.RouteHandler
 import me.stageguard.eamuse.server.RouteModel
-import me.stageguard.eamuse.server.packet.RequestPacket
+import me.stageguard.eamuse.server.packet.EAGRequestPacket
 
 object Facility : RouteCollection("facility") {
     override val routers: Set<RouteHandler>
@@ -14,7 +14,7 @@ object Facility : RouteCollection("facility") {
 
     @RouteModel
     object Get : RouteHandler("get") {
-        override suspend fun handle(packet: RequestPacket): BaseXMLBuilder {
+        override suspend fun handle(packet: EAGRequestPacket): BaseXMLBuilder {
             return KXmlBuilder.create("response")
                 .e("facility")
                     .e("location")
@@ -50,11 +50,11 @@ object Facility : RouteCollection("facility") {
                             .s32("notchcount", 0).up()
                             .s32("supplylimit", 114514).up(2)
                         .e("url")
-                            .str("eapass", "Do not ").up()
-                            .str("arcadefan", "use it ").up()
-                            .str("konaminetdx", "for ").up()
-                            .str("konamiid", "commercial ").up()
-                            .str("eagate", "use")
+                            .str("eapass", "https://eagate.573.jp/").up()
+                            .str("arcadefan", "https://eagate.573.jp/").up()
+                            .str("konaminetdx", "https://eagate.573.jp/").up()
+                            .str("konamiid", "https://eagate.573.jp/").up()
+                            .str("eagate", "https://eagate.573.jp/")
         }
     }
 }
