@@ -12,6 +12,7 @@ import io.netty.handler.codec.http.HttpResponseEncoder
 import kotlinx.coroutines.*
 import me.stageguard.eamuse.config
 import me.stageguard.eamuse.server.handler.*
+import me.stageguard.eamuse.server.router.*
 import org.slf4j.LoggerFactory
 import java.net.InetAddress
 import java.util.concurrent.atomic.AtomicInteger
@@ -28,14 +29,12 @@ object EAmusementGameServer : CoroutineScope {
 
     private lateinit var bootstrap: ServerBootstrap
 
+    fun addRouters(vararg rcs: RouteCollection) = EAmGameRequestHandler.addRouters(*rcs)
+
     @Suppress("HttpUrlsUsage")
     @OptIn(ObsoleteCoroutinesApi::class)
-    fun start(
-        host: String = "0.0.0.0", port: Int, routers: EAmGameRequestHandler.RoutingDSL.() -> Unit
-    ) = launch(newSingleThreadContext("EAmusementGameServer")) {
+    fun start(host: String = "0.0.0.0", port: Int) = launch(newSingleThreadContext("EAmusementGameServer")) {
         LOGGER.info("Starting E-Amusement game server...")
-
-        EAmGameRequestHandler.routing(routers)
 
         bootstrap = ServerBootstrap()
             .group(

@@ -21,8 +21,11 @@ object EAmGameRequestHandler : SimpleChannelInboundHandler<EAGRequestPacket>() {
 
     private val routers: MutableMap<String, RouteHandler> = mutableMapOf()
 
-    fun routing(block: RoutingDSL.() -> Unit) {
-        block(RoutingDSL)
+    fun addRouter(rc: RouteCollection) {
+        rc.routers.forEach { routers["${rc.module}.${it.method}"] = it }
+    }
+    fun addRouters(vararg rcs: RouteCollection) {
+        rcs.forEach { rc -> addRouter(rc) }
     }
 
     override fun channelReadComplete(ctx: ChannelHandlerContext) { ctx.flush() }
@@ -63,13 +66,6 @@ object EAmGameRequestHandler : SimpleChannelInboundHandler<EAGRequestPacket>() {
         )
         ctx.writeAndFlush(DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK))
         ctx.close()
-    }
-
-    object RoutingDSL {
-        infix operator fun plus(rc: RouteCollection) : RoutingDSL {
-            rc.routers.forEach { routers["${rc.module}.${it.method}"] = it }
-            return this
-        }
     }
 
     override fun exceptionCaught(ctx: ChannelHandlerContext?, cause: Throwable?) {

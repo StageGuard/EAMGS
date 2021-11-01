@@ -55,17 +55,14 @@ object Database : CoroutineScope {
         }
     }
 
+    fun addTables(vararg rcs: AddableTable<*>) = tables.addAll(rcs)
+
     @OptIn(ObsoleteCoroutinesApi::class)
-    private fun connect() = launch(newSingleThreadContext("DatabaseInitializer")) {
+     fun connect() = launch(newSingleThreadContext("DatabaseInitializer")) {
         db = Database.connect(hikariDataSourceProvider().also { hikariSource = it })
         connectionStatus = ConnectionStatus.CONNECTED
         initDatabase()
         LOGGER.info("Database ${hikariSource.jdbcUrl} is connected.")
-    }
-
-    fun connect(block: TableDSL.() -> Unit) : Job {
-        block(TableDSL)
-        return connect()
     }
 
     private fun isConnected() = connectionStatus == ConnectionStatus.CONNECTED
@@ -114,16 +111,4 @@ object Database : CoroutineScope {
             }
         }
     })
-
-    object TableDSL {
-        infix operator fun plus(rc: AddableTable<*>) : TableDSL {
-            tables.add(rc)
-            return this
-        }
-        infix operator fun plus(rcs: List<AddableTable<*>>) : TableDSL {
-            tables.addAll(rcs)
-            return this
-        }
-    }
-
 }

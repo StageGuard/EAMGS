@@ -40,7 +40,7 @@ private fun defaultSDVX6Handler(vararg method: String) : Array<out SDVX6RouteHan
 }
 
 /* Database tables */
-val sdvx6DatabaseTables = listOf(
+val sdvx6DatabaseTables = arrayOf(
     CourseRecordTable, ItemTable, ParamTable, PlayRecordTable, SkillTable, UserProfileTable
 )
 
