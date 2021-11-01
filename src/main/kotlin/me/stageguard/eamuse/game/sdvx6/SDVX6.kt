@@ -21,9 +21,10 @@ private val LOGGER = LoggerFactory.getLogger("SDVX6")
 const val SDVX6_20210830 = "KFC:20210830"
 const val SDVX6_20210831 = "KFC:20210831"
 val sdvx6RouteHandlers = arrayOf(
-    Common, Shop, Longue, // common
+    Common, Longue, // common
     New, HiScore, Load, LoadScore, LoadRival,  // profile
     Save, SaveScore, SaveCourse, // save
+    Buy, Shop, // consume
     *defaultSDVX6Handler("frozen", "save_e", "save_mega", "play_e", "play_s", "entry_s", "entry_e", "exception")
 )
 
