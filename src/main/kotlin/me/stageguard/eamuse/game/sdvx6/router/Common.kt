@@ -18,7 +18,7 @@ val songsToUnlock by lazy {
     songs.toList()
 }
 
-@RouteModel(SDVX6_20210831, SDVX6_20210830)
+@RouteModel(SDVX6_20210831, SDVX6_20210830, SDVX6_20211020)
 object Common : SDVX6RouteHandler("common") {
     override suspend fun handle(gameNode: Element): KXmlBuilder {
         // events

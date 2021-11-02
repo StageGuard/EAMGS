@@ -9,6 +9,7 @@ import me.stageguard.eamuse.childNodeValue
 import me.stageguard.eamuse.game.sdvx6.SDVX6RouteHandler
 import me.stageguard.eamuse.game.sdvx6.SDVX6_20210830
 import me.stageguard.eamuse.game.sdvx6.SDVX6_20210831
+import me.stageguard.eamuse.game.sdvx6.SDVX6_20211020
 import me.stageguard.eamuse.game.sdvx6.model.*
 import me.stageguard.eamuse.server.InvalidRequestException
 import me.stageguard.eamuse.server.RouteModel
@@ -20,7 +21,7 @@ import org.ktorm.entity.sequenceOf
 import org.ktorm.entity.toList
 import org.w3c.dom.Element
 
-@RouteModel(SDVX6_20210831, SDVX6_20210830)
+@RouteModel(SDVX6_20210831, SDVX6_20210830, SDVX6_20211020)
 object Save : SDVX6RouteHandler("save") {
     override suspend fun handle(gameNode: Element): KXmlBuilder {
         val refId = gameNode.childNodeValue("refid")
@@ -136,7 +137,7 @@ object Save : SDVX6RouteHandler("save") {
     }
 }
 
-@RouteModel(SDVX6_20210831, SDVX6_20210830)
+@RouteModel(SDVX6_20210831, SDVX6_20210830, SDVX6_20211020)
 object SaveScore : SDVX6RouteHandler("save_m") {
     override suspend fun handle(gameNode: Element): KXmlBuilder {
         val refId = gameNode.childNodeValue("refid")
@@ -189,7 +190,7 @@ object SaveScore : SDVX6RouteHandler("save_m") {
     }
 }
 
-@RouteModel(SDVX6_20210831, SDVX6_20210830)
+@RouteModel(SDVX6_20210831, SDVX6_20210830, SDVX6_20211020)
 object SaveCourse : SDVX6RouteHandler("save_c") {
     override suspend fun handle(gameNode: Element): KXmlBuilder {
         val refId = gameNode.childNodeValue("refid")

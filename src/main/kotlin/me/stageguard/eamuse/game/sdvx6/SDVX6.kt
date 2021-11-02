@@ -20,6 +20,7 @@ private val LOGGER = LoggerFactory.getLogger("SDVX6")
 /* Routers */
 const val SDVX6_20210830 = "KFC:20210830"
 const val SDVX6_20210831 = "KFC:20210831"
+const val SDVX6_20211020 = "KFC:20211020"
 val sdvx6RouteHandlers = arrayOf(
     Common, Longue, // common
     New, HiScore, Load, LoadScore, LoadRival,  // profile
@@ -30,7 +31,7 @@ val sdvx6RouteHandlers = arrayOf(
 
 private fun defaultSDVX6Handler(vararg method: String) : Array<out SDVX6RouteHandler> {
     return method.map { m ->
-        @RouteModel(SDVX6_20210831, SDVX6_20210830)
+        @RouteModel(SDVX6_20210831, SDVX6_20210830, SDVX6_20211020)
         object : SDVX6RouteHandler(m) {
             override suspend fun handle(gameNode: Element): KXmlBuilder {
                 return createGameResponseNode()

@@ -5,20 +5,17 @@ import io.netty.handler.codec.http.HttpResponseStatus
 import me.stageguard.eamuse.childNodeValue
 import me.stageguard.eamuse.config
 import me.stageguard.eamuse.database.Database
+import me.stageguard.eamuse.game.sdvx6.*
 import me.stageguard.eamuse.server.InvalidRequestException
 import me.stageguard.eamuse.server.RouteModel
 import me.stageguard.eamuse.game.sdvx6.model.*
-import me.stageguard.eamuse.game.sdvx6.SDVX6RouteHandler
-import me.stageguard.eamuse.game.sdvx6.SDVX6_20210830
-import me.stageguard.eamuse.game.sdvx6.SDVX6_20210831
-import me.stageguard.eamuse.game.sdvx6.sdvx6AppealCards
 import org.ktorm.dsl.eq
 import org.ktorm.dsl.notEq
 import org.ktorm.entity.*
 import org.w3c.dom.Element
 import java.util.concurrent.atomic.AtomicInteger
 
-@RouteModel(SDVX6_20210831, SDVX6_20210830)
+@RouteModel(SDVX6_20210831, SDVX6_20210830, SDVX6_20211020)
 object Load : SDVX6RouteHandler("load") {
     override suspend fun handle(gameNode: Element): KXmlBuilder {
         val refId = gameNode.childNodeValue("refid")
@@ -174,7 +171,7 @@ object Load : SDVX6RouteHandler("load") {
 
 }
 
-@RouteModel(SDVX6_20210831, SDVX6_20210830)
+@RouteModel(SDVX6_20210831, SDVX6_20210830, SDVX6_20211020)
 object LoadScore : SDVX6RouteHandler("load_m") {
     override suspend fun handle(gameNode: Element): KXmlBuilder {
         val refId = gameNode.childNodeValue("refid")
@@ -199,7 +196,7 @@ object LoadScore : SDVX6RouteHandler("load_m") {
     }
 }
 
-@RouteModel(SDVX6_20210831, SDVX6_20210830)
+@RouteModel(SDVX6_20210831, SDVX6_20210830, SDVX6_20211020)
 object LoadRival : SDVX6RouteHandler("load_r") {
     override suspend fun handle(gameNode: Element): KXmlBuilder {
         val refId = gameNode.childNodeValue("refid")
