@@ -102042,6 +102042,142 @@
     </difficulty>
     <tag id="36"/>
   </music>
+  <music id="1679">
+    <info>
+      <label>1679</label>
+      <title_name>まみむめ釁まるっと釁まっしゅるーむ釁釁</title_name>
+      <title_yomigana>ﾏﾐﾑﾒﾏﾙｯﾄﾏｯｼｭﾙｰﾑ</title_yomigana>
+      <artist_name>かめりあ as "まいたけラヴ" feat. ななひら as "エリンギ大好き"</artist_name>
+      <artist_yomigana>ｶﾒﾘｱｵﾙｿｰﾉｳﾝｱｽﾞﾏｲﾀｹﾗｳﾞﾌｨｰﾁｬﾘﾝｸﾞﾅﾅﾋﾗｵﾙｿｰﾉｳﾝｱｽﾞｴﾘﾝｷﾞﾀﾞｲｽｷ</artist_yomigana>
+      <ascii>mamimumemarutto_kameria</ascii>
+      <bpm_max __type="u32">16100</bpm_max>
+      <bpm_min __type="u32">16100</bpm_min>
+      <distribution_date __type="u32">20210916</distribution_date>
+      <volume __type="u16">91</volume>
+      <bg_no __type="u16">7</bg_no>
+      <genre __type="u32">2</genre>
+      <is_fixed __type="u8">1</is_fixed>
+      <version __type="u8">6</version>
+      <demo_pri __type="s8">-2</demo_pri>
+      <inf_ver __type="u8">0</inf_ver>
+    </info>
+    <difficulty>
+      <novice>
+        <difnum __type="u8">5</difnum>
+        <illustrator>FunguStinger</illustrator>
+        <effected_by>菌類の電撃ロブスター </effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </novice>
+      <advanced>
+        <difnum __type="u8">13</difnum>
+        <illustrator>FunguStinger</illustrator>
+        <effected_by>菌類の電撃ロブスター </effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </advanced>
+      <exhaust>
+        <difnum __type="u8">15</difnum>
+        <illustrator>FunguStinger</illustrator>
+        <effected_by>菌類の電撃ロブスター </effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </exhaust>
+      <infinite>
+        <difnum __type="u8">0</difnum>
+        <illustrator>dummy</illustrator>
+        <effected_by>dummy</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </infinite>
+      <maximum>
+        <difnum __type="u8">18</difnum>
+        <illustrator>FunguStinger</illustrator>
+        <effected_by>菌類の電撃ロブスター </effected_by>
+        <price __type="s32">-2</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </maximum>
+    </difficulty>
+    <tag id="36"/>
+  </music>
+  <music id="1681">
+    <info>
+      <label>1681</label>
+      <title_name>The Clown of 24stairs</title_name>
+      <title_yomigana>ｻﾞｸﾗｳﾝｵﾌﾞﾄｩｴﾝﾃｨｰﾌｫｰｽﾃｲﾔｰｽﾞ</title_yomigana>
+      <artist_name>Yu_Asahina</artist_name>
+      <artist_yomigana>ﾕｳｱｻﾋﾅ</artist_yomigana>
+      <ascii>theclownof24_yuasahina</ascii>
+      <bpm_max __type="u32">20400</bpm_max>
+      <bpm_min __type="u32">20400</bpm_min>
+      <distribution_date __type="u32">20210916</distribution_date>
+      <volume __type="u16">91</volume>
+      <bg_no __type="u16">5</bg_no>
+      <genre __type="u32">2</genre>
+      <is_fixed __type="u8">1</is_fixed>
+      <version __type="u8">6</version>
+      <demo_pri __type="s8">-2</demo_pri>
+      <inf_ver __type="u8">0</inf_ver>
+    </info>
+    <difficulty>
+      <novice>
+        <difnum __type="u8">7</difnum>
+        <illustrator>すえ</illustrator>
+        <effected_by>レッドホットスクリューズ</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </novice>
+      <advanced>
+        <difnum __type="u8">14</difnum>
+        <illustrator>すえ</illustrator>
+        <effected_by>レッドホットスクリューズ</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </advanced>
+      <exhaust>
+        <difnum __type="u8">17</difnum>
+        <illustrator>すえ</illustrator>
+        <effected_by>レッドホットスクリューズ</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </exhaust>
+      <infinite>
+        <difnum __type="u8">0</difnum>
+        <illustrator>dummy</illustrator>
+        <effected_by>dummy</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </infinite>
+      <maximum>
+        <difnum __type="u8">19</difnum>
+        <illustrator>すえ</illustrator>
+        <effected_by>レッドホットスクリューズ No.24</effected_by>
+        <price __type="s32">-2</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </maximum>
+    </difficulty>
+    <tag id="36"/>
+  </music>
   <music id="1682">
     <info>
       <label>1682</label>
@@ -102858,6 +102994,74 @@
     </difficulty>
     <tag id="36"/>
   </music>
+  <music id="1703">
+    <info>
+      <label>1703</label>
+      <title_name>XXanadu#climaXX</title_name>
+      <title_yomigana>ｻﾞﾅﾄﾞｩｰｸﾗｲﾏｯｸｽ</title_yomigana>
+      <artist_name>概念</artist_name>
+      <artist_yomigana>ｶﾞｲﾈﾝ</artist_yomigana>
+      <ascii>xxanaduclimaxx_gainen</ascii>
+      <bpm_max __type="u32">18700</bpm_max>
+      <bpm_min __type="u32">18700</bpm_min>
+      <distribution_date __type="u32">20211014</distribution_date>
+      <volume __type="u16">91</volume>
+      <bg_no __type="u16">10</bg_no>
+      <genre __type="u32">2</genre>
+      <is_fixed __type="u8">1</is_fixed>
+      <version __type="u8">6</version>
+      <demo_pri __type="s8">-2</demo_pri>
+      <inf_ver __type="u8">0</inf_ver>
+    </info>
+    <difficulty>
+      <novice>
+        <difnum __type="u8">6</difnum>
+        <illustrator>がじゅまぐろ</illustrator>
+        <effected_by>dj strachen</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </novice>
+      <advanced>
+        <difnum __type="u8">13</difnum>
+        <illustrator>がじゅまぐろ</illustrator>
+        <effected_by>dj strachen</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </advanced>
+      <exhaust>
+        <difnum __type="u8">16</difnum>
+        <illustrator>がじゅまぐろ</illustrator>
+        <effected_by>dj strachen</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </exhaust>
+      <infinite>
+        <difnum __type="u8">0</difnum>
+        <illustrator>dummy</illustrator>
+        <effected_by>dummy</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </infinite>
+      <maximum>
+        <difnum __type="u8">18</difnum>
+        <illustrator>がじゅまぐろ</illustrator>
+        <effected_by>dj strachen</effected_by>
+        <price __type="s32">-2</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </maximum>
+    </difficulty>
+    <tag id="36"/>
+  </music>
   <music id="1704">
     <info>
       <label>1704</label>
@@ -102926,6 +103130,74 @@
     </difficulty>
     <tag id="36"/>
   </music>
+  <music id="1705">
+    <info>
+      <label>1705</label>
+      <title_name>Bigbang Faker</title_name>
+      <title_yomigana>ﾋﾞｯｸﾞﾊﾞﾝﾌｪｲｶｰ</title_yomigana>
+      <artist_name>BlackY</artist_name>
+      <artist_yomigana>ﾌﾞﾗｯｷｰ</artist_yomigana>
+      <ascii>bigbangfaker_blacky</ascii>
+      <bpm_max __type="u32">15500</bpm_max>
+      <bpm_min __type="u32">15500</bpm_min>
+      <distribution_date __type="u32">20211014</distribution_date>
+      <volume __type="u16">91</volume>
+      <bg_no __type="u16">6</bg_no>
+      <genre __type="u32">2</genre>
+      <is_fixed __type="u8">1</is_fixed>
+      <version __type="u8">6</version>
+      <demo_pri __type="s8">-2</demo_pri>
+      <inf_ver __type="u8">0</inf_ver>
+    </info>
+    <difficulty>
+      <novice>
+        <difnum __type="u8">6</difnum>
+        <illustrator>まゆずみ</illustrator>
+        <effected_by>ロイヤルクラッカー</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </novice>
+      <advanced>
+        <difnum __type="u8">13</difnum>
+        <illustrator>まゆずみ</illustrator>
+        <effected_by>ロイヤルクラッカー</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </advanced>
+      <exhaust>
+        <difnum __type="u8">16</difnum>
+        <illustrator>まゆずみ</illustrator>
+        <effected_by>ロイヤルクラッカー</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </exhaust>
+      <infinite>
+        <difnum __type="u8">0</difnum>
+        <illustrator>dummy</illustrator>
+        <effected_by>dummy</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </infinite>
+      <maximum>
+        <difnum __type="u8">18</difnum>
+        <illustrator>まゆずみ</illustrator>
+        <effected_by>ロイヤルクラッカー</effected_by>
+        <price __type="s32">-2</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </maximum>
+    </difficulty>
+    <tag id="36"/>
+  </music>
   <music id="1707">
     <info>
       <label>1707</label>
@@ -102986,6 +103258,74 @@
         <difnum __type="u8">17</difnum>
         <illustrator>スティンガー</illustrator>
         <effected_by>CRAIG AKAGI</effected_by>
+        <price __type="s32">-2</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </maximum>
+    </difficulty>
+    <tag id="36"/>
+  </music>
+  <music id="1710">
+    <info>
+      <label>1710</label>
+      <title_name>The King Of Red</title_name>
+      <title_yomigana>ｻﾞｷﾝｸﾞｵﾌﾞﾚｯﾄﾞ</title_yomigana>
+      <artist_name>Hommarju</artist_name>
+      <artist_yomigana>ｵﾏｰｼﾞｭ</artist_yomigana>
+      <ascii>thekingofred_hommarju</ascii>
+      <bpm_max __type="u32">19500</bpm_max>
+      <bpm_min __type="u32">19500</bpm_min>
+      <distribution_date __type="u32">20210916</distribution_date>
+      <volume __type="u16">91</volume>
+      <bg_no __type="u16">10</bg_no>
+      <genre __type="u32">2</genre>
+      <is_fixed __type="u8">1</is_fixed>
+      <version __type="u8">6</version>
+      <demo_pri __type="s8">-2</demo_pri>
+      <inf_ver __type="u8">0</inf_ver>
+    </info>
+    <difficulty>
+      <novice>
+        <difnum __type="u8">6</difnum>
+        <illustrator>いそにん</illustrator>
+        <effected_by>MAD CHILD</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </novice>
+      <advanced>
+        <difnum __type="u8">13</difnum>
+        <illustrator>いそにん</illustrator>
+        <effected_by>MAD CHILD</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </advanced>
+      <exhaust>
+        <difnum __type="u8">16</difnum>
+        <illustrator>いそにん</illustrator>
+        <effected_by>MAD CHILD</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </exhaust>
+      <infinite>
+        <difnum __type="u8">0</difnum>
+        <illustrator>dummy</illustrator>
+        <effected_by>dummy</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </infinite>
+      <maximum>
+        <difnum __type="u8">18</difnum>
+        <illustrator>いそにん</illustrator>
+        <effected_by>MAD CHILD</effected_by>
         <price __type="s32">-2</price>
         <limited __type="u8">1</limited>
         <jacket_print __type="s32">-2</jacket_print>
@@ -104346,6 +104686,142 @@
         <difnum __type="u8">17</difnum>
         <illustrator>Graphite</illustrator>
         <effected_by>電撃ロブスター</effected_by>
+        <price __type="s32">-2</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </maximum>
+    </difficulty>
+    <tag id="36"/>
+  </music>
+  <music id="1731">
+    <info>
+      <label>1731</label>
+      <title_name>黎明の情</title_name>
+      <title_yomigana>ﾚｲﾒｲﾉｼﾞｮｳ</title_yomigana>
+      <artist_name>TAKU1175 ft.駄々子</artist_name>
+      <artist_yomigana>ﾀｸｲｲﾅｺﾞﾌｨｰﾁｬﾘﾝｸﾞﾀﾞﾀﾞｺ</artist_yomigana>
+      <ascii>reimeinojou_taku1175</ascii>
+      <bpm_max __type="u32">21000</bpm_max>
+      <bpm_min __type="u32">21000</bpm_min>
+      <distribution_date __type="u32">20210916</distribution_date>
+      <volume __type="u16">91</volume>
+      <bg_no __type="u16">4</bg_no>
+      <genre __type="u32">2</genre>
+      <is_fixed __type="u8">1</is_fixed>
+      <version __type="u8">6</version>
+      <demo_pri __type="s8">-2</demo_pri>
+      <inf_ver __type="u8">0</inf_ver>
+    </info>
+    <difficulty>
+      <novice>
+        <difnum __type="u8">5</difnum>
+        <illustrator>アユタ</illustrator>
+        <effected_by>MAD CHILD</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </novice>
+      <advanced>
+        <difnum __type="u8">12</difnum>
+        <illustrator>アユタ</illustrator>
+        <effected_by>MAD CHILD</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </advanced>
+      <exhaust>
+        <difnum __type="u8">14</difnum>
+        <illustrator>アユタ</illustrator>
+        <effected_by>MAD CHILD</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </exhaust>
+      <infinite>
+        <difnum __type="u8">0</difnum>
+        <illustrator>dummy</illustrator>
+        <effected_by>dummy</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </infinite>
+      <maximum>
+        <difnum __type="u8">17</difnum>
+        <illustrator>アユタ</illustrator>
+        <effected_by>MAD CHILD</effected_by>
+        <price __type="s32">-2</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </maximum>
+    </difficulty>
+    <tag id="36"/>
+  </music>
+  <music id="1732">
+    <info>
+      <label>1732</label>
+      <title_name>I Left for my Right</title_name>
+      <title_yomigana>ｱｲﾚﾌﾄﾌｫｰﾏｲﾗｲﾄ</title_yomigana>
+      <artist_name>あの日字数制限に負けて追い出された「ゃ」</artist_name>
+      <artist_yomigana>ｱﾉﾋｼﾞｽｳｾｲｹﾞﾝﾆﾏｹﾃｵｲﾀﾞｻﾚﾀｬ</artist_yomigana>
+      <ascii>ileftformyright_kabocha</ascii>
+      <bpm_max __type="u32">15500</bpm_max>
+      <bpm_min __type="u32">15500</bpm_min>
+      <distribution_date __type="u32">20210916</distribution_date>
+      <volume __type="u16">91</volume>
+      <bg_no __type="u16">58</bg_no>
+      <genre __type="u32">2</genre>
+      <is_fixed __type="u8">1</is_fixed>
+      <version __type="u8">6</version>
+      <demo_pri __type="s8">-2</demo_pri>
+      <inf_ver __type="u8">0</inf_ver>
+    </info>
+    <difficulty>
+      <novice>
+        <difnum __type="u8">5</difnum>
+        <illustrator>20文字も打つ文字が思いつかないミノル</illustrator>
+        <effected_by>20文字の字数制限が存在しないからあげブ</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </novice>
+      <advanced>
+        <difnum __type="u8">12</difnum>
+        <illustrator>20文字も打つ文字が思いつかないミノル</illustrator>
+        <effected_by>20文字の字数制限が存在しないからあげブ</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </advanced>
+      <exhaust>
+        <difnum __type="u8">15</difnum>
+        <illustrator>20文字も打つ文字が思いつかないミノル</illustrator>
+        <effected_by>20文字の字数制限が存在しないからあげブ</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </exhaust>
+      <infinite>
+        <difnum __type="u8">0</difnum>
+        <illustrator>dummy</illustrator>
+        <effected_by>dummy</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </infinite>
+      <maximum>
+        <difnum __type="u8">17</difnum>
+        <illustrator>20文字も打つ文字が思いつかないミノル</illustrator>
+        <effected_by>20文字の字数制限が存在しないからあげブ</effected_by>
         <price __type="s32">-2</price>
         <limited __type="u8">1</limited>
         <jacket_print __type="s32">-2</jacket_print>
@@ -105989,7 +106465,7 @@
         <price __type="s32">-1</price>
         <limited __type="u8">1</limited>
         <jacket_print __type="s32">-2</jacket_print>
-        <jacket_mask __type="s32">0</jacket_mask>
+        <jacket_mask __type="s32">2</jacket_mask>
       </novice>
       <advanced>
         <difnum __type="u8">14</difnum>
@@ -105998,7 +106474,7 @@
         <price __type="s32">-1</price>
         <limited __type="u8">1</limited>
         <jacket_print __type="s32">-2</jacket_print>
-        <jacket_mask __type="s32">0</jacket_mask>
+        <jacket_mask __type="s32">2</jacket_mask>
       </advanced>
       <exhaust>
         <difnum __type="u8">17</difnum>
@@ -106007,7 +106483,7 @@
         <price __type="s32">-1</price>
         <limited __type="u8">1</limited>
         <jacket_print __type="s32">-2</jacket_print>
-        <jacket_mask __type="s32">0</jacket_mask>
+        <jacket_mask __type="s32">2</jacket_mask>
       </exhaust>
       <infinite>
         <difnum __type="u8">0</difnum>
@@ -106025,6 +106501,7 @@
         <price __type="s32">-1</price>
         <limited __type="u8">1</limited>
         <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">2</jacket_mask>
         <jacket_mask __type="s32">0</jacket_mask>
       </maximum>
     </difficulty>
@@ -106170,7 +106647,7 @@
       <title_yomigana>ﾗｲｸｱｳﾞｧﾝﾊﾟｲｱ</title_yomigana>
       <artist_name>koyomi,星野奏子 by BEMANI Sound Team "TAKA"</artist_name>
       <artist_yomigana>ｺﾖﾐﾎｼﾉｶﾅｺﾊﾞｲﾋﾞｰﾏﾆｻｳﾝﾄﾞﾁｰﾑﾀｶ</artist_yomigana>
-      <ascii>likevampire_taka</ascii>
+      <ascii>likeavampire_taka</ascii>
       <bpm_max __type="u32">27600</bpm_max>
       <bpm_min __type="u32">27600</bpm_min>
       <distribution_date __type="u32">20210812</distribution_date>
@@ -106492,6 +106969,475 @@
         <illustrator>Goliquidator</illustrator>
         <effected_by>ところがどっこい鑑定団</effected_by>
         <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </maximum>
+    </difficulty>
+  </music>
+  <music id="1809">
+    <info>
+      <label>1809</label>
+      <title_name>STEEL NEEDLE</title_name>
+      <title_yomigana>ｽﾃｨｰﾙﾆｰﾄﾞﾙ</title_yomigana>
+      <artist_name>Scorpion</artist_name>
+      <artist_yomigana>ｽｺｰﾋﾟｵﾝ</artist_yomigana>
+      <ascii>steelneedle_scorpion</ascii>
+      <bpm_max __type="u32">20500</bpm_max>
+      <bpm_min __type="u32">20500</bpm_min>
+      <distribution_date __type="u32">20210922</distribution_date>
+      <volume __type="u16">91</volume>
+      <bg_no __type="u16">2</bg_no>
+      <genre __type="u32">16</genre>
+      <is_fixed __type="u8">1</is_fixed>
+      <version __type="u8">6</version>
+      <demo_pri __type="s8">-2</demo_pri>
+      <inf_ver __type="u8">0</inf_ver>
+    </info>
+    <difficulty>
+      <novice>
+        <difnum __type="u8">6</difnum>
+        <illustrator>VJ GYO</illustrator>
+        <effected_by>IIconノックオン</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </novice>
+      <advanced>
+        <difnum __type="u8">13</difnum>
+        <illustrator>VJ GYO</illustrator>
+        <effected_by>IIconノックオン</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </advanced>
+      <exhaust>
+        <difnum __type="u8">16</difnum>
+        <illustrator>VJ GYO</illustrator>
+        <effected_by>IIconノックオン</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </exhaust>
+      <infinite>
+        <difnum __type="u8">0</difnum>
+        <illustrator>dummy</illustrator>
+        <effected_by>dummy</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </infinite>
+      <maximum>
+        <difnum __type="u8">18</difnum>
+        <illustrator>VJ GYO</illustrator>
+        <effected_by>IIconノックオン</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </maximum>
+    </difficulty>
+  </music>
+  <music id="1810">
+    <info>
+      <label>1810</label>
+      <title_name>R.I.P.ゴシップの海</title_name>
+      <title_yomigana>ｱｰﾙｱｲﾋﾟｰｺﾞｼｯﾌﾟﾉｳﾐ</title_yomigana>
+      <artist_name>cosMo＠暴走P</artist_name>
+      <artist_yomigana>ｺｽﾓｱｯﾄﾎﾞｳｿｳﾋﾟｰ</artist_yomigana>
+      <ascii>ripgossipnoumi_cosmo</ascii>
+      <bpm_max __type="u32">22200</bpm_max>
+      <bpm_min __type="u32">22200</bpm_min>
+      <distribution_date __type="u32">20210930</distribution_date>
+      <volume __type="u16">91</volume>
+      <bg_no __type="u16">7</bg_no>
+      <genre __type="u32">8</genre>
+      <is_fixed __type="u8">1</is_fixed>
+      <version __type="u8">6</version>
+      <demo_pri __type="s8">-2</demo_pri>
+      <inf_ver __type="u8">0</inf_ver>
+    </info>
+    <difficulty>
+      <novice>
+        <difnum __type="u8">5</difnum>
+        <illustrator>cosMo+syuri22</illustrator>
+        <effected_by>cosMo＠暴走P</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </novice>
+      <advanced>
+        <difnum __type="u8">13</difnum>
+        <illustrator>cosMo+syuri22</illustrator>
+        <effected_by>cosMo＠暴走P</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </advanced>
+      <exhaust>
+        <difnum __type="u8">16</difnum>
+        <illustrator>cosMo+syuri22</illustrator>
+        <effected_by>cosMo＠暴走P</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </exhaust>
+      <infinite>
+        <difnum __type="u8">0</difnum>
+        <illustrator>dummy</illustrator>
+        <effected_by>dummy</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </infinite>
+      <maximum>
+        <difnum __type="u8">18</difnum>
+        <illustrator>cosMo+syuri22</illustrator>
+        <effected_by>cosMo＠暴走P</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </maximum>
+    </difficulty>
+  </music>
+  <music id="1811">
+    <info>
+      <label>1811</label>
+      <title_name>《Re:miniscence》</title_name>
+      <title_yomigana>ﾚﾐﾆｾﾝｽ</title_yomigana>
+      <artist_name>かねこちはる</artist_name>
+      <artist_yomigana>ｶﾈｺﾁﾊﾙ</artist_yomigana>
+      <ascii>reminiscence_kanekochiharu</ascii>
+      <bpm_max __type="u32">16600</bpm_max>
+      <bpm_min __type="u32">12500</bpm_min>
+      <distribution_date __type="u32">20211007</distribution_date>
+      <volume __type="u16">91</volume>
+      <bg_no __type="u16">90</bg_no>
+      <genre __type="u32">32</genre>
+      <is_fixed __type="u8">1</is_fixed>
+      <version __type="u8">6</version>
+      <demo_pri __type="s8">-2</demo_pri>
+      <inf_ver __type="u8">0</inf_ver>
+    </info>
+    <difficulty>
+      <novice>
+        <difnum __type="u8">8</difnum>
+        <illustrator>スティンガー</illustrator>
+        <effected_by>Megacyclops</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </novice>
+      <advanced>
+        <difnum __type="u8">15</difnum>
+        <illustrator>スティンガー</illustrator>
+        <effected_by>Megacyclops</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </advanced>
+      <exhaust>
+        <difnum __type="u8">18</difnum>
+        <illustrator>スティンガー</illustrator>
+        <effected_by>Megacyclops</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </exhaust>
+      <infinite>
+        <difnum __type="u8">0</difnum>
+        <illustrator>dummy</illustrator>
+        <effected_by>dummy</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </infinite>
+      <maximum>
+        <difnum __type="u8">20</difnum>
+        <illustrator>スティンガー</illustrator>
+        <effected_by>Megacyclops</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </maximum>
+    </difficulty>
+  </music>
+  <music id="1812">
+    <info>
+      <label>1812</label>
+      <title_name>竹</title_name>
+      <title_yomigana>ﾀｹ</title_yomigana>
+      <artist_name>立秋 feat.ちょこ</artist_name>
+      <artist_yomigana>ﾘｯｼｭｳﾌｨｰﾄﾁｮｺ</artist_yomigana>
+      <ascii>take_risshu</ascii>
+      <bpm_max __type="u32">31500</bpm_max>
+      <bpm_min __type="u32">500</bpm_min>
+      <distribution_date __type="u32">20211102</distribution_date>
+      <volume __type="u16">91</volume>
+      <bg_no __type="u16">7</bg_no>
+      <genre __type="u32">0</genre>
+      <is_fixed __type="u8">1</is_fixed>
+      <version __type="u8">6</version>
+      <demo_pri __type="s8">-2</demo_pri>
+      <inf_ver __type="u8">0</inf_ver>
+    </info>
+    <difficulty>
+      <novice>
+        <difnum __type="u8">6</difnum>
+        <illustrator>石王マサト</illustrator>
+        <effected_by>ビーフジョッ竹</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </novice>
+      <advanced>
+        <difnum __type="u8">14</difnum>
+        <illustrator>石王マサト</illustrator>
+        <effected_by>ビーフジョッ竹</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </advanced>
+      <exhaust>
+        <difnum __type="u8">17</difnum>
+        <illustrator>石王マサト</illustrator>
+        <effected_by>ビーフジョッ竹</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </exhaust>
+      <infinite>
+        <difnum __type="u8">0</difnum>
+        <illustrator>dummy</illustrator>
+        <effected_by>dummy</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </infinite>
+      <maximum>
+        <difnum __type="u8">19</difnum>
+        <illustrator>石王マサト</illustrator>
+        <effected_by>ビーフジョッ竹</effected_by>
+        <price __type="s32">-2</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </maximum>
+    </difficulty>
+  </music>
+  <music id="1813">
+    <info>
+      <label>1813</label>
+      <title_name>Triple Cross</title_name>
+      <title_yomigana>ﾄﾘﾌﾟﾙｸﾛｽ</title_yomigana>
+      <artist_name>BEMANI Sound Team "dj TAKA &amp; DJ YOSHITAKA &amp; SYUNN"</artist_name>
+      <artist_yomigana>ﾃﾞｨｰｼﾞｪｲﾀｶｱﾝﾄﾞﾃﾞｨｰｼﾞｪｲﾖｼﾀｶｱﾝﾄﾞｼｭﾝ</artist_yomigana>
+      <ascii>triplecross_red</ascii>
+      <bpm_max __type="u32">19600</bpm_max>
+      <bpm_min __type="u32">19600</bpm_min>
+      <distribution_date __type="u32">20211007</distribution_date>
+      <volume __type="u16">91</volume>
+      <bg_no __type="u16">75</bg_no>
+      <genre __type="u32">16</genre>
+      <is_fixed __type="u8">1</is_fixed>
+      <version __type="u8">6</version>
+      <demo_pri __type="s8">-2</demo_pri>
+      <inf_ver __type="u8">0</inf_ver>
+    </info>
+    <difficulty>
+      <novice>
+        <difnum __type="u8">6</difnum>
+        <illustrator>TEAM RED Supporters</illustrator>
+        <effected_by>サイバーガスタンク</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </novice>
+      <advanced>
+        <difnum __type="u8">13</difnum>
+        <illustrator>TEAM RED Supporters</illustrator>
+        <effected_by>サイバーガスタンク</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </advanced>
+      <exhaust>
+        <difnum __type="u8">16</difnum>
+        <illustrator>TEAM RED Supporters</illustrator>
+        <effected_by>サイバーガスタンク</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </exhaust>
+      <infinite>
+        <difnum __type="u8">0</difnum>
+        <illustrator>dummy</illustrator>
+        <effected_by>dummy</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </infinite>
+      <maximum>
+        <difnum __type="u8">18</difnum>
+        <illustrator>TEAM RED Supporters</illustrator>
+        <effected_by>サイバーガスタンク</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </maximum>
+    </difficulty>
+  </music>
+  <music id="1815">
+    <info>
+      <label>1815</label>
+      <title_name>Love Love Scarlet</title_name>
+      <title_yomigana>ﾗﾌﾞﾗﾌﾞｽｶｰﾚｯﾄ</title_yomigana>
+      <artist_name>イノライfeat.怜花</artist_name>
+      <artist_yomigana>ｲﾉﾗｲﾌｨｰﾁｬﾘﾝｸﾞﾚｲｶ</artist_yomigana>
+      <ascii>lovelovescarlet_inorai</ascii>
+      <bpm_max __type="u32">18500</bpm_max>
+      <bpm_min __type="u32">18500</bpm_min>
+      <distribution_date __type="u32">20211028</distribution_date>
+      <volume __type="u16">91</volume>
+      <bg_no __type="u16">63</bg_no>
+      <genre __type="u32">4</genre>
+      <is_fixed __type="u8">1</is_fixed>
+      <version __type="u8">6</version>
+      <demo_pri __type="s8">-2</demo_pri>
+      <inf_ver __type="u8">0</inf_ver>
+    </info>
+    <difficulty>
+      <novice>
+        <difnum __type="u8">4</difnum>
+        <illustrator>古賀れじに</illustrator>
+        <effected_by>MaKoTo</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </novice>
+      <advanced>
+        <difnum __type="u8">11</difnum>
+        <illustrator>古賀れじに</illustrator>
+        <effected_by>MaKoTo</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </advanced>
+      <exhaust>
+        <difnum __type="u8">14</difnum>
+        <illustrator>古賀れじに</illustrator>
+        <effected_by>MaKoTo</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </exhaust>
+      <infinite>
+        <difnum __type="u8">0</difnum>
+        <illustrator>dummy</illustrator>
+        <effected_by>dummy</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </infinite>
+      <maximum>
+        <difnum __type="u8">17</difnum>
+        <illustrator>古賀れじに</illustrator>
+        <effected_by>MaKoTo</effected_by>
+        <price __type="s32">-2</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </maximum>
+    </difficulty>
+  </music>
+  <music id="1816">
+    <info>
+      <label>1816</label>
+      <title_name>PRESERVED VAMPIRE</title_name>
+      <title_yomigana>ﾌﾟﾘｻﾞｰﾌﾞﾄﾞｳﾞｧﾝﾊﾟｲｱ</title_yomigana>
+      <artist_name>SOUND HOLIC feat. Nana Takahashi</artist_name>
+      <artist_yomigana>ｻｳﾝﾄﾞﾎﾘｯｸﾌｨｰﾁｬﾘﾝｸﾞﾅﾅﾀｶﾊｼ</artist_yomigana>
+      <ascii>preservedvamp_soundholic</ascii>
+      <bpm_max __type="u32">17000</bpm_max>
+      <bpm_min __type="u32">17000</bpm_min>
+      <distribution_date __type="u32">20211028</distribution_date>
+      <volume __type="u16">91</volume>
+      <bg_no __type="u16">15</bg_no>
+      <genre __type="u32">4</genre>
+      <is_fixed __type="u8">1</is_fixed>
+      <version __type="u8">6</version>
+      <demo_pri __type="s8">-2</demo_pri>
+      <inf_ver __type="u8">0</inf_ver>
+    </info>
+    <difficulty>
+      <novice>
+        <difnum __type="u8">5</difnum>
+        <illustrator>A.O.</illustrator>
+        <effected_by>ポテト亀山</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </novice>
+      <advanced>
+        <difnum __type="u8">12</difnum>
+        <illustrator>A.O.</illustrator>
+        <effected_by>ポテト亀山</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </advanced>
+      <exhaust>
+        <difnum __type="u8">15</difnum>
+        <illustrator>A.O.</illustrator>
+        <effected_by>ポテト亀山</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </exhaust>
+      <infinite>
+        <difnum __type="u8">0</difnum>
+        <illustrator>dummy</illustrator>
+        <effected_by>dummy</effected_by>
+        <price __type="s32">-1</price>
+        <limited __type="u8">1</limited>
+        <jacket_print __type="s32">-2</jacket_print>
+        <jacket_mask __type="s32">0</jacket_mask>
+      </infinite>
+      <maximum>
+        <difnum __type="u8">17</difnum>
+        <illustrator>A.O.</illustrator>
+        <effected_by>ポテト亀山</effected_by>
+        <price __type="s32">-2</price>
         <limited __type="u8">1</limited>
         <jacket_print __type="s32">-2</jacket_print>
         <jacket_mask __type="s32">0</jacket_mask>
