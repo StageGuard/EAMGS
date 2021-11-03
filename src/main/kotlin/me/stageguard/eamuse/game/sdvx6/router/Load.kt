@@ -208,7 +208,7 @@ object LoadRival : SDVX6RouteHandler("load_r") {
 
         val rivalProfileIndex = AtomicInteger(0)
         rivalProfiles.forEach { p ->
-            val rpr = Database.query { db -> db.sequenceOf(PlayRecordTable).find { it.refId eq p.refId } }
+            val rpr = Database.query { db -> db.sequenceOf(PlayRecordTable).filter { it.refId eq p.refId } } ?.toList()
                 ?: return@forEach
             resp = resp.e("rival")
                 .s16("no", rivalProfileIndex.getAndIncrement()).up()
@@ -217,13 +217,16 @@ object LoadRival : SDVX6RouteHandler("load_r") {
                 }).up()
                 .str("name", p.name).up()
                 .e("music")
-                    .e("param")
-                    .a("__type", "u32")
-                    .a("__count", "5")
-                    .t(listOf(rpr.mid, rpr.type, rpr.score, rpr.clear, rpr.grade).joinToString(" ")).up()
+                    rpr.forEach { rp ->
+                        resp = resp.e("param")
+                            .a("__type", "u32")
+                            .a("__count", "5")
+                            .t(listOf(rp.mid, rp.type, rp.score, rp.clear, rp.grade).joinToString(" "))
+                        resp = resp.up()
+                    }
+                resp = resp.up()
             resp = resp.up()
         }
-
         return resp
     }
 }
