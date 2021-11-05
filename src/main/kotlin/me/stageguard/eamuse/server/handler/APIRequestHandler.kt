@@ -3,6 +3,7 @@ package me.stageguard.eamuse.server.handler
 import io.netty.channel.ChannelHandler
 import io.netty.channel.ChannelHandlerContext
 import io.netty.channel.SimpleChannelInboundHandler
+import io.netty.channel.socket.SocketChannel
 import io.netty.handler.codec.http.*
 import kotlinx.coroutines.runBlocking
 import me.stageguard.eamuse.server.SelectorType
@@ -39,6 +40,10 @@ object APIRequestHandler : SimpleChannelInboundHandler<SelectorType.APIRequest>(
         var response = "Unhandled API request: $url"
         routers.forEach { (h, handler) ->
             if (h == "${sp.getOrNull(2)}/${sp.getOrNull(3)}") {
+                LOGGER.info(
+                    "Handle request: $url " +
+                    "from ${(ctx.channel() as SocketChannel).run { "${remoteAddress().toString().drop(1)} at 0x${id()}" }}."
+                )
                 response = try {
                     runBlocking { handler(msg.r) }
                 } catch (ex: Exception) { "{\"result\": -1, \"message\": $ex}" }
@@ -47,6 +52,10 @@ object APIRequestHandler : SimpleChannelInboundHandler<SelectorType.APIRequest>(
             }
         }
 
+        if (!handled) LOGGER.info(
+            "Unhandled request: $url " +
+            "from ${(ctx.channel() as SocketChannel).run { "${remoteAddress().toString().drop(1)} at 0x${id()}" }}."
+        )
         ctx.writeAndFlush(createResponse(response, if (handled) HttpResponseStatus.OK else HttpResponseStatus.NOT_FOUND))
         ctx.close()
     }
