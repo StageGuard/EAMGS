@@ -15,11 +15,10 @@ import me.stageguard.eamuse.server.InvalidRequestException
 import me.stageguard.eamuse.server.RouteModel
 import org.ktorm.dsl.and
 import org.ktorm.dsl.eq
-import org.ktorm.entity.filter
-import org.ktorm.entity.find
-import org.ktorm.entity.sequenceOf
-import org.ktorm.entity.toList
+import org.ktorm.entity.*
 import org.w3c.dom.Element
+import java.time.LocalDateTime
+import java.time.ZoneId
 
 @RouteModel(SDVX6_20210831, SDVX6_20210830, SDVX6_20211020)
 object Save : SDVX6RouteHandler("save") {
@@ -159,7 +158,17 @@ object SaveScore : SDVX6RouteHandler("save_m") {
                 it.refId eq refId and (it.mid eq mid) and (it.type eq type)
             } }
 
+            val currentTimestamp = LocalDateTime.now().let {
+                it.atZone(ZoneId.systemDefault()).run {
+                    it.toString() + offset.toString()
+                }
+            }
+
             if (existRecord != null) {
+                val last__Id = Database.query { db ->
+                    db.sequenceOf(PlayRecordTable).last().__id
+                } ?: (existRecord.__id - 1)
+
                 if (existRecord.score < score) {
                     existRecord.score = score
                     existRecord.buttonRate = buttonRate
@@ -169,6 +178,8 @@ object SaveScore : SDVX6RouteHandler("save_m") {
                 existRecord.exScore = maxOf(existRecord.exScore, exScore)
                 existRecord.clear = maxOf(existRecord.clear, clearType)
                 existRecord.grade = maxOf(existRecord.grade, scoreGrade)
+                existRecord.time = currentTimestamp
+                existRecord.__id = last__Id + 1
                 existRecord.flushChanges()
             } else {
                 PlayRecordTable.insert(PlayRecord {
@@ -182,6 +193,7 @@ object SaveScore : SDVX6RouteHandler("save_m") {
                     this.volRate = volRate
                     this.clear = clearType
                     this.grade = scoreGrade
+                    this.time = currentTimestamp
                 })
             }
         }

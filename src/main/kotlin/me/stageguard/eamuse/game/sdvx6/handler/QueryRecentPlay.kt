@@ -1,11 +1,11 @@
 package me.stageguard.eamuse.game.sdvx6.handler
 
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import me.stageguard.eamuse.database.Database
+import me.stageguard.eamuse.database.model.EAmuseCardTable
 import me.stageguard.eamuse.game.sdvx6.algorithm.calculateVolForce
-import me.stageguard.eamuse.game.sdvx6.data.ReferenceIDDTO
+import me.stageguard.eamuse.game.sdvx6.data.CardIdDTO
 import me.stageguard.eamuse.game.sdvx6.model.CourseRecordTable
 import me.stageguard.eamuse.game.sdvx6.model.PlayRecordTable
 import me.stageguard.eamuse.game.sdvx6.model.UserProfileTable
@@ -38,13 +38,16 @@ data class QueryRecentPlayResponseDTO(
     val pName: String,
     val pVF: Double,
     val pSkill: Int,
+    val time: String,
 )
 
 @Language("JSON")
 private fun error(reason: String) = """{"result": -1, "message": "$reason"}"""
 
-suspend fun queryRecentPlay(refId: String) : String = run {
+suspend fun queryRecentPlay(cardId: String) : String = run {
     try {
+        val refId = Database.query { db -> db.sequenceOf(EAmuseCardTable).find { it.cardNFCId eq cardId } }
+            ?.refId ?: return@run error("REFID")
         val profile = Database.query { db -> db.sequenceOf(UserProfileTable).find { it.refId eq refId } }
             ?: return@run error("USER_NOT_FOUND")
         val record = Database.query { db -> db.sequenceOf(PlayRecordTable).last { it.refId eq refId } }
@@ -61,7 +64,7 @@ suspend fun queryRecentPlay(refId: String) : String = run {
             mDiffType = record.type.toInt(), mDiff = music ?.difficulties ?.find { it.type == record.type.toInt() } ?.difficulty ?: 0,
             score = record.score, exScore = record.exScore, clear = record.clear.toInt(), grade = record.grade.toInt(),
             buttonRate = record.buttonRate, longRate = record.longRate, volRate = record.volRate,
-            pName = profile.name, pVF = calculateVolForce(refId), pSkill = skill
+            pName = profile.name, pVF = calculateVolForce(refId), pSkill = skill, time = record.time
         ))
     } catch (ex: Exception) { error(ex.toString()) }
 }

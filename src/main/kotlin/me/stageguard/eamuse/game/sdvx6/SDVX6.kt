@@ -18,6 +18,7 @@ import me.stageguard.eamuse.uriParameters
 import org.intellij.lang.annotations.Language
 import org.slf4j.LoggerFactory
 import org.w3c.dom.Element
+import java.nio.charset.Charset
 
 private val LOGGER = LoggerFactory.getLogger("SDVX6")
 
@@ -47,10 +48,10 @@ private fun defaultSDVX6Router(vararg method: String) : Array<out SDVX6RouteHand
 fun APIRequestDSL.sdvx6APIHandler() {
     routing("recent") {
         val refId = try {
-            json.decodeFromString<ReferenceIDDTO>(it.content().toString()).refId
+            json.decodeFromString<CardIdDTO>(it.content().toString(Charset.forName("utf-8"))).cardId
         } catch (ex: SerializationException) {
-            uriParameters(it.uri()) ?.get("refId")
-                ?: return@routing """{"result": -1, "message": "REFID"}"""
+            uriParameters(it.uri()) ?.get("cardId")
+                ?: return@routing """{"result": -1, "message": "CARDID"}"""
         }
         queryRecentPlay(refId)
     }

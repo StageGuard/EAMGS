@@ -3,6 +3,7 @@
 package me.stageguard.eamuse.game.sdvx6.model
 
 import me.stageguard.eamuse.database.AddableTable
+import me.stageguard.eamuse.database.model.EAmuseCardTable.bindTo
 import me.stageguard.eamuse.game.sdvx6.model.CourseRecordTable.bindTo
 import me.stageguard.eamuse.game.sdvx6.model.CourseRecordTable.primaryKey
 import org.ktorm.dsl.AssignmentsBuilder
@@ -23,6 +24,7 @@ object PlayRecordTable : AddableTable<PlayRecord>("sdvx6_play_record") {
     val buttonRate = int("buttonRate").bindTo { it.buttonRate }
     val longRate = int("longRate").bindTo { it.longRate }
     val volRate = int("volRate").bindTo { it.volRate }
+    val time = varchar("time").bindTo { it.time }
 
     override fun <T : AssignmentsBuilder> T.mapElement(element: PlayRecord) {
         set(refId, element.refId)
@@ -35,6 +37,7 @@ object PlayRecordTable : AddableTable<PlayRecord>("sdvx6_play_record") {
         set(buttonRate, element.buttonRate)
         set(longRate, element.longRate)
         set(volRate, element.volRate)
+        set(time, element.time)
     }
 
     override val createStatement = """
@@ -49,6 +52,7 @@ object PlayRecordTable : AddableTable<PlayRecord>("sdvx6_play_record") {
         `buttonRate` int NOT NULL,
         `longRate` int NOT NULL,
         `volRate` int NOT NULL,
+        `time` varchar(35) NOT NULL,
         PRIMARY KEY (`__id`)
     """.trimIndent()
 }
@@ -66,4 +70,5 @@ interface PlayRecord : Entity<PlayRecord> {
     var buttonRate: Int
     var longRate: Int
     var volRate: Int
+    var time: String
 }
