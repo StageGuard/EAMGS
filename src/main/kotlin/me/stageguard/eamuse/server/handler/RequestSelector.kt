@@ -14,8 +14,6 @@ object RequestSelector : SimpleChannelInboundHandler<FullHttpRequest>() {
 
     private val eamuseGameRequestURLRegex =
         Regex("/\\?model=[A-Z0-9:]+&f=[a-z0-9_]+\\.[a-z0-9_]+", RegexOption.IGNORE_CASE)
-    private val apiRequestURLRegex =
-        Regex("/api/[a-zA-Z0-9:]+/.+", RegexOption.IGNORE_CASE)
 
     override fun channelReadComplete(ctx: ChannelHandlerContext) { ctx.flush() }
 
@@ -24,7 +22,7 @@ object RequestSelector : SimpleChannelInboundHandler<FullHttpRequest>() {
         when {
             msg.method() == HttpMethod.POST && url.matches(eamuseGameRequestURLRegex) ->
                 ctx.fireChannelRead(SelectorType.EAGameClientRequest(msg))
-            url.matches(apiRequestURLRegex) ->
+            url.startsWith("/api/") ->
                 ctx.fireChannelRead(SelectorType.APIRequest(msg))
             else -> {
                 ctx.writeAndFlush(DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK))

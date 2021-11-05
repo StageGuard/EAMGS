@@ -1,6 +1,8 @@
 package me.stageguard.eamuse.server
 
 import io.netty.bootstrap.ServerBootstrap
+import io.netty.buffer.ByteBuf
+import io.netty.channel.ChannelHandlerContext
 import io.netty.channel.ChannelInitializer
 import io.netty.channel.ChannelOption
 import io.netty.channel.nio.NioEventLoopGroup
@@ -30,6 +32,11 @@ object EAmusementGameServer : CoroutineScope {
     private lateinit var bootstrap: ServerBootstrap
 
     fun addRouters(vararg rcs: RouteCollection) = EAmGameRequestHandler.addRouters(*rcs)
+    fun addAPIHandlers(module: String, block: APIRequestDSL.() -> Unit) {
+        val dsl = APIRequestDSL(module)
+        block(dsl)
+        APIRequestHandler.addHandlers(dsl())
+    }
 
     @Suppress("HttpUrlsUsage")
     @OptIn(ObsoleteCoroutinesApi::class)

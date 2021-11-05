@@ -9,7 +9,9 @@ import me.stageguard.eamuse.childNodeValue
 import me.stageguard.eamuse.game.sdvx6.model.*
 import me.stageguard.eamuse.game.sdvx6.router.*
 import me.stageguard.eamuse.game.sdvx6.data.*
+import me.stageguard.eamuse.game.sdvx6.handler.queryRecentPlay
 import me.stageguard.eamuse.json
+import me.stageguard.eamuse.server.APIRequestDSL
 import me.stageguard.eamuse.server.RouteModel
 import org.intellij.lang.annotations.Language
 import org.slf4j.LoggerFactory
@@ -21,15 +23,15 @@ private val LOGGER = LoggerFactory.getLogger("SDVX6")
 const val SDVX6_20210830 = "KFC:20210830"
 const val SDVX6_20210831 = "KFC:20210831"
 const val SDVX6_20211020 = "KFC:20211020"
-val sdvx6RouteHandlers = arrayOf(
+val sdvx6Routers = arrayOf(
     Common, Longue, // common
     New, HiScore, Load, LoadScore, LoadRival,  // profile
     Save, SaveScore, SaveCourse, // save
     Buy, Shop, // consume
-    *defaultSDVX6Handler("frozen", "save_e", "save_mega", "play_e", "play_s", "entry_s", "entry_e", "exception")
+    *defaultSDVX6Router("frozen", "save_e", "save_mega", "play_e", "play_s", "entry_s", "entry_e", "exception")
 )
 
-private fun defaultSDVX6Handler(vararg method: String) : Array<out SDVX6RouteHandler> {
+private fun defaultSDVX6Router(vararg method: String) : Array<out SDVX6RouteHandler> {
     return method.map { m ->
         @RouteModel(SDVX6_20210831, SDVX6_20210830, SDVX6_20211020)
         object : SDVX6RouteHandler(m) {
@@ -38,6 +40,10 @@ private fun defaultSDVX6Handler(vararg method: String) : Array<out SDVX6RouteHan
             }
         }
     }.toTypedArray()
+}
+
+fun APIRequestDSL.sdvx6APIHandler() {
+    routing("recent") { queryRecentPlay(it) }
 }
 
 /* Database tables */

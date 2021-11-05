@@ -40,10 +40,16 @@ val config = run {
 }
 
 fun main() = runBlocking {
-    Database.addTables(EAmuseCardTable, *sdvx6DatabaseTables) // sdvx6
-    Database.connect()
-
+    // base
+    Database.addTables(EAmuseCardTable)
     EAmusementGameServer.addRouters(Service, PCBTracker, EACoin, Package, Message, Facility, PCBEvent, EventLog)
-    EAmusementGameServer.addRouters(CardManager(SDVX6ProfileChecker), Game(*sdvx6RouteHandlers)) // sdvx6
+
+    // sdvx6
+    Database.addTables(EAmuseCardTable, *sdvx6DatabaseTables) // sdvx6
+    EAmusementGameServer.addRouters(CardManager(SDVX6ProfileChecker), Game(*sdvx6Routers)) // sdvx6
+    EAmusementGameServer.addAPIHandlers("sdvx6") { sdvx6APIHandler() } //sdvx6
+
+    // start
+    Database.connect()
     EAmusementGameServer.start(config.server.host, config.server.port).join()
 }
