@@ -14,7 +14,7 @@ suspend fun calculateVolForce(refId: String) =
         val music = sdvx6MusicLibrary[r.mid.toInt()] ?: return@map 0.0
         val level = music.difficulties.find { it.type == r.type.toInt() } ?.difficulty ?: return@map 0.0
 
-        (level * (r.score / 10000000.0) * grade(r.grade) * clear(r.clear.toInt()) * 2.0).toFixed(1)
+        (level * (r.score / 10000000.0) * grade(r.score) * clear(r.clear.toInt()) * 2.0).toFixed(1)
     }.sortedByDescending { it }.take(50).sum() / 100.0 } ?.toFixed(3) ?: 0.0
 
 private fun Double.toFixed(decimals: Int): Double {
