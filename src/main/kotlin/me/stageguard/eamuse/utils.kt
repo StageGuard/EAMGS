@@ -2,6 +2,8 @@ package me.stageguard.eamuse
 
 import com.buttongames.butterflycore.xml.kbinxml.firstChild
 import org.w3c.dom.Element
+import java.net.URLDecoder
+import java.nio.charset.Charset
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
@@ -29,5 +31,16 @@ inline fun <R> retry(
     }
     return Result.failure(exception!!)
 }
+
+fun uriParameters(uri: String) =
+    URLDecoder.decode(uri, Charset.defaultCharset()).split("?").runCatching {
+        val path = getOrNull(0)
+        val parameters = getOrNull(1)
+        check(path != null && (path.isNotEmpty() || path == "/") && parameters != null)
+
+        mapOf(*parameters.split("&").map {
+            it.split("=").run p@ { this@p[0] to this@p[1] }
+        }.toTypedArray())
+    }.getOrNull()
 
 fun Element.childNodeValue(name: String) = firstChild(name) ?.firstChild ?.nodeValue

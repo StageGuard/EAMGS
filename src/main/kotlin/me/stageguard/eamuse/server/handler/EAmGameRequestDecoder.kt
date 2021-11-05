@@ -12,6 +12,7 @@ import io.netty.channel.socket.SocketChannel
 import io.netty.handler.codec.http.*
 import me.stageguard.eamuse.server.SelectorType
 import me.stageguard.eamuse.server.packet.EAGRequestPacket
+import me.stageguard.eamuse.uriParameters
 import org.slf4j.LoggerFactory
 import org.w3c.dom.Element
 import java.net.URLDecoder
@@ -27,15 +28,7 @@ object EAmGameRequestDecoder : SimpleChannelInboundHandler<SelectorType.EAGameCl
         ctx: ChannelHandlerContext,
         msg: SelectorType.EAGameClientRequest
     ) {
-        val parameters = URLDecoder.decode(msg.request.uri(), Charset.defaultCharset()).split("?").runCatching {
-            val path = getOrNull(0)
-            val parameters = getOrNull(1)
-            check(path != null && (path.isEmpty() || path == "/") && parameters != null)
-
-            mapOf(*parameters.split("&").map {
-                it.split("=").run p@ { this@p[0] to this@p[1] }
-            }.toTypedArray())
-        }.getOrNull()
+        val parameters = uriParameters(msg.r.uri())
         if (parameters == null) {
             ctx.writeAndFlush(badRequest())
             ctx.close()

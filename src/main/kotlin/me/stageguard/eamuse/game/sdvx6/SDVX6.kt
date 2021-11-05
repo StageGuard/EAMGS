@@ -4,6 +4,7 @@ import com.buttongames.butterflycore.xml.XmlUtils
 import com.buttongames.butterflycore.xml.kbinxml.KXmlBuilder
 import com.buttongames.butterflycore.xml.kbinxml.childElements
 import com.buttongames.butterflycore.xml.kbinxml.firstChild
+import kotlinx.serialization.SerializationException
 import kotlinx.serialization.decodeFromString
 import me.stageguard.eamuse.childNodeValue
 import me.stageguard.eamuse.game.sdvx6.model.*
@@ -13,6 +14,7 @@ import me.stageguard.eamuse.game.sdvx6.handler.queryRecentPlay
 import me.stageguard.eamuse.json
 import me.stageguard.eamuse.server.APIRequestDSL
 import me.stageguard.eamuse.server.RouteModel
+import me.stageguard.eamuse.uriParameters
 import org.intellij.lang.annotations.Language
 import org.slf4j.LoggerFactory
 import org.w3c.dom.Element
@@ -43,7 +45,15 @@ private fun defaultSDVX6Router(vararg method: String) : Array<out SDVX6RouteHand
 }
 
 fun APIRequestDSL.sdvx6APIHandler() {
-    routing("recent") { queryRecentPlay(it) }
+    routing("recent") {
+        val refId = try {
+            json.decodeFromString<ReferenceIDDTO>(it.content().toString()).refId
+        } catch (ex: SerializationException) {
+            uriParameters(it.uri()) ?.get("refId")
+                ?: return@routing """{"result": -1, "message": "REFID"}"""
+        }
+        queryRecentPlay(refId)
+    }
 }
 
 /* Database tables */

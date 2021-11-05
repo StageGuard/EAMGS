@@ -43,9 +43,8 @@ data class QueryRecentPlayResponseDTO(
 @Language("JSON")
 private fun error(reason: String) = """{"result": -1, "message": "$reason"}"""
 
-suspend fun queryRecentPlay(content: String) : String = run {
+suspend fun queryRecentPlay(refId: String) : String = run {
     try {
-        val refId = json.decodeFromString<ReferenceIDDTO>(content).refId
         val profile = Database.query { db -> db.sequenceOf(UserProfileTable).find { it.refId eq refId } }
             ?: return@run error("USER_NOT_FOUND")
         val record = Database.query { db -> db.sequenceOf(PlayRecordTable).last { it.refId eq refId } }

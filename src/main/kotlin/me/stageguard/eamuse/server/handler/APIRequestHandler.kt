@@ -15,9 +15,9 @@ object APIRequestHandler : SimpleChannelInboundHandler<SelectorType.APIRequest>(
     private val LOGGER = LoggerFactory.getLogger(APIRequestHandler.javaClass)
 
     // key: module/method
-    private val routers: MutableMap<String, suspend (String) -> String> = mutableMapOf()
+    private val routers: MutableMap<String, suspend (FullHttpRequest) -> String> = mutableMapOf()
 
-    fun addHandlers(h: Map<String, suspend (String) -> String>) {
+    fun addHandlers(h: Map<String, suspend (FullHttpRequest) -> String>) {
         h.forEach { (s, handler) -> routers[s] = handler }
     }
 
@@ -28,7 +28,7 @@ object APIRequestHandler : SimpleChannelInboundHandler<SelectorType.APIRequest>(
         msg: SelectorType.APIRequest
     ) {
         val url = URLDecoder.decode(msg.request.uri(), Charset.defaultCharset())
-        val sp = url.lowercase().split("/")
+        val sp = url.lowercase().split("?")[0].split("/")
 
         if (sp[1] != "api") {
             ctx.writeAndFlush(createResponse("Unhandled API request: $url", HttpResponseStatus.NOT_FOUND))
@@ -40,7 +40,7 @@ object APIRequestHandler : SimpleChannelInboundHandler<SelectorType.APIRequest>(
         routers.forEach { (h, handler) ->
             if (h == "${sp.getOrNull(2)}/${sp.getOrNull(3)}") {
                 response = try {
-                    runBlocking { handler(msg.r.content().toString(Charset.forName("utf-8"))) }
+                    runBlocking { handler(msg.r) }
                 } catch (ex: Exception) { "{\"result\": -1, \"message\": $ex}" }
                 handled = true
                 return@forEach

@@ -1,9 +1,11 @@
 package me.stageguard.eamuse.server
 
-class APIRequestDSL(private val module: String) {
-    private val routers: MutableMap<String, suspend (String) -> String> = mutableMapOf()
+import io.netty.handler.codec.http.FullHttpRequest
 
-    fun routing(method: String, block: suspend (String) -> String) {
+class APIRequestDSL(private val module: String) {
+    private val routers: MutableMap<String, suspend (FullHttpRequest) -> String> = mutableMapOf()
+
+    fun routing(method: String, block: suspend (FullHttpRequest) -> String) {
         routers["$module/$method"] = block
     }
 
