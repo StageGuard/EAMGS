@@ -154,48 +154,19 @@ object SaveScore : SDVX6RouteHandler("save_m") {
             val clearType = track.childNodeValue("clear_type") ?.toLong() ?: 0
             val scoreGrade = track.childNodeValue("score_grade") ?.toLong() ?: 0
 
-            val existRecord = Database.query { db -> db.sequenceOf(PlayRecordTable).find {
-                it.refId eq refId and (it.mid eq mid) and (it.type eq type)
-            } }
-
-            val currentTimestamp = LocalDateTime.now().let {
-                it.atZone(ZoneId.systemDefault()).run {
-                    it.toString() + offset.toString()
-                }
-            }
-
-            if (existRecord != null) {
-                val last__Id = Database.query { db ->
-                    db.sequenceOf(PlayRecordTable).last().__id
-                } ?: (existRecord.__id - 1)
-
-                if (existRecord.score < score) {
-                    existRecord.score = score
-                    existRecord.buttonRate = buttonRate
-                    existRecord.longRate = longRate
-                    existRecord.volRate = volRate
-                }
-                existRecord.exScore = maxOf(existRecord.exScore, exScore)
-                existRecord.clear = maxOf(existRecord.clear, clearType)
-                existRecord.grade = maxOf(existRecord.grade, scoreGrade)
-                existRecord.time = currentTimestamp
-                existRecord.__id = last__Id + 1
-                existRecord.flushChanges()
-            } else {
-                PlayRecordTable.insert(PlayRecord {
-                    this.refId = refId
-                    this.mid = mid
-                    this.type = type
-                    this.score = score
-                    this.exScore = exScore
-                    this.buttonRate = buttonRate
-                    this.longRate = longRate
-                    this.volRate = volRate
-                    this.clear = clearType
-                    this.grade = scoreGrade
-                    this.time = currentTimestamp
-                })
-            }
+            PlayRecordTable.insert(PlayRecord {
+                this.refId = refId
+                this.mid = mid
+                this.type = type
+                this.score = score
+                this.exScore = exScore
+                this.buttonRate = buttonRate
+                this.longRate = longRate
+                this.volRate = volRate
+                this.clear = clearType
+                this.grade = scoreGrade
+                this.time = System.currentTimeMillis()
+            })
         }
 
         return createGameResponseNode()

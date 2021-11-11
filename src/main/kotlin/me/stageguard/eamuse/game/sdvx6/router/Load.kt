@@ -177,7 +177,12 @@ object LoadScore : SDVX6RouteHandler("load_m") {
         val refId = gameNode.childNodeValue("refid")
             ?: throw InvalidRequestException(HttpResponseStatus.BAD_REQUEST)
 
-        val playRecords = Database.query { db -> db.sequenceOf(PlayRecordTable).filter { it.refId eq refId }.toList() } ?: listOf()
+        val playRecords = Database.query { db ->
+            db.sequenceOf(PlayRecordTable)
+                .filter { it.refId eq refId }
+                .groupBy { it.mid to it.type }
+                .map { it.value.maxByOrNull { s -> s.score }!! }.toList()
+        } ?: listOf()
 
         var resp = createGameResponseNode().e("music")
         playRecords.forEach { r ->
@@ -208,8 +213,12 @@ object LoadRival : SDVX6RouteHandler("load_r") {
 
         val rivalProfileIndex = AtomicInteger(0)
         rivalProfiles.forEach { p ->
-            val rpr = Database.query { db -> db.sequenceOf(PlayRecordTable).filter { it.refId eq p.refId } } ?.toList()
-                ?: return@forEach
+            val rpr = Database.query { db ->
+                db.sequenceOf(PlayRecordTable)
+                    .filter { it.refId eq p.refId }
+                    .groupBy { it.mid to it.type }
+                    .map { it.value.maxByOrNull { s -> s.score }!! }
+            } ?.toList() ?: return@forEach
             resp = resp.e("rival")
                 .s16("no", rivalProfileIndex.getAndIncrement()).up()
                 .str("seq", p.id.toString().run {

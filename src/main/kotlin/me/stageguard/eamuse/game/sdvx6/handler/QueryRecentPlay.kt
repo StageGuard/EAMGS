@@ -42,7 +42,7 @@ data class QueryRecentPlayResponseDTO(
     val pAppealId: Int,
     val pAppealTex: String,
     val pAppealTitle: String,
-    val time: String,
+    val time: Long,
 )
 
 @Language("JSON")
@@ -54,8 +54,9 @@ suspend fun queryRecentPlay(cardId: String) : String = run {
             ?.refId ?: return@run error("REFID")
         val profile = Database.query { db -> db.sequenceOf(UserProfileTable).find { it.refId eq refId } }
             ?: return@run error("USER_NOT_FOUND")
-        val record = Database.query { db -> db.sequenceOf(PlayRecordTable).last { it.refId eq refId } }
-            ?: return@run error("NO_SCORE")
+        val record = Database.query { db ->
+            db.sequenceOf(PlayRecordTable).sortedBy { it.time }.last { it.refId eq refId }
+        } ?: return@run error("NO_SCORE")
         val music = sdvx6MusicLibrary[record.mid.toInt()]
         val skill = Database.query { db ->
             db.sequenceOf(CourseRecordTable).filter { it.refId eq refId }

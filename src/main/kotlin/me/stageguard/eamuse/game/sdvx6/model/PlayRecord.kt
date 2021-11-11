@@ -24,7 +24,7 @@ object PlayRecordTable : AddableTable<PlayRecord>("sdvx6_play_record") {
     val buttonRate = int("buttonRate").bindTo { it.buttonRate }
     val longRate = int("longRate").bindTo { it.longRate }
     val volRate = int("volRate").bindTo { it.volRate }
-    val time = varchar("time").bindTo { it.time }
+    val time = long("time").bindTo { it.time }
 
     override fun <T : AssignmentsBuilder> T.mapElement(element: PlayRecord) {
         set(refId, element.refId)
@@ -52,7 +52,7 @@ object PlayRecordTable : AddableTable<PlayRecord>("sdvx6_play_record") {
         `buttonRate` int NOT NULL,
         `longRate` int NOT NULL,
         `volRate` int NOT NULL,
-        `time` varchar(35) NOT NULL,
+        `time` bigint NOT NULL,
         PRIMARY KEY (`__id`)
     """.trimIndent()
 }
@@ -70,5 +70,5 @@ interface PlayRecord : Entity<PlayRecord> {
     var buttonRate: Int
     var longRate: Int
     var volRate: Int
-    var time: String
+    var time: Long
 }
