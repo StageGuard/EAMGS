@@ -85,7 +85,7 @@ object EAmGameRequestDecoder : SimpleChannelInboundHandler<SelectorType.EAGameCl
         val moduleNode = rootNode.firstChild as Element
 
         val requestBodyModel = rootNode.getAttribute("model")
-        //val requestBodyPcbId = rootNode.getAttribute("srcid")
+        val requestBodyPcbId = rootNode.getAttribute("srcid")
         val requestBodyModule = moduleNode.nodeName
         val requestBodyMethod = moduleNode.getAttribute("method")
 
@@ -93,12 +93,19 @@ object EAmGameRequestDecoder : SimpleChannelInboundHandler<SelectorType.EAGameCl
                 requestBodyModel != requestModel ||
                 requestBodyModule != requestModule
         ) {
+            LOGGER.info(
+                "Handle mismatched package: (request meta: $requestModel <- <$requestModule.$requestMethod>, request body: $requestBodyModel <- <$requestBodyModule.$requestBodyMethod>) " +
+                "from ${(ctx.channel() as SocketChannel).run { "${remoteAddress().toString().drop(1)} at 0x${id()}" }}."
+            )
             ctx.writeAndFlush(badRequest())
             ctx.close()
             return
         }
 
-        ctx.fireChannelRead(EAGRequestPacket(requestModel, requestModule, requestMethod, eAmuseInfo, compressScheme, moduleNode))
+        ctx.fireChannelRead(EAGRequestPacket(
+            requestModel, requestModule, requestMethod,
+            requestBodyPcbId, eAmuseInfo, compressScheme, moduleNode
+        ))
     }
 
     private fun badRequest() = DefaultFullHttpResponse(

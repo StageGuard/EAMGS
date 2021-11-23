@@ -6,6 +6,7 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import me.stageguard.eamuse.database.Database
 import me.stageguard.eamuse.database.model.EAmuseCardTable
+import me.stageguard.eamuse.database.model.PcbIdTable
 import me.stageguard.eamuse.game.sdvx6.*
 import me.stageguard.eamuse.server.EAmusementGameServer
 import me.stageguard.eamuse.server.router.*
@@ -41,7 +42,7 @@ val config = run {
 
 fun main() = runBlocking {
     // base
-    Database.addTables(EAmuseCardTable)
+    Database.addTables(EAmuseCardTable, PcbIdTable)
     EAmusementGameServer.addRouters(Service, PCBTracker, EACoin, Package, Message, Facility, PCBEvent, EventLog)
 
     // sdvx6
