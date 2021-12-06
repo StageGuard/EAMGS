@@ -64,7 +64,7 @@ object APIRequestHandler : SimpleChannelInboundHandler<SelectorType.APIRequest>(
         DefaultFullHttpResponse(HttpVersion.HTTP_1_1, status).also {
             it.content().writeBytes(this)
             it.headers().run h@{
-                add("Content-Type", "text/plain")
+                add("Content-Type", if (status == HttpResponseStatus.OK) "application/json" else "text/plain")
                 add("Content-Length", this@run.size)
             }
         }
