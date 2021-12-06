@@ -7,18 +7,28 @@ import com.buttongames.butterflycore.xml.kbinxml.firstChild
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.decodeFromString
 import me.stageguard.eamuse.childNodeValue
+import me.stageguard.eamuse.database.Database
+import me.stageguard.eamuse.database.model.EAmuseCardTable
 import me.stageguard.eamuse.game.sdvx6.model.*
 import me.stageguard.eamuse.game.sdvx6.router.*
 import me.stageguard.eamuse.game.sdvx6.data.*
+import me.stageguard.eamuse.game.sdvx6.handler.queryBest50Play
+import me.stageguard.eamuse.game.sdvx6.handler.queryProfile
 import me.stageguard.eamuse.game.sdvx6.handler.queryRecentPlay
+import me.stageguard.eamuse.game.sdvx6.handler.queryVolForce
 import me.stageguard.eamuse.json
 import me.stageguard.eamuse.server.APIRequestDSL
 import me.stageguard.eamuse.server.RouteModel
 import me.stageguard.eamuse.uriParameters
 import org.intellij.lang.annotations.Language
+import org.ktorm.dsl.eq
+import org.ktorm.entity.find
+import org.ktorm.entity.sequenceOf
 import org.slf4j.LoggerFactory
 import org.w3c.dom.Element
 import java.nio.charset.Charset
+import kotlin.reflect.KFunction
+import kotlin.reflect.full.callSuspend
 
 private val LOGGER = LoggerFactory.getLogger("SDVX6")
 
@@ -45,16 +55,29 @@ private fun defaultSDVX6Router(vararg method: String) : Array<out SDVX6RouteHand
     }.toTypedArray()
 }
 
-fun APIRequestDSL.sdvx6APIHandler() {
-    routing("recent") {
-        val refId = try {
+/* API Handlers */
+private fun APIRequestDSL.validateAndRouting(method: String, handler: KFunction<String>) {
+    routing(method) {
+        val cardId = try {
             json.decodeFromString<CardIdDTO>(it.content().toString(Charset.forName("utf-8"))).cardId
         } catch (ex: SerializationException) {
-            uriParameters(it.uri()) ?.get("cardId")
+            uriParameters(it.uri()) ?.get("cardid")
                 ?: return@routing """{"result": -1, "message": "CARDID"}"""
         }
-        queryRecentPlay(refId)
+        val refId = Database.query { db -> db.sequenceOf(EAmuseCardTable).find { c -> c.cardNFCId eq cardId } }
+            ?.refId ?: return@routing """{"result": -1, "message": "REFID"}"""
+
+        if (handler.isSuspend) handler.callSuspend(refId) else handler.call(refId)
     }
+}
+@Language("JSON")
+fun apiError(reason: String) = """{"result": -1, "message": "$reason"}"""
+
+fun APIRequestDSL.sdvx6APIHandler() {
+    validateAndRouting("recent", ::queryRecentPlay)
+    validateAndRouting("profile", ::queryProfile)
+    validateAndRouting("vf", ::queryVolForce)
+    validateAndRouting("best50", ::queryBest50Play)
 }
 
 /* Database tables */

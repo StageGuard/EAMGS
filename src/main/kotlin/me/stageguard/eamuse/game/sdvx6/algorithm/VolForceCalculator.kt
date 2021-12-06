@@ -1,23 +1,16 @@
 package me.stageguard.eamuse.game.sdvx6.algorithm
 
-import me.stageguard.eamuse.database.Database
-import me.stageguard.eamuse.game.sdvx6.model.PlayRecordTable
+import me.stageguard.eamuse.game.sdvx6.model.PlayRecord
 import me.stageguard.eamuse.game.sdvx6.sdvx6MusicLibrary
-import org.ktorm.dsl.eq
-import org.ktorm.entity.filter
-import org.ktorm.entity.map
-import org.ktorm.entity.sequenceOf
 import kotlin.math.round
 
-suspend fun calculateVolForce(refId: String) =
-    Database.query { db -> db.sequenceOf(PlayRecordTable).filter { it.refId eq refId }.map { r ->
-        val music = sdvx6MusicLibrary[r.mid.toInt()] ?: return@map 0.0
-        val level = music.difficulties.find { it.type == r.type.toInt() } ?.difficulty ?: return@map 0.0
+fun calculateForce(record: PlayRecord, fixed: Boolean = true) = run {
+    val music = sdvx6MusicLibrary[record.mid.toInt()] ?: return@run 0.0
+    val level = music.difficulties.find { it.type == record.type.toInt() } ?.difficulty ?: return@run 0.0
+    (level * (record.score / 10000000.0) * grade(record.score) * clear(record.clear.toInt()) * 2.0).toFixed(if (fixed) 1 else 3)
+}
 
-        (level * (r.score / 10000000.0) * grade(r.score) * clear(r.clear.toInt()) * 2.0).toFixed(1)
-    }.sortedDescending().take(50).sum() / 100.0 } ?.toFixed(3) ?: 0.0
-
-private fun Double.toFixed(decimals: Int): Double {
+fun Double.toFixed(decimals: Int): Double {
     var multiplier = 1.0
     repeat(decimals) { multiplier *= 10 }
     return round(this * multiplier) / multiplier

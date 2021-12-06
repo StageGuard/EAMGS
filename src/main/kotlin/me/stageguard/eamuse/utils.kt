@@ -39,7 +39,7 @@ fun uriParameters(uri: String) =
         check(path != null && (path.isNotEmpty() || path == "/") && parameters != null)
 
         mapOf(*parameters.split("&").map {
-            it.split("=").run p@ { this@p[0] to this@p[1] }
+            it.split("=").run p@ { this@p[0].lowercase() to this@p[1] }
         }.toTypedArray())
     }.getOrNull()
 
