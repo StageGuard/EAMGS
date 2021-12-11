@@ -7,15 +7,22 @@ import io.netty.channel.socket.SocketChannel
 import io.netty.handler.codec.http.DefaultFullHttpResponse
 import io.netty.handler.codec.http.HttpResponseStatus
 import io.netty.handler.codec.http.HttpVersion
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import me.stageguard.eamuse.server.*
 import me.stageguard.eamuse.server.packet.EAGRequestPacket
 import me.stageguard.eamuse.server.packet.EAGResponsePacket
 import org.slf4j.LoggerFactory
+import kotlin.coroutines.CoroutineContext
 import kotlin.reflect.full.findAnnotation
 
 @ChannelHandler.Sharable
-object EAmGameRequestHandler : SimpleChannelInboundHandler<EAGRequestPacket>() {
+object EAmGameRequestHandler : SimpleChannelInboundHandler<EAGRequestPacket>(), CoroutineScope {
+
+    override val coroutineContext: CoroutineContext
+        get() = EAmusementGameServer.coroutineContext + SupervisorJob()
 
     private val LOGGER = LoggerFactory.getLogger(EAmGameRequestHandler.javaClass)
 
@@ -43,7 +50,7 @@ object EAmGameRequestHandler : SimpleChannelInboundHandler<EAGRequestPacket>() {
                 if ("${msg.module}.${msg.method}" != command) return@forEach
                 // general model
                 if (modelAnno.name.contains("*")) {
-                    val handled = runBlocking(EAmusementGameServer.coroutineContext) { handler.handle(msg) }
+                    val handled = runBlocking(coroutineContext) { handler.handle(msg) }
                     ctx.fireChannelRead(EAGResponsePacket(handled, msg))
                     return
                 }
@@ -53,7 +60,7 @@ object EAmGameRequestHandler : SimpleChannelInboundHandler<EAGRequestPacket>() {
                     val (routeModel, routeVersion) = singleModel.split(":").run { first() to last() }
 
                     if (reqModel == routeModel && reqVersion.startsWith(routeVersion)) {
-                        val handled = runBlocking(EAmusementGameServer.coroutineContext) { handler.handle(msg) }
+                        val handled = runBlocking(coroutineContext) { handler.handle(msg) }
                         ctx.fireChannelRead(EAGResponsePacket(handled, msg))
                         return
                     }
