@@ -13,6 +13,7 @@ data class ApplicationConfiguration(
         val host: String = "0.0.0.0",
         val port: Int = 8081,
         val globalHost: String = host,
+        val globalPort: Int = port,
         val matchingPort: Int = 5700,
         //other configurations
         val isMaintenanceMode: Boolean = false,

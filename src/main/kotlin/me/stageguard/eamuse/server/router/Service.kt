@@ -14,10 +14,10 @@ object Service : RouteCollection("services") {
 
     @Suppress("HttpUrlsUsage")
     val globalServerHost by lazy {
-        if (config.server.port == 80) {
+        if (config.server.globalPort == 80) {
             "http://${config.server.globalHost}"
         } else {
-            "http://${config.server.globalHost}:${config.server.port}"
+            "http://${config.server.globalHost}:${config.server.globalPort}"
         }
     }
     val serviceUrls = mapOf(
