@@ -8,7 +8,7 @@ import org.w3c.dom.Element
 
 val songsToUnlock by lazy {
     val songs: MutableList<Pair<Int, Int>> = mutableListOf()
-    sdvx6MusicLibrary.forEach { (mid, music) ->
+    sdvx6MusicLibrary.value.forEach { (mid, music) ->
         music.difficulties.forEach { difficulty ->
             if (difficulty.limited != 3) {
                 songs.add(mid to difficulty.type)

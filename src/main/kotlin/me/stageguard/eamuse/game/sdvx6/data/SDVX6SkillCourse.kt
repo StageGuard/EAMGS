@@ -4,6 +4,12 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
+data class SDVX6SkillCourse(
+    @SerialName("sessions")
+    val sessions: List<SkillCourseSeason>
+)
+
+@Serializable
 data class SkillCourseSeason(
     @SerialName("courses")
     val courses: List<Course>,

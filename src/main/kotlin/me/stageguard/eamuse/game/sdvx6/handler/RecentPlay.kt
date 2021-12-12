@@ -38,7 +38,7 @@ suspend fun queryRecentPlay(refId: String) : String = run {
         val record = Database.query { db ->
             db.sequenceOf(PlayRecordTable).sortedBy { it.time }.last { it.refId eq refId }
         } ?: return@run apiError("NO_SCORE")
-        val music = sdvx6MusicLibrary[record.mid.toInt()] ?: return@run apiError("NO_SONG")
+        val music = sdvx6MusicLibrary.value[record.mid.toInt()] ?: return@run apiError("NO_SONG")
 
         json.encodeToString(RecentPlayDTO(
             mId = music.id, mDiffType = record.type.toInt(), mDiff = music.difficulties.find { it.type == record.type.toInt() }?.difficulty ?: 0,

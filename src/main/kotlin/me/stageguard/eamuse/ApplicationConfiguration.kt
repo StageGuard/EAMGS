@@ -37,6 +37,7 @@ data class ApplicationConfiguration(
         val unlockAllAppealCards: Boolean = true,
         val customEntryInformation: String = "",
         val customGameOverInformation: String = "",
-        val useBlasterPass: Boolean = true
+        val useBlasterPass: Boolean = true,
+        val musicDatabase: List<String> = listOf("music_db.xml", "music_db.merged.xml")
     )
 }
