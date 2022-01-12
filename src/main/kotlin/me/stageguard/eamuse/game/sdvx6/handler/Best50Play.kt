@@ -48,8 +48,8 @@ suspend fun queryBest50Play(refId: String) = run {
             score = v.maxOf { it.score }
             clear = v.maxOf { it.clear }
         }.let { v.maxByOrNull { s -> s.score }!!.also { nr ->
-            nr.clear = it.clear
-            nr.grade = it.grade
+            nr.clear = v.maxOf { r -> r.clear }
+            nr.grade = v.maxOf { r -> r.grade }
             nr.exScore = it.exScore
         } to calculateForce(it) } }
         .sortedByDescending { (_, force) -> force }
