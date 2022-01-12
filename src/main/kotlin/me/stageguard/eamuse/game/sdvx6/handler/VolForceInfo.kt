@@ -6,6 +6,7 @@ import me.stageguard.eamuse.database.Database
 import me.stageguard.eamuse.game.sdvx6.algorithm.calculateForce
 import me.stageguard.eamuse.game.sdvx6.algorithm.toFixed
 import me.stageguard.eamuse.game.sdvx6.apiError
+import me.stageguard.eamuse.game.sdvx6.model.PlayRecord
 import me.stageguard.eamuse.game.sdvx6.model.PlayRecordTable
 import me.stageguard.eamuse.json
 import org.ktorm.dsl.eq
@@ -24,7 +25,12 @@ suspend fun queryVolForce(refId: String) = run {
     val recordForce = Database.query { db -> db.sequenceOf(PlayRecordTable)
         .filter { it.refId eq refId }
         .groupBy { it.mid.times(5).plus(it.type) }
-        .map { (_, v) -> v.maxOf { e -> calculateForce(e) } }
+        .map { (_, v) -> PlayRecord {
+            mid = v.first().mid
+            type = v.first().type
+            score = v.maxOf { it.score }
+            clear = v.maxOf { it.clear }
+        }.let { calculateForce(it) } }
         .sortedDescending()
     } ?: return@run apiError("NO_SCORE")
 

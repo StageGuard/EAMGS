@@ -180,8 +180,18 @@ object LoadScore : SDVX6RouteHandler("load_m") {
         val playRecords = Database.query { db ->
             db.sequenceOf(PlayRecordTable)
                 .filter { it.refId eq refId }
-                .groupBy { it.mid to it.type }
-                .map { it.value.maxByOrNull { s -> s.score }!! }.toList()
+                .groupBy { it.mid * 5 + it.type }
+                .map { (_, v) -> PlayRecord {
+                    mid = v.first().mid
+                    type = v.first().type
+                    score = v.maxOf { it.score }
+                    exScore = v.last().exScore
+                    clear = v.maxOf { it.clear }
+                    grade = v.maxOf { it.grade }
+                    buttonRate = v.maxOf { it.buttonRate }
+                    longRate = v.maxOf { it.longRate }
+                    volRate = v.maxOf { it.volRate }
+                } }.toList()
         } ?: listOf()
 
         var resp = createGameResponseNode().e("music")
