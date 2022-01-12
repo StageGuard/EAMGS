@@ -6,6 +6,7 @@ import me.stageguard.eamuse.database.Database
 import me.stageguard.eamuse.game.sdvx6.algorithm.calculateForce
 import me.stageguard.eamuse.game.sdvx6.algorithm.toFixed
 import me.stageguard.eamuse.game.sdvx6.apiError
+import me.stageguard.eamuse.game.sdvx6.model.PlayRecord
 import me.stageguard.eamuse.game.sdvx6.model.PlayRecordTable
 import me.stageguard.eamuse.game.sdvx6.sdvx6MusicLibrary
 import me.stageguard.eamuse.json
@@ -41,8 +42,17 @@ suspend fun queryBest50Play(refId: String) = run {
     val b50Plays = Database.query { db -> db.sequenceOf(PlayRecordTable)
         .filter { it.refId eq refId }
         .groupBy { it.mid.times(5).plus(it.type) }
-        .map { (_, v) -> v.map { e -> e to calculateForce(e, false) }.maxByOrNull { it.second }!! }
-        .sortedByDescending { it.second }
+        .map { (_, v) -> PlayRecord {
+            mid = v.first().mid
+            type = v.first().type
+            score = v.maxOf { it.score }
+            clear = v.maxOf { it.clear }
+        }.let { v.maxByOrNull { s -> s.score }!!.also { nr ->
+            nr.clear = it.clear
+            nr.grade = it.grade
+            nr.exScore = it.exScore
+        } to calculateForce(it) } }
+        .sortedByDescending { (_, force) -> force }
         .map { (record, force) ->
             val music = sdvx6MusicLibrary.value[record.mid.toInt()] ?: return@map null
             Best50PlayItemDTO(
