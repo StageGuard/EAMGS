@@ -21,6 +21,8 @@ import me.stageguard.eamuse.game.sdvx6.util.getResourceOrExport
 import me.stageguard.eamuse.game.sdvx6.util.tryOrNull
 import me.stageguard.eamuse.json
 import me.stageguard.eamuse.server.APIRequestDSL
+import me.stageguard.eamuse.server.RouteCollection
+import me.stageguard.eamuse.server.RouteHandler
 import me.stageguard.eamuse.server.RouteModel
 import me.stageguard.eamuse.uriParameters
 import org.intellij.lang.annotations.Language
@@ -40,23 +42,19 @@ private val LOGGER = LoggerFactory.getLogger("SDVX6")
 const val SDVX6_20210830 = "KFC:20210830"
 const val SDVX6_20210831 = "KFC:20210831"
 const val SDVX6_20211020 = "KFC:20211020"
-val sdvx6Routers = arrayOf(
-    Common, Longue, // common
-    New, HiScore, Load, LoadScore, LoadRival,  // profile
-    Save, SaveScore, SaveCourse, // save
-    Buy, Shop, // consume
-    *defaultSDVX6Router("frozen", "save_e", "save_mega", "play_e", "play_s", "entry_s", "entry_e", "exception")
-)
+const val SDVX6_20211124 = "KFC:20211124"
 
-private fun defaultSDVX6Router(vararg method: String) : Array<out SDVX6RouteHandler> {
-    return method.map { m ->
-        @RouteModel(SDVX6_20210831, SDVX6_20210830, SDVX6_20211020)
-        object : SDVX6RouteHandler(m) {
-            override suspend fun handle(gameNode: Element): KXmlBuilder {
-                return createGameResponseNode()
-            }
-        }
-    }.toTypedArray()
+
+object SDVX6Routers : RouteCollection("game") {
+    override val routers: Set<RouteHandler>
+        get() = mutableSetOf(Common, Longue, // common
+            New, HiScore, Load, LoadScore, LoadRival,  // profile
+            Save, SaveScore, SaveCourse, // save
+            Buy, Shop, // consume
+            *defaultSDVX6Router(
+                "frozen", "save_e", "save_mega", "play_e", "play_s", "entry_s", "entry_e", "exception"
+            )
+        )
 }
 
 /* API Handlers */
@@ -66,10 +64,10 @@ private fun APIRequestDSL.validateAndRouting(method: String, handler: KFunction<
             json.decodeFromString<CardIdDTO>(it.content().toString(Charset.forName("utf-8"))).cardId
         } catch (ex: SerializationException) {
             uriParameters(it.uri()) ?.get("cardid")
-                ?: return@routing """{"result": -1, "message": "CARDID"}"""
+                ?: return@routing apiError("CARDID")
         }
         val refId = Database.query { db -> db.sequenceOf(EAmuseCardTable).find { c -> c.cardNFCId eq cardId } }
-            ?.refId ?: return@routing """{"result": -1, "message": "REFID"}"""
+            ?.refId ?: return@routing apiError("REFID")
 
         if (handler.isSuspend) handler.callSuspend(refId) else handler.call(refId)
     }

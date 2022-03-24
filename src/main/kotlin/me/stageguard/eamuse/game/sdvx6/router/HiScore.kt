@@ -2,18 +2,15 @@ package me.stageguard.eamuse.game.sdvx6.router
 
 import com.buttongames.butterflycore.xml.kbinxml.KXmlBuilder
 import me.stageguard.eamuse.database.Database
+import me.stageguard.eamuse.game.sdvx6.*
 import me.stageguard.eamuse.server.RouteModel
 import me.stageguard.eamuse.game.sdvx6.model.PlayRecordTable
 import me.stageguard.eamuse.game.sdvx6.model.UserProfileTable
-import me.stageguard.eamuse.game.sdvx6.SDVX6RouteHandler
-import me.stageguard.eamuse.game.sdvx6.SDVX6_20210830
-import me.stageguard.eamuse.game.sdvx6.SDVX6_20210831
-import me.stageguard.eamuse.game.sdvx6.SDVX6_20211020
 import org.ktorm.entity.sequenceOf
 import org.ktorm.entity.toList
 import org.w3c.dom.Element
 
-@RouteModel(SDVX6_20210831, SDVX6_20210830, SDVX6_20211020)
+@RouteModel(SDVX6_20210831, SDVX6_20210830, SDVX6_20211020, SDVX6_20211124)
 object HiScore : SDVX6RouteHandler("hiscore") {
     override suspend fun handle(gameNode: Element): KXmlBuilder {
         val allRecords = Database.query { db -> db.sequenceOf(PlayRecordTable).toList() } ?: listOf()
