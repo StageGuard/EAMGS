@@ -19,7 +19,7 @@ import org.ktorm.entity.sequenceOf
 import org.ktorm.entity.toList
 import org.w3c.dom.Element
 
-@RouteModel(SDVX6_20210831, SDVX6_20210830, SDVX6_20211020, SDVX6_20211124)
+@RouteModel(SDVX6_20210831, SDVX6_20210830, SDVX6_20211020, SDVX6_20211124, SDVX6_20220214)
 object Buy : SDVX6RouteHandler("buy") {
     override suspend fun handle(gameNode: Element): KXmlBuilder {
         val refId = gameNode.childNodeValue("refid")

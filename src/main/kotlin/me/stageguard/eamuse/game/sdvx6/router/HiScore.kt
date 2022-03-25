@@ -10,7 +10,7 @@ import org.ktorm.entity.sequenceOf
 import org.ktorm.entity.toList
 import org.w3c.dom.Element
 
-@RouteModel(SDVX6_20210831, SDVX6_20210830, SDVX6_20211020, SDVX6_20211124)
+@RouteModel(SDVX6_20210831, SDVX6_20210830, SDVX6_20211020, SDVX6_20211124, SDVX6_20220214)
 object HiScore : SDVX6RouteHandler("hiscore") {
     override suspend fun handle(gameNode: Element): KXmlBuilder {
         val allRecords = Database.query { db -> db.sequenceOf(PlayRecordTable).toList() } ?: listOf()

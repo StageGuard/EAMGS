@@ -9,7 +9,7 @@ import org.ktorm.dsl.eq
 import org.ktorm.entity.any
 import org.ktorm.entity.sequenceOf
 
-@RouteModel(SDVX6_20210831, SDVX6_20210830, SDVX6_20211020, SDVX6_20211124)
+@RouteModel(SDVX6_20210831, SDVX6_20210830, SDVX6_20211020, SDVX6_20211124, SDVX6_20220214)
 object SDVX6ProfileChecker : ProfileChecker {
     override suspend fun check(cardInfo: EAmuseCard) =
         Database.query { db -> db.sequenceOf(UserProfileTable).any { it.refId eq cardInfo.refId } } ?: false
