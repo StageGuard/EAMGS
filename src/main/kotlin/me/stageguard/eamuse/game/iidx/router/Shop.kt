@@ -7,8 +7,8 @@ import me.stageguard.eamuse.server.RouteModel
 import org.w3c.dom.Element
 
 @RouteModel(LDJ20211013)
-object GetName : IIDXShopRouteHandler("getname") {
-    override suspend fun handle(gameNode: Element): KXmlBuilder {
+object GetShopName : IIDXShopRouteHandler("getname") {
+    override suspend fun handle(node: Element): KXmlBuilder {
         return createResponseNode()
             .a("cls_opt", "0")
             .a("hr", "0")
@@ -20,7 +20,7 @@ object GetName : IIDXShopRouteHandler("getname") {
 
 @RouteModel(LDJ20211013)
 object GetConvention : IIDXShopRouteHandler("getconvention") {
-    override suspend fun handle(gameNode: Element): KXmlBuilder {
+    override suspend fun handle(node: Element): KXmlBuilder {
         return createResponseNode()
             .a("end_time", "0")
             .a("music_0", "23051")
