@@ -7,7 +7,7 @@ import me.stageguard.eamuse.server.packet.EAGRequestPacket
 import org.w3c.dom.Element
 
 abstract class IIDXRouteHandler(private val module: String, override val method: String) : RouteHandler(method) {
-    abstract suspend fun handle(gameNode: Element) : KXmlBuilder
+    abstract suspend fun handle(node: Element) : KXmlBuilder
 
     override suspend fun handle(packet: EAGRequestPacket): KXmlBuilder {
         return handle(XmlUtils.nodeAtPath(packet.content, "/$module") as Element)
