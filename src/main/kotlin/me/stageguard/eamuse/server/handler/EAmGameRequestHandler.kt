@@ -1,5 +1,6 @@
 package me.stageguard.eamuse.server.handler
 
+import com.buttongames.butterflycore.xml.kbinxml.KXmlBuilder
 import io.netty.channel.ChannelHandler
 import io.netty.channel.ChannelHandlerContext
 import io.netty.channel.SimpleChannelInboundHandler
@@ -15,6 +16,13 @@ import me.stageguard.eamuse.server.*
 import me.stageguard.eamuse.server.packet.EAGRequestPacket
 import me.stageguard.eamuse.server.packet.EAGResponsePacket
 import org.slf4j.LoggerFactory
+import org.w3c.dom.Document
+import java.io.ByteArrayOutputStream
+import java.nio.charset.Charset
+import javax.xml.transform.OutputKeys
+import javax.xml.transform.TransformerFactory
+import javax.xml.transform.dom.DOMSource
+import javax.xml.transform.stream.StreamResult
 import kotlin.coroutines.CoroutineContext
 import kotlin.reflect.full.findAnnotation
 
@@ -69,7 +77,8 @@ object EAmGameRequestHandler : SimpleChannelInboundHandler<EAGRequestPacket>(), 
         }
         LOGGER.info(
             "Skip unknown package: ${msg.model} <- <${msg.module}.${msg.method}> " +
-            "from ${(ctx.channel() as SocketChannel).run { "${remoteAddress().toString().drop(1)} at 0x${id()}" }}."
+            "from ${(ctx.channel() as SocketChannel).run { "${remoteAddress().toString().drop(1)} at 0x${id()}" }}.\n" +
+                    msg.content.ownerDocument.toDocString()
         )
         ctx.writeAndFlush(DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK))
         ctx.close()
@@ -83,5 +92,17 @@ object EAmGameRequestHandler : SimpleChannelInboundHandler<EAGRequestPacket>(), 
             ctx?.writeAndFlush(DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.INTERNAL_SERVER_ERROR))
         }
         ctx?.close()
+    }
+
+    private fun Document.toDocString(): String {
+        val bos = ByteArrayOutputStream().also {
+            val transformerFactory = TransformerFactory.newInstance()
+            val transformer = transformerFactory.newTransformer()
+            transformer.setOutputProperty(OutputKeys.METHOD, "xml")
+            val source = DOMSource(this)
+            val result = StreamResult(it)
+            transformer.transform(source, result)
+        }
+        return bos.toString(Charset.forName("utf-8"))
     }
 }
