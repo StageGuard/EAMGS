@@ -101,6 +101,13 @@ object PCDataTable : AddableTable<PCData>("iidx_pc_data") {
     val dpOpt = varchar("dp_opt").bindTo { it.dpOpt }
     val dpOpt2 = varchar("dp_opt2").bindTo { it.dpOpt2 }
     val spOpt = varchar("sp_opt").bindTo { it.spOpt }
+    val lastWeekly = int("last_weekly").bindTo { it.lastWeekly }
+    val pack = int("pack").bindTo { it.pack }
+    val packComp = int("pack_comp").bindTo { it.packComp }
+    val rivalCrush = int("rival_crush").bindTo { it.rivalCrush }
+    val visitFlg = int("visit_flg").bindTo { it.visitFlg }
+    val weeklyNum = int("weekly_num").bindTo { it.weeklyNum }
+
 
     override fun <T : AssignmentsBuilder> T.mapElement(element: PCData) {
         set(refId, element.refId)
@@ -194,6 +201,12 @@ object PCDataTable : AddableTable<PCData>("iidx_pc_data") {
         set(dpOpt, element.dpOpt)
         set(dpOpt2, element.dpOpt2)
         set(spOpt, element.spOpt)
+        set(lastWeekly, element.lastWeekly)
+        set(pack, element.pack)
+        set(packComp, element.packComp)
+        set(rivalCrush, element.rivalCrush)
+        set(visitFlg, element.visitFlg)
+        set(weeklyNum, element.weeklyNum)
     }
     override val createStatement: String = """
         `__id` INT NOT NULL AUTO_INCREMENT,
@@ -288,6 +301,12 @@ object PCDataTable : AddableTable<PCData>("iidx_pc_data") {
         `dp_opt` varchar(16) NOT NULL, 
         `dp_opt2` varchar(16) NOT NULL, 
         `sp_opt` varchar(16) NOT NULL, 
+        `last_weekly` int NOT NULL,
+        `pack` int NOT NULL,
+        `pack_comp` int NOT NULL,
+        `rival_crush` int NOT NULL,
+        `visit_flg` int NOT NULL,
+        `weekly_num` int NOT NULL,
         PRIMARY KEY (`__id`)
     """.trimIndent()
 }
@@ -388,6 +407,12 @@ interface PCData : Entity<PCData> {
     var dpOpt: String
     var dpOpt2: String
     var spOpt: String
+    var lastWeekly: Int
+    var pack: Int
+    var packComp: Int
+    var rivalCrush: Int
+    var visitFlg: Int
+    var weeklyNum: Int
 }
 
 var PCData.trophy: List<String>

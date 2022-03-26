@@ -108,6 +108,7 @@ object SettingsTable : AddableTable<Settings>("iidx_settings") {
         `disable_graphcutin` boolean NOT NULL,
         `classic_hispeed` boolean NOT NULL,
         `hide_iidxid` boolean NOT NULL,
+        UNIQUE KEY `ref_unique_id` (`refId`),
         PRIMARY KEY (`__id`)
     """.trimIndent()
 }

@@ -1,5 +1,6 @@
 package me.stageguard.eamuse.game.iidx
 
+import me.stageguard.eamuse.game.iidx.model.*
 import me.stageguard.eamuse.server.RouteCollection
 import me.stageguard.eamuse.server.RouteHandler
 import org.slf4j.LoggerFactory
@@ -11,4 +12,8 @@ const val LDJ20211013 = "LDJ:2021101300"
 
 val IIDXRouters = arrayOf(
     IIDXPCRouters, IIDXMusicRouters, IIDXGradeRouters, IIDXRankingRouters, IIDXShopRouters, IIDXGameSystemRouters
+)
+
+val iidxDatabaseTables = arrayOf(
+    UserProfileTable, PCDataTable, GradeTable, ScoreTable, ScoreDetailTable, SettingsTable
 )

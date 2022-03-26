@@ -18,7 +18,7 @@ class IIDXRouter(
     private fun generate(vararg method: String): Array<RouteHandler> {
         return method.map { m ->
             @RouteModel(LDJ20211013) object : IIDXRouteHandler(iidxModule, m) {
-                override suspend fun handle(gameNode: Element): KXmlBuilder {
+                override suspend fun handle(node: Element): KXmlBuilder {
                     return KXmlBuilder.create("response").e(module).a("status", "0")
                 }
             }
@@ -27,7 +27,7 @@ class IIDXRouter(
 }
 
 val IIDXPCRouters = IIDXRouter("pc", mutableSetOf(
-    Common, OldGet, GetProfileName, TakeOver
+    Common, OldGet, GetProfileName, TakeOver, Register, Get, Save
 ))
 val IIDXMusicRouters = IIDXRouter("music", mutableSetOf(
 

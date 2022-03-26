@@ -12,7 +12,7 @@ object UserProfileTable : AddableTable<UserProfile>("iidx_profile") {
     val refId = varchar("refId").bindTo { it.refId }
     val name = varchar("name").bindTo { it.name }
     val pid = int("pid").bindTo { it.pid }
-    val iidxId = long("iidxId").bindTo { it.iidxId }
+    val iidxId = int("iidxId").bindTo { it.iidxId }
 
     override fun <T : AssignmentsBuilder> T.mapElement(element: UserProfile) {
         set(refId, element.refId)
@@ -26,7 +26,7 @@ object UserProfileTable : AddableTable<UserProfile>("iidx_profile") {
         `refId` varchar(16) NOT NULL,
         `name` varchar(8) NOT NULL,
         `pid` int NOT NULL,
-        `iidxId` bigint NOT NULL,
+        `iidxId` int NOT NULL,
         UNIQUE KEY `ref_unique_id` (`refId`),
         PRIMARY KEY (`__id`)
     """.trimIndent()
@@ -39,5 +39,5 @@ interface UserProfile : Entity<UserProfile> {
     var refId: String
     var name: String
     var pid: Int
-    var iidxId: Long
+    var iidxId: Int
 }
