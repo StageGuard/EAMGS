@@ -331,7 +331,7 @@ object APPoint : IIDXMusicRouteHandler("appoint") {
     }
 }
 
-@RouteModel
+@RouteModel(LDJ20211013)
 object Crate : IIDXMusicRouteHandler("crate") {
     private val crate by lazy {
         getResourceOrExport("iidx", "music_crate.txt") {

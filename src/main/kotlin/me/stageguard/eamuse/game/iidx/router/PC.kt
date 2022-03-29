@@ -448,7 +448,7 @@ object Get : IIDXPCRouteHandler("get") {
     }
 }
 
-@RouteModel
+@RouteModel(LDJ20211013)
 object Save: IIDXPCRouteHandler("save") {
     override suspend fun handle(node: Element): KXmlBuilder {
         val refId = Database.query { db -> db.sequenceOf(EAmuseCardTable).find {
