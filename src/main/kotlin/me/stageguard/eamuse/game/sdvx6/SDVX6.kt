@@ -1,7 +1,6 @@
 package me.stageguard.eamuse.game.sdvx6
 
 import com.buttongames.butterflycore.xml.XmlUtils
-import com.buttongames.butterflycore.xml.kbinxml.KXmlBuilder
 import com.buttongames.butterflycore.xml.kbinxml.childElements
 import com.buttongames.butterflycore.xml.kbinxml.firstChild
 import kotlinx.serialization.SerializationException
@@ -23,15 +22,12 @@ import me.stageguard.eamuse.json
 import me.stageguard.eamuse.server.APIRequestDSL
 import me.stageguard.eamuse.server.RouteCollection
 import me.stageguard.eamuse.server.RouteHandler
-import me.stageguard.eamuse.server.RouteModel
 import me.stageguard.eamuse.uriParameters
 import org.intellij.lang.annotations.Language
 import org.ktorm.dsl.eq
 import org.ktorm.entity.find
 import org.ktorm.entity.sequenceOf
 import org.slf4j.LoggerFactory
-import org.w3c.dom.Element
-import java.io.InputStream
 import java.nio.charset.Charset
 import kotlin.reflect.KFunction
 import kotlin.reflect.full.callSuspend
@@ -138,7 +134,7 @@ val sdvx6Events = listOf(
 /* Appeal cards */
 val sdvx6AppealCards: Lazy<Map<Int, SDVX6AppealCard>> = lazy {
     val cards: MutableMap<Int, SDVX6AppealCard> = mutableMapOf()
-    getResourceOrExport("appeal_card.xml") {
+    getResourceOrExport("sdvx6", "appeal_card.xml") {
         Load::class.java.getResourceAsStream("/sdvx6/appeal_card.xml") ?: run {
             LOGGER.warn("Appeal card source data is not found either jar or data folder.")
             return@getResourceOrExport null
@@ -162,7 +158,7 @@ val SDVX_DIFFICULTY_VALUE = arrayOf("novice", "advanced", "exhaust", "infinite",
 val sdvx6MusicLibrary: Lazy<Map<Int, SDVX6Music>> = lazy {
     val musicLibs: MutableMap<Int, SDVX6Music> = mutableMapOf()
     config.sdvx.musicDatabase.forEach _ignore@ { file ->
-        getResourceOrExport(file) {
+        getResourceOrExport("sdvx6", file) {
             Common::class.java.getResourceAsStream("/sdvx6/$file") ?: run {
                 LOGGER.warn("Music database $file is not found either jar or data folder, please check your config.")
                 return@getResourceOrExport null
@@ -199,7 +195,7 @@ val sdvx6MusicLibrary: Lazy<Map<Int, SDVX6Music>> = lazy {
 
 /* Skill course  */
 val sdvx6SkillCourseSessions = lazy {
-    (getResourceOrExport("course_session.json") {
+    (getResourceOrExport("sdvx6", "course_session.json") {
         Common::class.java.getResourceAsStream("/sdvx6/course_session.json") ?: run {
             LOGGER.warn("Skill course data is not found either jar or data folder.")
             return@getResourceOrExport null

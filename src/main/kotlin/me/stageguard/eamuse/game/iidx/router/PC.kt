@@ -6,6 +6,7 @@ import com.buttongames.butterflycore.xml.kbinxml.KXmlBuilder
 import com.buttongames.butterflycore.xml.kbinxml.childElements
 import com.buttongames.butterflycore.xml.kbinxml.firstChild
 import io.netty.handler.codec.http.HttpResponseStatus
+import me.stageguard.eamuse.childNodeValue
 import me.stageguard.eamuse.database.Database
 import me.stageguard.eamuse.database.model.EAmuseCardTable
 import me.stageguard.eamuse.game.iidx.IIDXPCRouteHandler
@@ -76,11 +77,11 @@ object Common : IIDXPCRouteHandler("common") {
 @RouteModel(LDJ20211013)
 object OldGet : IIDXPCRouteHandler("oldget") {
     override suspend fun handle(node: Element): KXmlBuilder {
-        val refId = node.getAttribute("rid")
-            ?: throw InvalidRequestException(HttpResponseStatus.BAD_REQUEST)
-
-        Database.query { db -> db.sequenceOf(UserProfileTable).find { it.refId eq refId } }
-            ?: throw InvalidRequestException(HttpResponseStatus.BAD_REQUEST)
+//        val refId = node.getAttribute("rid")
+//            ?: throw InvalidRequestException(HttpResponseStatus.BAD_REQUEST)
+//
+//        Database.query { db -> db.sequenceOf(UserProfileTable).find { it.refId eq refId } }
+//            ?: throw InvalidRequestException(HttpResponseStatus.BAD_REQUEST)
 
         return createResponseNode()
     }
@@ -188,7 +189,7 @@ object TakeOver : IIDXPCRouteHandler("takeover") {
 }
 
 @RouteModel(LDJ20211013)
-object Register : IIDXPCRouteHandler("reg") {
+object PCRegister : IIDXPCRouteHandler("reg") {
     override suspend fun handle(node: Element): KXmlBuilder {
         val refId = node.getAttribute("rid")
             ?: throw InvalidRequestException(HttpResponseStatus.BAD_REQUEST)
@@ -238,11 +239,11 @@ object Get : IIDXPCRouteHandler("get") {
             ?: throw InvalidRequestException(HttpResponseStatus.BAD_REQUEST)
 
         val sortedDArray = Database.query { db -> db.sequenceOf(GradeTable).filter { it.refId eq refId } }
-            ?.map { it.dArray } ?.sortedWith(Comparator { a, b ->
+            ?.map { it.dArray } ?.sortedWith comparator@ { a, b ->
                 val diff1 = a[0] - b[0]
-                if (diff1 != 0) return@Comparator diff1
-                return@Comparator a[1] - b[1]
-            }) ?: throw InvalidRequestException(HttpResponseStatus.INTERNAL_SERVER_ERROR)
+                if (diff1 != 0) return@comparator diff1
+                return@comparator a[1] - b[1]
+            } ?: throw InvalidRequestException(HttpResponseStatus.INTERNAL_SERVER_ERROR)
 
         //TODO: modify settings via api
         val settings = Database.query { db ->
@@ -297,7 +298,7 @@ object Get : IIDXPCRouteHandler("get") {
                 .a("dpnum", "0")
                 .a("gpos", pcData.gpos.toString())
                 .a("id", profile.iidxId.toString())
-                .a("idstr", profile.toString().run { "${slice(0..3)}-${slice(4..7)}" })
+                .a("idstr", profile.iidxId.toString().run { "${slice(0..3)}-${slice(4..7)}" })
                 .a("mode", pcData.mode.toString())
                 .a("name", profile.name)
                 .a("pid", profile.pid.toString())
@@ -335,7 +336,7 @@ object Get : IIDXPCRouteHandler("get") {
             .e("join_shop")
                 .a("join_cflg", "1")
                 .a("join_id", "ea")
-                .a("join_name", "\uff33\uff54\uff41\uff47\uff45\uff27\uff55\uff41\uff52\uff44")
+                .a("join_name", "\uff33\uff27")
                 .a("joinflg", "1").up()
             .e("grade")
                 .a("sgid", pcData.sgid.toString())
@@ -364,8 +365,8 @@ object Get : IIDXPCRouteHandler("get") {
                 .a("rival_crush", pcData.rivalCrush.toString())
                 .a("visit_flg", pcData.visitFlg.toString())
                 .a("weekly_num", pcData.weeklyNum.toString())
-                .e("trophy").a("__type", "s64").a("__count", "160") // original: 20
-                    .t(pcData.trophy.joinToString(" ")).up()
+                .e("trophy").a("__type", "s64").a("__count", pcData.trophy.take(10).size.toString()) // original: 20
+                    .t(pcData.trophy.take(10).joinToString(" ")).up()
             .up()
             .e("expert_point").up()
             .e("classic_course_data").up()
@@ -437,10 +438,12 @@ object Get : IIDXPCRouteHandler("get") {
                 .e("is_kac_evnet_entry").up()
                 .e("kac_secret_music").up()
             .up()
-            .e("leggendaria_semi_open").a("__type", "s16").a("__count", "20")
+            .e("skin").a("__type", "s16").a("__count", "20")
                 .t(settings.run {
-                    "$frame $turntable $noteBurst $menuMusic $appendSetting $fullComboSplash $noteBeam $judgeFont " +
-                            "$disableMusicpreview $pacemakerCover $vefxLock $effect $bombSize $disableHcnColor $firstNotePreview"
+                    "$frame $turntable $noteBurst $menuMusic $appendSetting " +
+                            "$laneCover 0 0 $noteSkin $fullComboSplash $noteBeam " +
+                            "$judgeFont 0 $disableMusicpreview $pacemakerCover " +
+                            "$vefxLock $effect $bombSize $disableHcnColor $firstNotePreview"
                 }).up()
     }
 }
@@ -463,6 +466,8 @@ object Save: IIDXPCRouteHandler("save") {
                 pcData.dpnum ++
             }
         }
+
+        pcData.deller += node.firstChild("deller") ?.getAttribute("deller") ?.toIntOrNull() ?: 0
 
         pcData.dLiflen = node.getAttribute("d_lift").toIntOrNull() ?: 0
         pcData.sLiflen = node.getAttribute("s_lift").toIntOrNull() ?: 0
@@ -491,25 +496,25 @@ object Save: IIDXPCRouteHandler("save") {
         }
 
         node.childElements.filter { it.nodeName == "dj_rank" }.forEach { djRank ->
-            val rank = djRank.firstChild("rank") ?: return@forEach
-            val point = djRank.firstChild("point") ?: return@forEach
+            val rank = djRank.childNodeValue("rank") ?: return@forEach
+            val point = djRank.childNodeValue("point") ?: return@forEach
             when(djRank.getAttribute("style").toIntOrNull()) {
                 0 -> {
-                    pcData.spRank = rank.nodeValue.split(" ").map { it.toInt() }
-                    pcData.spPoint = point.nodeValue.split(" ").map { it.toInt() }
+                    pcData.spRank = rank.split(" ").map { it.toInt() }
+                    pcData.spPoint = point.split(" ").map { it.toInt() }
                 }
                 1 -> {
-                    pcData.dpRank = rank.nodeValue.split(" ").map { it.toInt() }
-                    pcData.dpPoint = point.nodeValue.split(" ").map { it.toInt() }
+                    pcData.dpRank = rank.split(" ").map { it.toInt() }
+                    pcData.dpPoint = point.split(" ").map { it.toInt() }
                 }
             }
         }
 
         node.childElements.filter { it.nodeName == "notes_radar" }.forEach { notesRadar ->
-            val radarScore = notesRadar.firstChild("radar_score") ?: return@forEach
+            val radarScore = notesRadar.childNodeValue("radar_score") ?: return@forEach
             when(notesRadar.getAttribute("style").toIntOrNull()) {
-                0 -> pcData.spRadar = radarScore.nodeValue.split(" ").map { it.toInt() }
-                1 -> pcData.dpRadar = radarScore.nodeValue.split(" ").map { it.toInt() }
+                0 -> pcData.spRadar = radarScore.split(" ").map { it.toInt() }
+                1 -> pcData.dpRadar = radarScore.split(" ").map { it.toInt() }
             }
         }
 
@@ -563,7 +568,9 @@ object Save: IIDXPCRouteHandler("save") {
         pcData.sach = node.getAttribute("s_achi").toIntOrNull() ?: pcData.sach
         pcData.sSubGno = node.getAttribute("s_sub_gno").toIntOrNull() ?: pcData.sSubGno
         pcData.sAutoAdjust = node.getAttribute("s_auto_adjust").toIntOrNull() ?: pcData.sAutoAdjust
-        pcData.dAutoAdjust = node.getAttribute("d_auto_adjust").toIntOrNull() ?: pcData.dAutoAdjust
+        pcData.dpOpt = node.getAttribute("dp_opt") ?: pcData.dpOpt
+        pcData.dpOpt2 = node.getAttribute("dp_opt2") ?: pcData.dpOpt2
+        pcData.spOpt = node.getAttribute("sp_opt") ?: pcData.spOpt
 
         node.firstChild("achievements") ?.let { achievements ->
             pcData.lastWeekly = achievements.getAttribute("last_weekly").toIntOrNull() ?: pcData.lastWeekly
@@ -573,8 +580,8 @@ object Save: IIDXPCRouteHandler("save") {
             pcData.visitFlg = achievements.getAttribute("visit_flg").toIntOrNull() ?: pcData.visitFlg
             pcData.weeklyNum = achievements.getAttribute("weekly_num").toIntOrNull() ?: pcData.weeklyNum
 
-            achievements.firstChild("trophy") ?.let { trophy ->
-                pcData.trophy = trophy.nodeValue.split(" ")
+            achievements.childNodeValue("trophy") ?.let { trophy ->
+                pcData.trophy = trophy.split(" ").take(10)
             }
         }
 

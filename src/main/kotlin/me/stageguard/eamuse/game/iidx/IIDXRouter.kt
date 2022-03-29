@@ -1,7 +1,6 @@
 package me.stageguard.eamuse.game.iidx
 
 import com.buttongames.butterflycore.xml.kbinxml.KXmlBuilder
-import me.stageguard.eamuse.game.iidx.router.*
 import me.stageguard.eamuse.server.RouteCollection
 import me.stageguard.eamuse.server.RouteHandler
 import me.stageguard.eamuse.server.RouteModel
@@ -25,20 +24,3 @@ class IIDXRouter(
         }.toTypedArray()
     }
 }
-
-val IIDXPCRouters = IIDXRouter("pc", mutableSetOf(
-    Common, OldGet, GetProfileName, TakeOver, Register, Get, Save
-))
-val IIDXMusicRouters = IIDXRouter("music", mutableSetOf(
-
-))
-val IIDXGradeRouters = IIDXRouter("grade", mutableSetOf(
-
-))
-val IIDXShopRouters = IIDXRouter(
-    "shop",
-    mutableSetOf(GetShopName, GetConvention),
-    "sentinfo", "savename", "sendescapepackageinfo"
-)
-val IIDXRankingRouters = IIDXRouter("ranking", defaults = arrayOf("getranker"))
-val IIDXGameSystemRouters = IIDXRouter("gameSystem", defaults = arrayOf("systemInfo"))

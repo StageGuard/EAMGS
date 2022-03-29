@@ -4,6 +4,7 @@ import me.stageguard.eamuse.database.AddableTable
 import org.ktorm.dsl.AssignmentsBuilder
 import org.ktorm.entity.Entity
 import org.ktorm.schema.int
+import org.ktorm.schema.long
 import org.ktorm.schema.varchar
 
 object ScoreDetailTable : AddableTable<ScoreDetail>("iidx_score_detail") {
@@ -14,7 +15,9 @@ object ScoreDetailTable : AddableTable<ScoreDetail>("iidx_score_detail") {
     val score = int("score").bindTo { it.score }
     val clflg = int("clflg").bindTo { it.clflg }
     val miss = int("miss").bindTo { it.miss }
-    val time = int("time").bindTo { it.time }
+    val great = int("great").bindTo { it.great }
+    val pGreat = int("pgreat").bindTo { it.pGreat }
+    val time = long("time").bindTo { it.time }
 
 
     override fun <T : AssignmentsBuilder> T.mapElement(element: ScoreDetail) {
@@ -24,6 +27,8 @@ object ScoreDetailTable : AddableTable<ScoreDetail>("iidx_score_detail") {
         set(score, element.score)
         set(clflg, element.clflg)
         set(miss, element.miss)
+        set(great, element.great)
+        set(pGreat, element.pGreat)
         set(time, element.time)
     }
 
@@ -36,7 +41,9 @@ object ScoreDetailTable : AddableTable<ScoreDetail>("iidx_score_detail") {
         `score` int not NULL,
         `clflg` int not NULL,
         `miss` int not NULL,
-        `time` int not NULL,
+        `great` int not NULL,
+        `pGreat` int not NULL,
+        `time` bigint not NULL,
         PRIMARY KEY (`__id`)
     """.trimIndent()
 }
@@ -51,5 +58,7 @@ interface ScoreDetail : Entity<ScoreDetail> {
     var score: Int
     var clflg: Int
     var miss: Int
-    var time: Int
+    var great: Int
+    var pGreat: Int
+    var time: Long
 }

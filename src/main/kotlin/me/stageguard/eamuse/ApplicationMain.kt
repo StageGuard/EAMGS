@@ -7,7 +7,7 @@ import kotlinx.serialization.json.Json
 import me.stageguard.eamuse.database.Database
 import me.stageguard.eamuse.database.model.EAmuseCardTable
 import me.stageguard.eamuse.database.model.PcbIdTable
-import me.stageguard.eamuse.game.iidx.IIDXRouters
+import me.stageguard.eamuse.game.iidx.*
 import me.stageguard.eamuse.game.sdvx6.*
 import me.stageguard.eamuse.server.EAmusementGameServer
 import me.stageguard.eamuse.server.router.*
@@ -46,12 +46,16 @@ fun main() = runBlocking {
     Database.addTables(EAmuseCardTable, PcbIdTable)
     EAmusementGameServer.addRouters(Service, PCBTracker, EACoin, Package, Message, Facility, PCBEvent, EventLog)
 
+    //card checkers
+    EAmusementGameServer.addRouters(CardManager(SDVX6ProfileChecker, IIDXProfileChecker))
+
     // sdvx6
-    Database.addTables(EAmuseCardTable, *sdvx6DatabaseTables) // sdvx6
-    EAmusementGameServer.addRouters(CardManager(SDVX6ProfileChecker), SDVX6Routers) // sdvx6
-    EAmusementGameServer.addAPIHandlers("sdvx6") { sdvx6APIHandler() } //sdvx6
+    Database.addTables(*sdvx6DatabaseTables)
+    EAmusementGameServer.addRouters(SDVX6Routers)
+    EAmusementGameServer.addAPIHandlers("sdvx6") { sdvx6APIHandler() }
 
     // iidx
+    Database.addTables(*iidxDatabaseTables)
     EAmusementGameServer.addRouters(*IIDXRouters)
 
     // start

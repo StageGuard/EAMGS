@@ -13,7 +13,7 @@ object GetShopName : IIDXShopRouteHandler("getname") {
             .a("cls_opt", "0")
             .a("hr", "0")
             .a("mi", "0")
-            .a("opname", "\uff33\uff54\uff41\uff47\uff45\uff27\uff55\uff41\uff52\uff44")
+            .a("opname", "\uff33\uff27")
             .a("pid", "57")
     }
 }

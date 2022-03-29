@@ -10,7 +10,7 @@ abstract class IIDXRouteHandler(private val module: String, override val method:
     abstract suspend fun handle(node: Element) : KXmlBuilder
 
     override suspend fun handle(packet: EAGRequestPacket): KXmlBuilder {
-        return handle(XmlUtils.nodeAtPath(packet.content, "/$module") as Element)
+        return handle(XmlUtils.nodeAtPath(packet.content, "/IIDX29$module") as Element)
     }
 
     fun createResponseNode(): KXmlBuilder = KXmlBuilder.create("response")
