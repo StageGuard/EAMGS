@@ -61,9 +61,9 @@ object EAmusementGameServer : CoroutineScope {
                         .addLast("encoder", HttpResponseEncoder())
                         .addLast("aggregator", HttpObjectAggregator(8 * 1024 * 1024))
                         .addLast("selector", RequestSelector)
-                        .addLast("eamuseDecoder", EAmGameRequestDecoder)
-                        .addLast("eamuseProcessor", EAmGameRequestHandler)
-                        .addLast("eamuseEncoder", EAmGameResponseEncoder)
+                        .addLast("eAmuseDecoder", EAmGameRequestDecoder)
+                        .addLast("eAmuseProcessor", EAmGameRequestHandler)
+                        .addLast("eAmuseEncoder", EAmGameResponseEncoder)
                         .addLast("apiHandler", APIRequestHandler)
                 }
             })
