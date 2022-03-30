@@ -40,6 +40,7 @@ const val SDVX6_20210831 = "KFC:20210831"
 const val SDVX6_20211020 = "KFC:20211020"
 const val SDVX6_20211124 = "KFC:20211124"
 const val SDVX6_20220214 = "KFC:20220214"
+const val SDVX6_20220308 = "KFC:20220308"
 
 
 object SDVX6Routers : RouteCollection("game") {
