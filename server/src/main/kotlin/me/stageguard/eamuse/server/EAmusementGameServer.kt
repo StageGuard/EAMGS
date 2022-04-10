@@ -28,8 +28,6 @@ object EAmusementGameServer : CoroutineScope {
 
     private lateinit var bootstrap: ServerBootstrap
 
-    fun addRouters(vararg rcs: RouterModule) = EAmGameRequestHandler.addRouters(*rcs)
-
     @Suppress("HttpUrlsUsage")
     @OptIn(ObsoleteCoroutinesApi::class)
     fun start(host: String = "0.0.0.0", port: Int) = launch(newSingleThreadContext("EAmusementGameServer")) {
@@ -59,7 +57,9 @@ object EAmusementGameServer : CoroutineScope {
                         .addLast("apiHandler", APIRequestHandler)
                 }
             })
-        val channelFuture = bootstrap.bind(InetAddress.getByName(host), port).syncUninterruptibly().channel()
+        val channelFuture = bootstrap.bind(withContext(Dispatchers.IO) {
+            InetAddress.getByName(host)
+        }, port).syncUninterruptibly().channel()
 
         LOGGER.info("Server started at http://${config.server.host}:$port")
         channelFuture.closeFuture().syncUninterruptibly()

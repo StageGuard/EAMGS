@@ -1,6 +1,6 @@
 package me.stageguard.eamuse.game.iidx
 
-import me.stageguard.eamuse.GameHandler
+import me.stageguard.eamuse.plugin.EAmPlugin
 import me.stageguard.eamuse.database.AddableTable
 import me.stageguard.eamuse.game.iidx.model.*
 import me.stageguard.eamuse.game.iidx.router.*
@@ -14,7 +14,7 @@ internal val LOGGER = LoggerFactory.getLogger("IIDX")
 /* Routers */
 const val LDJ20211013 = "LDJ:2021101300"
 
-object IIDX : GameHandler {
+object IIDX : EAmPlugin {
     override val name: String
         get() = "Beatmania IIDX CastHour"
 

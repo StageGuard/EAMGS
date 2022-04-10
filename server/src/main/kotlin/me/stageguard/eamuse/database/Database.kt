@@ -55,7 +55,7 @@ object Database : CoroutineScope {
         }
     }
 
-    fun addTables(vararg rcs: AddableTable<*>) = tables.addAll(rcs)
+    fun addTable(t: AddableTable<*>) = tables.add(t)
 
     @OptIn(ObsoleteCoroutinesApi::class)
      fun connect() = launch(newSingleThreadContext("DatabaseInitializer")) {
@@ -82,7 +82,7 @@ object Database : CoroutineScope {
         connectionStatus = ConnectionStatus.DISCONNECTED
         kotlin.runCatching { hikariSource.close() }
     }
-    
+
     private fun hikariDataSourceProvider() : HikariDataSource = HikariDataSource(HikariConfig().apply {
         when {
             config.database.address == "" -> throw IllegalArgumentException("Database address is not set in config file.")

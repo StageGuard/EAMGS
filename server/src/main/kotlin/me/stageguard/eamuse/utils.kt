@@ -53,9 +53,9 @@ fun Element.childNodeValue(name: String) = firstChild(name) ?.firstChild ?.nodeV
 private val context = newSingleThreadContext("SV6ResExport")
 
 fun getResourceOrExport(game: String, f: String, exporter: () -> InputStream?): InputStream? {
-    val sdvx6Path = File("data/$game/")
-    if (!sdvx6Path.exists()) sdvx6Path.mkdirs()
-    val res = File("${sdvx6Path.path}/$f")
+    val path = File("data/$game/")
+    if (!path.exists()) path.mkdirs()
+    val res = File("${path.path}/$f")
     return if (res.exists() and res.isFile) {
         res.inputStream()
     } else {

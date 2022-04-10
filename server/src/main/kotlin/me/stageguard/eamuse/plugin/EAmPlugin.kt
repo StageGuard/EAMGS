@@ -1,11 +1,11 @@
-package me.stageguard.eamuse
+package me.stageguard.eamuse.plugin
 
 import me.stageguard.eamuse.database.AddableTable
 import me.stageguard.eamuse.server.AbstractAPIHandler
 import me.stageguard.eamuse.server.RouterModule
 import me.stageguard.eamuse.server.router.ProfileChecker
 
-interface GameHandler {
+interface EAmPlugin {
     /*
      * Game name
      */

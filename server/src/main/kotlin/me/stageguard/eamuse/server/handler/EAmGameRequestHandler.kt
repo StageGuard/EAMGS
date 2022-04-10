@@ -31,9 +31,6 @@ internal object EAmGameRequestHandler : SimpleChannelInboundHandler<EAGRequestPa
     fun addRouter(rc: RouterModule) {
         rc.routers.forEach { routers["${rc.module}.${it.method}"] = it }
     }
-    fun addRouters(vararg rcs: RouterModule) {
-        rcs.forEach { rc -> addRouter(rc) }
-    }
 
     override fun channelReadComplete(ctx: ChannelHandlerContext) { ctx.flush() }
 

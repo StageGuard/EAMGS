@@ -10,6 +10,7 @@ import me.stageguard.eamuse.game.sdvx6.model.*
 import me.stageguard.eamuse.game.sdvx6.router.*
 import me.stageguard.eamuse.game.sdvx6.data.*
 import me.stageguard.eamuse.game.sdvx6.handler.*
+import me.stageguard.eamuse.plugin.EAmPlugin
 import me.stageguard.eamuse.server.AbstractAPIHandler
 import me.stageguard.eamuse.server.RouterModule
 import me.stageguard.eamuse.server.RouteHandler
@@ -27,7 +28,7 @@ const val SDVX6_20211124 = "KFC:20211124"
 const val SDVX6_20220214 = "KFC:20220214"
 const val SDVX6_20220308 = "KFC:20220308"
 
-object SDVX6 : GameHandler {
+object SDVX6 : EAmPlugin {
     override val name: String
         get() = "SOUND VOLTEX EXCEED GEAR"
 
