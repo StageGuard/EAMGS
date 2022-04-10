@@ -11,6 +11,7 @@ import me.stageguard.eamuse.game.iidx.IIDXMusicRouteHandler
 import me.stageguard.eamuse.game.iidx.LDJ20211013
 import me.stageguard.eamuse.game.iidx.LOGGER
 import me.stageguard.eamuse.game.iidx.model.*
+import me.stageguard.eamuse.getResourceOrExport
 import me.stageguard.eamuse.server.InvalidRequestException
 import me.stageguard.eamuse.server.RouteModel
 import org.ktorm.dsl.and
@@ -333,7 +334,7 @@ object APPoint : IIDXMusicRouteHandler("appoint") {
 object Crate : IIDXMusicRouteHandler("crate") {
     private val crate by lazy {
         getResourceOrExport("iidx", "music_crate.txt") {
-            Load::class.java.getResourceAsStream("/iidx/music_crate.txt") ?: run {
+            MusicRegister::class.java.getResourceAsStream("/iidx/music_crate.txt") ?: run {
                 LOGGER.warn("Music crate is not found either jar or data folder.")
                 return@getResourceOrExport null
             }

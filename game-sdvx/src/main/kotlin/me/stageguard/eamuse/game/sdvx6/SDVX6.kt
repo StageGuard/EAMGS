@@ -10,8 +10,6 @@ import me.stageguard.eamuse.game.sdvx6.model.*
 import me.stageguard.eamuse.game.sdvx6.router.*
 import me.stageguard.eamuse.game.sdvx6.data.*
 import me.stageguard.eamuse.game.sdvx6.handler.*
-import me.stageguard.eamuse.game.sdvx6.util.getResourceOrExport
-import me.stageguard.eamuse.game.sdvx6.util.tryOrNull
 import me.stageguard.eamuse.server.AbstractAPIHandler
 import me.stageguard.eamuse.server.RouterModule
 import me.stageguard.eamuse.server.RouteHandler
