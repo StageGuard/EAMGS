@@ -17,7 +17,11 @@ object EAmPluginLoader {
         val jars = path.flatMap { it.listFiles { f -> f.isFile && f.extension == "jar" } ?.toList() ?: listOf() }
 
         jars.forEach {
-            val classLoader = URLClassLoader(arrayOf(it.toURI().toURL()), EAmPluginLoader.javaClass.classLoader)
+            val classLoader = URLClassLoader(
+                "Loader of ${it.nameWithoutExtension}",
+                arrayOf(it.toURI().toURL()),
+                EAmPluginLoader.javaClass.classLoader
+            )
             val entryPointResource = classLoader.findResource("EamPluginEntryPoint.txt")
 
             val entryClass = Class.forName(entryPointResource.readText().trim(), true, classLoader)
