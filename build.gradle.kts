@@ -1,57 +1,41 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 plugins {
-    kotlin("jvm") version "1.5.31"
-    kotlin("plugin.serialization") version "1.5.31"
-    id("com.github.johnrengelman.shadow") version "7.1.0"
+    kotlin("jvm") version "1.6.20"
+    kotlin("plugin.serialization") version "1.6.20"
+    id("java")
 }
 
-group = "StageGuard"
-version = "1.0"
+subprojects {
 
-repositories {
-    mavenCentral()
-}
+    group = "me.stageguard.eamuse"
+    version = "1.0"
 
-dependencies {
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
-    implementation("com.jamesmurty.utils:java-xmlbuilder:1.2")
-    implementation("io.netty:netty-all:4.1.63.Final")
-    implementation("org.ktorm:ktorm-core:3.4.1")
-    implementation("mysql:mysql-connector-java:8.0.25")
-    implementation("com.zaxxer:HikariCP:5.0.0")
-    implementation("org.slf4j:slf4j-api:1.7.30")
-    implementation("org.slf4j:slf4j-log4j12:1.7.30")
-}
-
-tasks.test {
-    useJUnit()
-}
-
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "14"
-}
-
-tasks.withType<JavaCompile> {
-    targetCompatibility = "14"
-}
-
-tasks.withType<ShadowJar> {
-    manifest {
-        attributes("Main-Class" to "me.stageguard.eamuse.ApplicationMainKt")
+    repositories {
+        mavenLocal()
+        mavenCentral()
     }
-}
 
-kotlin {
-    sourceSets {
-        all {
-            languageSettings {
-                optIn("kotlin.RequiresOptIn")
-                optIn("kotlin.ExperimentalStdlibApi")
-                optIn("kotlin.contracts.ExperimentalContracts")
-            }
+    afterEvaluate {
+        dependencies {
+            implementation("org.slf4j:slf4j-api:1.7.30")
+            implementation("org.slf4j:slf4j-log4j12:1.7.30")
+            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
+            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
+            implementation("com.jamesmurty.utils:java-xmlbuilder:1.2")
+            implementation("io.netty:netty-all:4.1.63.Final")
+            implementation("org.ktorm:ktorm-core:3.4.1")
+            implementation("mysql:mysql-connector-java:8.0.25")
+            implementation("com.zaxxer:HikariCP:5.0.0")
+
+            testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
+            testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
         }
+
+        tasks.withType<KotlinCompile> { kotlinOptions.jvmTarget = "14" }
+        tasks.withType<JavaCompile> { targetCompatibility = "14" }
     }
 }
+
+tasks.withType<KotlinCompile> { kotlinOptions.jvmTarget = "14" }
+tasks.withType<JavaCompile> { targetCompatibility = "14" }
