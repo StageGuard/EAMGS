@@ -8,6 +8,7 @@ import me.stageguard.eamuse.game.sdvx6.SDVX6APIHandler
 import me.stageguard.eamuse.game.sdvx6.model.ParamTable
 import me.stageguard.eamuse.game.sdvx6.model.SkillTable
 import me.stageguard.eamuse.game.sdvx6.model.UserProfileTable
+import me.stageguard.eamuse.game.sdvx6.model.param
 import me.stageguard.eamuse.json
 import org.ktorm.dsl.and
 import org.ktorm.dsl.eq
@@ -32,7 +33,7 @@ object QueryProfile : SDVX6APIHandler("sdvx6/profile") {
         val skill = Database.query { db -> db.sequenceOf(SkillTable).find { it.refId eq refId } ?.baseId ?: 0 } ?: 0
         val crewId = Database.query { db -> db.sequenceOf(ParamTable).find {
             it.refId eq refId and (it.type eq 2) and (it.id eq 1)
-        } ?.param()?.get(24) ?: 113 } ?: 113 // 113 = default crew for generation 6 Rasis
+        } ?.param?.get(24) ?: 113 } ?: 113 // 113 = default crew for generation 6 Rasis
         return json.encodeToString(ProfileDTO(
             name = profile.name, appealId = profile.appeal, akaNameIndex = profile.akaname,
             skill = skill, crewId = crewId

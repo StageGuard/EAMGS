@@ -1,8 +1,6 @@
 package me.stageguard.eamuse.game.iidx.model
 
 import me.stageguard.eamuse.database.AddableTable
-import me.stageguard.eamuse.game.iidx.model.ScoreDetailTable.bindTo
-import me.stageguard.eamuse.game.iidx.model.ScoreDetailTable.primaryKey
 import org.ktorm.dsl.AssignmentsBuilder
 import org.ktorm.entity.Entity
 import org.ktorm.schema.boolean

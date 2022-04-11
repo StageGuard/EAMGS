@@ -3,9 +3,6 @@
 package me.stageguard.eamuse.game.sdvx6.model
 
 import me.stageguard.eamuse.database.AddableTable
-import me.stageguard.eamuse.database.model.EAmuseCardTable.bindTo
-import me.stageguard.eamuse.game.sdvx6.model.CourseRecordTable.bindTo
-import me.stageguard.eamuse.game.sdvx6.model.CourseRecordTable.primaryKey
 import org.ktorm.dsl.AssignmentsBuilder
 import org.ktorm.entity.Entity
 import org.ktorm.schema.int

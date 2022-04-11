@@ -40,10 +40,10 @@ object Load : SDVX6RouteHandler("load") {
 
         var customizeParamIndex = params.indexOfFirst { it.type == 2 && it.id == 2 }
         if (customizeParamIndex == -1) {
-            params.add(Param { type = 2; id = 2; param = "" })
+            params.add(Param { type = 2; id = 2; _param = "" })
             customizeParamIndex = params.indexOfFirst { it.type == 2 && it.id == 2 }
         }
-        params.getOrNull(customizeParamIndex)?.setParam(customize)
+        params.getOrNull(customizeParamIndex)?.param = customize
 
         if (config.sdvx.unlockAllNavigators) {
             repeat(300) { items.add(Item { type = 11; id = it.toLong(); param = 15 }) }
@@ -139,8 +139,8 @@ object Load : SDVX6RouteHandler("load") {
                     .s32("id", i.id).up()
                     .e("param")
                         .a("__type", "s32")
-                        .a("__count", i.param().size.toString())
-                        .t(i.param).up()
+                        .a("__count", i.param.size.toString())
+                        .t(i._param).up()
                 resp = resp.up()
             }
             //- Akaname

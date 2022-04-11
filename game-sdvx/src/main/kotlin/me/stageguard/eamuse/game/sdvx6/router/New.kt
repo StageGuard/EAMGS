@@ -3,7 +3,6 @@
 package me.stageguard.eamuse.game.sdvx6.router
 
 import com.buttongames.butterflycore.xml.kbinxml.KXmlBuilder
-import com.buttongames.butterflycore.xml.kbinxml.firstChild
 import io.netty.handler.codec.http.HttpResponseStatus
 import me.stageguard.eamuse.childNodeValue
 import me.stageguard.eamuse.database.Database

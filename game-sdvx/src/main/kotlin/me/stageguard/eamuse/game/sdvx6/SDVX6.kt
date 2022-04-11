@@ -51,7 +51,7 @@ object SDVX6 : EAmPlugin {
     override val profileChecker: ProfileChecker
         get() = SDVX6ProfileChecker
 
-    override val apiHandlers: List<AbstractAPIHandler>?
+    override val apiHandlers: List<AbstractAPIHandler>
         get() = listOf(QueryRecentPlay, QueryProfile, QueryVolForce, QueryBest50Plays)
 
 }

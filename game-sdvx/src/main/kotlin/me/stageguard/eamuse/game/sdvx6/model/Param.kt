@@ -1,8 +1,6 @@
 package me.stageguard.eamuse.game.sdvx6.model
 
 import me.stageguard.eamuse.database.AddableTable
-import me.stageguard.eamuse.game.sdvx6.model.CourseRecordTable.bindTo
-import me.stageguard.eamuse.game.sdvx6.model.CourseRecordTable.primaryKey
 import org.ktorm.dsl.AssignmentsBuilder
 import org.ktorm.entity.Entity
 import org.ktorm.schema.int
@@ -13,13 +11,13 @@ object ParamTable: AddableTable<Param>("sdvx6_param") {
     val refId = varchar("refId").bindTo { it.refId }
     val id = int("id").bindTo { it.id }
     val type = int("type").bindTo { it.type }
-    val param = varchar("param").bindTo { it.param }
+    val _param = varchar("param").bindTo { it._param }
 
     override fun <T : AssignmentsBuilder> T.mapElement(element: Param) {
         set(refId, element.refId)
         set(id, element.id)
         set(type, element.type)
-        set(param, element.param)
+        set(_param, element._param)
     }
 
     override val createStatement = """
@@ -38,8 +36,9 @@ interface Param : Entity<Param> {
     var refId: String
     var id: Int
     var type: Int
-    var param: String
-
-    fun param() = param.split(" ").map { it.toInt() }
-    fun setParam(paramList: List<Int>) { param = paramList.joinToString(" ") }
+    var _param: String
 }
+
+var Param.param: List<Int>
+    get() { return _param.split(" ").map { it.toInt() } }
+    set(value) { _param = value.joinToString(" ") }

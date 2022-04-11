@@ -4,7 +4,6 @@ import me.stageguard.eamuse.database.AddableTable
 import org.ktorm.dsl.AssignmentsBuilder
 import org.ktorm.entity.Entity
 import org.ktorm.schema.int
-import org.ktorm.schema.long
 import org.ktorm.schema.varchar
 
 object UserProfileTable : AddableTable<UserProfile>("iidx_profile") {

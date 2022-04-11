@@ -6,7 +6,6 @@ import io.netty.channel.SimpleChannelInboundHandler
 import io.netty.channel.socket.SocketChannel
 import io.netty.handler.codec.http.*
 import kotlinx.coroutines.runBlocking
-import me.stageguard.eamuse.server.APIHandler
 import me.stageguard.eamuse.server.AbstractAPIHandler
 import me.stageguard.eamuse.server.SelectorType
 import org.slf4j.LoggerFactory

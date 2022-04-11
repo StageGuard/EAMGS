@@ -1,7 +1,6 @@
 package me.stageguard.eamuse.plugin
 
 import me.stageguard.eamuse.database.Database
-import me.stageguard.eamuse.server.EAmusementGameServer
 import me.stageguard.eamuse.server.handler.APIRequestHandler
 import me.stageguard.eamuse.server.handler.EAmGameRequestHandler
 import me.stageguard.eamuse.server.router.CardManager
@@ -35,7 +34,7 @@ object EAmPluginLoader {
         LOGGER.info("Loading plugin ${plugin.name}...")
         plugin.tables ?.forEach { Database.addTable(it) }
         plugin.routerModules ?.forEach { EAmGameRequestHandler.addRouter(it) }
-        plugin.profileChecker?.let { CardManager.addChecker(it) }
+        plugin.profileChecker ?.let { CardManager.addChecker(it) }
         plugin.apiHandlers ?.forEach { APIRequestHandler.addHandler(it) }
     }
 }

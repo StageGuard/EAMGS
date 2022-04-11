@@ -14,8 +14,6 @@ import org.ktorm.dsl.and
 import org.ktorm.dsl.eq
 import org.ktorm.entity.*
 import org.w3c.dom.Element
-import java.time.LocalDateTime
-import java.time.ZoneId
 
 @RouteModel(SDVX6_20210831, SDVX6_20210830, SDVX6_20211020, SDVX6_20211124, SDVX6_20220214, SDVX6_20220308)
 object Save : SDVX6RouteHandler("save") {
@@ -97,17 +95,17 @@ object Save : SDVX6RouteHandler("save") {
 
                 val find = existParams.find { it.id == paramId && it.type == paramType }
                 if (find != null) {
-                    find.param = paramParam
+                    find._param = paramParam
                     toUpdate.add(find)
                 } else {
-                    toInsert.add(Param { this.refId = refId; type = paramType; id = paramId; this.param = paramParam })
+                    toInsert.add(Param { this.refId = refId; type = paramType; id = paramId; this._param = paramParam })
                 }
             }
 
             if (toInsert.isNotEmpty()) ParamTable.batchInsert(toInsert)
             if (toUpdate.isNotEmpty()) ParamTable.batchUpdate { toUpdate.forEach { u ->
                 item {
-                    set(ParamTable.param, u.param)
+                    set(ParamTable._param, u._param)
                     where { ParamTable.refId eq u.refId and (ParamTable.type eq u.type) and (ParamTable.id eq u.id) }
                 }
             } }
