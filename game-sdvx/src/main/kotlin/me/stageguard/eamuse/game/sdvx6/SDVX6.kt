@@ -52,7 +52,10 @@ object SDVX6 : EAmPlugin {
         get() = SDVX6ProfileChecker
 
     override val apiHandlers: List<AbstractAPIHandler>
-        get() = listOf(QueryRecentPlay, QueryProfile, QueryVolForce, QueryBest50Plays)
+        get() = listOf(
+            QueryRecentPlay, QueryProfile, QueryVolForce, QueryBest50Plays,
+            Customize.Get, Customize.Update
+        )
 
 }
 
@@ -129,7 +132,7 @@ internal val sdvx6AppealCards: Lazy<Map<Int, SDVX6AppealCard>> = lazy {
 internal val SDVX_DIFFICULTY_VALUE = arrayOf("novice", "advanced", "exhaust", "infinite", "maximum")
 internal val sdvx6MusicLibrary: Lazy<Map<Int, SDVX6Music>> = lazy {
     val musicLibs: MutableMap<Int, SDVX6Music> = mutableMapOf()
-    config.sdvx.musicDatabase.forEach _ignore@ { file ->
+    sdvx6Config.value.musicDatabase.forEach _ignore@ { file ->
         getResourceOrExport("sdvx6", file) {
             Common::class.java.getResourceAsStream("/sdvx6/$file") ?: run {
                 LOGGER.warn("Music database $file is not found either jar or data folder, please check your config.")

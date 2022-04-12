@@ -5,8 +5,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class ApplicationConfiguration(
     val server: ServerConfiguration = ServerConfiguration(),
-    val database: DatabaseConfiguration = DatabaseConfiguration(),
-    val sdvx: SDVXConfiguration = SDVXConfiguration()
+    val database: DatabaseConfiguration = DatabaseConfiguration()
 ) {
     @Serializable
     data class ServerConfiguration(
@@ -28,16 +27,5 @@ data class ApplicationConfiguration(
         val password: String = "this is password.",
         var table: String = "eamuse",
         var maximumPoolSize: Int? = 10
-    )
-
-    @Serializable
-    data class SDVXConfiguration(
-        val unlockAllSongs: Boolean = false,
-        val unlockAllNavigators: Boolean = false,
-        val unlockAllAppealCards: Boolean = true,
-        val customEntryInformation: String = "",
-        val customGameOverInformation: String = "",
-        val useBlasterPass: Boolean = true,
-        val musicDatabase: List<String> = listOf("music_db.xml", "music_db.merged.xml")
     )
 }

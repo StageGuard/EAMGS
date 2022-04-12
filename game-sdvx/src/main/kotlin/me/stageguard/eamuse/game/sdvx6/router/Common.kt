@@ -1,7 +1,6 @@
 package me.stageguard.eamuse.game.sdvx6.router
 
 import com.buttongames.butterflycore.xml.kbinxml.KXmlBuilder
-import me.stageguard.eamuse.config
 import me.stageguard.eamuse.game.sdvx6.*
 import me.stageguard.eamuse.server.RouteModel
 import org.w3c.dom.Element
@@ -33,7 +32,7 @@ object Common : SDVX6RouteHandler("common") {
 
         // music library
         resp = resp.e("music_limited")
-        if (config.sdvx.unlockAllSongs) {
+        if (sdvx6Config.value.unlockAllSongs) {
             songsToUnlock.forEach { (mid, type) ->
                 resp = resp.e("info")
                     .s32("music_id", mid).up()

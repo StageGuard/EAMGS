@@ -34,7 +34,7 @@ data class RecentPlayDTO(
     val time: Long,
 )
 
-object QueryRecentPlay : SDVX6APIHandler("sdvx6/recent") {
+object QueryRecentPlay : SDVX6APIHandler("recent") {
     override suspend fun handle0(refId: String, request: FullHttpRequest): String {
        return  try {
             val record = Database.query { db ->

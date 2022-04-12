@@ -3,7 +3,6 @@ package me.stageguard.eamuse.game.sdvx6.router
 import com.buttongames.butterflycore.xml.kbinxml.KXmlBuilder
 import io.netty.handler.codec.http.HttpResponseStatus
 import me.stageguard.eamuse.childNodeValue
-import me.stageguard.eamuse.config
 import me.stageguard.eamuse.database.Database
 import me.stageguard.eamuse.game.sdvx6.*
 import me.stageguard.eamuse.server.InvalidRequestException
@@ -45,13 +44,13 @@ object Load : SDVX6RouteHandler("load") {
         }
         params.getOrNull(customizeParamIndex)?.param = customize
 
-        if (config.sdvx.unlockAllNavigators) {
+        if (sdvx6Config.value.unlockAllNavigators) {
             repeat(300) { items.add(Item { type = 11; id = it.toLong(); param = 15 }) }
             // 10 genesis card for MITSURU's voice
             items.add(Item { type = 4; id = 599; param = 10; })
         }
 
-        if (config.sdvx.unlockAllAppealCards) {
+        if (sdvx6Config.value.unlockAllAppealCards) {
             sdvx6AppealCards.value.forEach { (id, _) -> items.add(Item { type = 1; this.id = id.toLong(); param = 1 }) }
         }
 
@@ -95,7 +94,7 @@ object Load : SDVX6RouteHandler("load") {
 
             .e("ea_shop")
                 .s32("packet_booster", 1).up()
-                .bool("blaster_pass_enable", config.sdvx.useBlasterPass).up()
+                .bool("blaster_pass_enable", sdvx6Config.value.useBlasterPass).up()
                 .u64("blaster_pass_limit_date", timestampAfterOneAndAHalfDay).up()
             .up()
 

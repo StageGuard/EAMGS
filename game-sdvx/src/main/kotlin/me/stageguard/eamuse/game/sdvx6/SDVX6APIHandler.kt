@@ -15,7 +15,7 @@ import org.ktorm.entity.find
 import org.ktorm.entity.sequenceOf
 import java.nio.charset.Charset
 
-abstract class SDVX6APIHandler(path: String) : AbstractAPIHandler(path) {
+abstract class SDVX6APIHandler(path: String) : AbstractAPIHandler("sdvx6/$path") {
     abstract suspend fun handle0(refId: String, request: FullHttpRequest): String
 
     final override suspend fun handle(request: FullHttpRequest): String {

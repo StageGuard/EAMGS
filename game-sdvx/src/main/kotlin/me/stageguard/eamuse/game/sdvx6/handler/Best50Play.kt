@@ -39,7 +39,7 @@ data class Best50PlayItemDTO(
     val force: Double
 )
 
-object QueryBest50Plays : SDVX6APIHandler("sdvx6/best50") {
+object QueryBest50Plays : SDVX6APIHandler("best50") {
     override suspend fun handle0(refId: String, request: FullHttpRequest): String {
         val b50Plays = Database.query { db -> db.sequenceOf(PlayRecordTable)
             .filter { it.refId eq refId }
