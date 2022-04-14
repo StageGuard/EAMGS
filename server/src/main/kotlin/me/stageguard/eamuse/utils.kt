@@ -1,6 +1,7 @@
 package me.stageguard.eamuse
 
 import com.buttongames.butterflycore.xml.kbinxml.firstChild
+import io.netty.handler.codec.http.FullHttpRequest
 import org.w3c.dom.Element
 import java.net.URLDecoder
 import java.nio.charset.Charset
@@ -36,8 +37,8 @@ inline fun <R> retry(
     return Result.failure(exception!!)
 }
 
-fun uriParameters(uri: String) =
-    URLDecoder.decode(uri, Charset.defaultCharset()).split("?").runCatching {
+val FullHttpRequest.uriParameters
+    get() = URLDecoder.decode(uri(), Charset.defaultCharset()).split("?").runCatching {
         val path = getOrNull(0)
         val parameters = getOrNull(1)
         check(path != null && (path.isNotEmpty() || path == "/") && parameters != null)

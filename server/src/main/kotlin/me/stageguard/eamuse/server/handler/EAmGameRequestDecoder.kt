@@ -26,7 +26,7 @@ internal object EAmGameRequestDecoder : SimpleChannelInboundHandler<SelectorType
         ctx: ChannelHandlerContext,
         msg: SelectorType.EAGameClientRequest
     ) {
-        val parameters = uriParameters(msg.r.uri())
+        val parameters = msg.r.uriParameters
         if (parameters == null) {
             ctx.writeAndFlush(badRequest())
             ctx.close()
