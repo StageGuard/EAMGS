@@ -9,7 +9,7 @@ import me.stageguard.eamuse.database.AddableTable
 import me.stageguard.eamuse.game.sdvx6.model.*
 import me.stageguard.eamuse.game.sdvx6.router.*
 import me.stageguard.eamuse.game.sdvx6.data.*
-import me.stageguard.eamuse.game.sdvx6.handler.*
+import me.stageguard.eamuse.game.sdvx6.api.*
 import me.stageguard.eamuse.plugin.EAmPlugin
 import me.stageguard.eamuse.server.AbstractAPIHandler
 import me.stageguard.eamuse.server.RouterModule

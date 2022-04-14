@@ -1,4 +1,4 @@
-package me.stageguard.eamuse.game.sdvx6.handler
+package me.stageguard.eamuse.game.sdvx6.api
 
 import io.netty.handler.codec.http.FullHttpRequest
 import kotlinx.serialization.encodeToString
