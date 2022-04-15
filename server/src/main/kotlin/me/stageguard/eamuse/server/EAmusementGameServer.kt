@@ -18,7 +18,7 @@ import java.util.concurrent.atomic.AtomicInteger
 import kotlin.concurrent.thread
 import kotlin.coroutines.CoroutineContext
 
-object EAmusementGameServer : CoroutineScope {
+internal object EAmusementGameServer : CoroutineScope {
     private val LOGGER = LoggerFactory.getLogger(EAmusementGameServer.javaClass)
 
     override val coroutineContext: CoroutineContext

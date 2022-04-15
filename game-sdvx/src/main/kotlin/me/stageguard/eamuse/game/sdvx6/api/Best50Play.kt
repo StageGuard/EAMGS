@@ -56,7 +56,7 @@ object QueryBest50Plays : SDVX6APIHandler("best50") {
             } to calculateForce(it) } }
             .sortedByDescending { (_, force) -> force }
             .map { (record, force) ->
-                val music = sdvx6MusicLibrary.value[record.mid.toInt()] ?: return@map null
+                val music = sdvx6MusicLibrary[record.mid.toInt()] ?: return@map null
                 Best50PlayItemDTO(
                     mId = music.id, mDiffType = record.type.toInt(),
                     mDiff = music.difficulties.find { it.type == record.type.toInt() }?.difficulty ?: 0,

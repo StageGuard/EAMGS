@@ -7,10 +7,14 @@ import me.stageguard.eamuse.server.router.CardManager
 import org.slf4j.LoggerFactory
 import java.io.File
 import java.net.URLClassLoader
+import java.util.concurrent.ConcurrentHashMap
 
-object EAmPluginLoader {
+internal object EAmPluginLoader {
     private val LOGGER = LoggerFactory.getLogger(EAmPluginLoader::class.java)
     var path: List<File> = listOf(File("plugins/"))
+
+    private val loadedPlugins: ConcurrentHashMap<String, EAmPlugin> = ConcurrentHashMap()
+    val plugins get() = loadedPlugins.values
 
     fun loadPlugins() {
         val jars = path.flatMap { it.listFiles { f -> f.isFile && f.extension == "jar" } ?.toList() ?: listOf() }
@@ -22,11 +26,16 @@ object EAmPluginLoader {
                 EAmPluginLoader.javaClass.classLoader
             )
             val entryPointResource = classLoader.findResource("EamPluginEntryPoint.txt")
-
             val entryClass = Class.forName(entryPointResource.readText().trim(), true, classLoader)
-
             val pluginInstance = (entryClass.kotlin.objectInstance ?: entryClass.newInstance()) as EAmPlugin
-            initializePlugin(pluginInstance)
+
+            if (loadedPlugins[pluginInstance.id] != null) {
+                LOGGER.warn("Plugin ${pluginInstance.id} is already loaded. Skipping...")
+                return
+            } else {
+                loadedPlugins[pluginInstance.id] = pluginInstance
+                initializePlugin(pluginInstance)
+            }
         }
     }
 

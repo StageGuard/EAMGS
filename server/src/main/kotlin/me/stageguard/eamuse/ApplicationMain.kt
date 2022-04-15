@@ -13,6 +13,7 @@ import me.stageguard.eamuse.plugin.EAmPluginLoader
 import me.stageguard.eamuse.server.AbstractAPIHandler
 import me.stageguard.eamuse.server.EAmusementGameServer
 import me.stageguard.eamuse.server.RouterModule
+import me.stageguard.eamuse.server.api.LoadedServices
 import me.stageguard.eamuse.server.router.*
 import java.io.File
 
@@ -49,12 +50,15 @@ fun main() = runBlocking {
     EAmPluginLoader.initializePlugin(object : EAmPlugin {
         override val name: String
             get() = "E-Amusement Common"
+        override val id: String
+            get() = "common"
         override val routerModules: List<RouterModule>
             get() = listOf(Service, PCBTracker, EACoin, Package, Message, Facility, PCBEvent, EventLog, CardManager)
         override val tables: List<AddableTable<*>>
             get() = listOf(EAmuseCardTable, PcbIdTable)
         override val profileChecker: ProfileChecker? = null
-        override val apiHandlers: List<AbstractAPIHandler>? = null
+        override val apiHandlers: List<AbstractAPIHandler>
+            get() = listOf(LoadedServices)
 
     })
 

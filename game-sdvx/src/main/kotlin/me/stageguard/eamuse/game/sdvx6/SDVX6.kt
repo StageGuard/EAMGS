@@ -29,8 +29,8 @@ const val SDVX6_20220214 = "KFC:20220214"
 const val SDVX6_20220308 = "KFC:20220308"
 
 object SDVX6 : EAmPlugin {
-    override val name: String
-        get() = "SOUND VOLTEX EXCEED GEAR"
+    override val id: String = "sdvx6"
+    override val name: String = "SOUND VOLTEX EXCEED GEAR"
 
     override val routerModules: List<RouterModule>
         get() = listOf(object : RouterModule("game") {
@@ -107,7 +107,7 @@ internal val sdvx6Events = listOf(
 )
 
 /* Appeal cards */
-internal val sdvx6AppealCards: Lazy<Map<Int, SDVX6AppealCard>> = lazy {
+internal val sdvx6AppealCards by lazy {
     val cards: MutableMap<Int, SDVX6AppealCard> = mutableMapOf()
     getResourceOrExport("sdvx6", "appeal_card.xml") {
         Load::class.java.getResourceAsStream("/sdvx6/appeal_card.xml") ?: run {
@@ -130,7 +130,7 @@ internal val sdvx6AppealCards: Lazy<Map<Int, SDVX6AppealCard>> = lazy {
 
 /* Music library */
 internal val SDVX_DIFFICULTY_VALUE = arrayOf("novice", "advanced", "exhaust", "infinite", "maximum")
-internal val sdvx6MusicLibrary: Lazy<Map<Int, SDVX6Music>> = lazy {
+internal val sdvx6MusicLibrary by lazy {
     val musicLibs: MutableMap<Int, SDVX6Music> = mutableMapOf()
     sdvx6Config.value.musicDatabase.forEach _ignore@ { file ->
         getResourceOrExport("sdvx6", file) {
@@ -169,7 +169,7 @@ internal val sdvx6MusicLibrary: Lazy<Map<Int, SDVX6Music>> = lazy {
 }
 
 /* Skill course  */
-internal val sdvx6SkillCourseSessions = lazy {
+internal val sdvx6SkillCourseSessions by lazy {
     (getResourceOrExport("sdvx6", "course_session.json") {
         Common::class.java.getResourceAsStream("/sdvx6/course_session.json") ?: run {
             LOGGER.warn("Skill course data is not found either jar or data folder.")

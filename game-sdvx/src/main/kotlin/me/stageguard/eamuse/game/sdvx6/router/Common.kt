@@ -7,7 +7,7 @@ import org.w3c.dom.Element
 
 val songsToUnlock by lazy {
     val songs: MutableList<Pair<Int, Int>> = mutableListOf()
-    sdvx6MusicLibrary.value.forEach { (mid, music) ->
+    sdvx6MusicLibrary.forEach { (mid, music) ->
         music.difficulties.forEach { difficulty ->
             if (difficulty.limited != 3) {
                 songs.add(mid to difficulty.type)
@@ -45,7 +45,7 @@ object Common : SDVX6RouteHandler("common") {
 
         // skill course
         resp = resp.e("skill_course")
-        sdvx6SkillCourseSessions.value.forEach { season ->
+        sdvx6SkillCourseSessions.forEach { season ->
             season.courses.forEach { course ->
                 resp = resp.e("info")
                     .s32("season_id", season.id).up()

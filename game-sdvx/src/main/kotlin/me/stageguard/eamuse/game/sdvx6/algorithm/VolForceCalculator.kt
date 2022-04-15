@@ -5,7 +5,7 @@ import me.stageguard.eamuse.game.sdvx6.sdvx6MusicLibrary
 import kotlin.math.round
 
 fun calculateForce(record: PlayRecord, fixed: Boolean = true) = run {
-    val music = sdvx6MusicLibrary.value[record.mid.toInt()] ?: return@run 0.0
+    val music = sdvx6MusicLibrary[record.mid.toInt()] ?: return@run 0.0
     val level = music.difficulties.find { it.type == record.type.toInt() } ?.difficulty ?: return@run 0.0
     (level * (record.score / 10000000.0) * grade(record.score) * clear(record.clear.toInt()) * 2.0).toFixed(if (fixed) 1 else 3)
 }

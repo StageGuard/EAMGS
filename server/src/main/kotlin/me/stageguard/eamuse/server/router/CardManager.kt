@@ -30,6 +30,12 @@ internal object CardManager : RouterModule("cardmng") {
         checkers.add(c)
     }
 
+    val currentTimeStamp get() = LocalDateTime.now().let {
+        it.atZone(ZoneId.systemDefault()).run {
+            it.toString() + offset.toString()
+        }
+    }
+
     @RouteModel
     internal object Inquire : RouteHandler("inquire") {
         private val LOGGER = LoggerFactory.getLogger(Inquire::class.java)
@@ -57,7 +63,12 @@ internal object CardManager : RouterModule("cardmng") {
                                 val (routeModel, routeVersion) = singleModel.split(":").run { first() to last() }
 
                                 if (reqModel == routeModel && reqVersion.startsWith(routeVersion)) {
-                                    return@run c.check(cardInfo)
+                                    return@run c.check(cardInfo).also {
+                                        if(it) {
+                                            cardInfo.lastPlayTime = currentTimeStamp
+                                            cardInfo.flushChanges()
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -96,19 +107,13 @@ internal object CardManager : RouterModule("cardmng") {
                 generated
             } ?: throw InvalidRequestException(HttpResponseStatus.INTERNAL_SERVER_ERROR)
 
-            val currentTimestamp = LocalDateTime.now().let {
-                it.atZone(ZoneId.systemDefault()).run {
-                    it.toString() + offset.toString()
-                }
-            }
-
             EAmuseCardTable.insert(EAmuseCard {
                 this.cardNFCId = cardNfcId
                 refId = generatedRefId
                 this.pin = pin.toInt()
                 displayId = encodeCardId(cardNfcId)
-                registerTime = currentTimestamp
-                lastPlayTime = currentTimestamp
+                registerTime = currentTimeStamp
+                lastPlayTime = currentTimeStamp
             })
 
             return KXmlBuilder.create("response").e("cardmng")

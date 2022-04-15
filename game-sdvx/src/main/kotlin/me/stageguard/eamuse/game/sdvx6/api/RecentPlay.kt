@@ -40,7 +40,7 @@ object QueryRecentPlay : SDVX6APIHandler("recent") {
             val record = Database.query { db ->
                 db.sequenceOf(PlayRecordTable).sortedBy { it.time }.last { it.refId eq refId }
             } ?: return apiError("NO_SCORE")
-            val music = sdvx6MusicLibrary.value[record.mid.toInt()] ?: return apiError("NO_SONG")
+            val music = sdvx6MusicLibrary[record.mid.toInt()] ?: return apiError("NO_SONG")
 
             json.encodeToString(RecentPlayDTO(
                 mId = music.id, mDiffType = record.type.toInt(), mDiff = music.difficulties.find { it.type == record.type.toInt() }?.difficulty ?: 0,

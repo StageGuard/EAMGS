@@ -15,7 +15,7 @@ import org.ktorm.entity.find
 import org.ktorm.entity.sequenceOf
 import java.nio.charset.Charset
 
-abstract class SDVX6APIHandler(path: String) : AbstractAPIHandler("sdvx6/$path") {
+abstract class SDVX6APIHandler(path: String) : AbstractAPIHandler("${SDVX6.id}/$path") {
     abstract suspend fun handle0(refId: String, request: FullHttpRequest): String
 
     final override suspend fun handle(request: FullHttpRequest): String {
@@ -37,7 +37,4 @@ abstract class SDVX6APIHandler(path: String) : AbstractAPIHandler("sdvx6/$path")
 
         return Result.success(refId)
     }
-
-    @Language("JSON")
-    fun apiError(reason: String) = """{"result": -1, "message": "$reason"}"""
 }

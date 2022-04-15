@@ -51,7 +51,7 @@ object Load : SDVX6RouteHandler("load") {
         }
 
         if (sdvx6Config.value.unlockAllAppealCards) {
-            sdvx6AppealCards.value.forEach { (id, _) -> items.add(Item { type = 1; this.id = id.toLong(); param = 1 }) }
+            sdvx6AppealCards.forEach { (id, _) -> items.add(Item { type = 1; this.id = id.toLong(); param = 1 }) }
         }
 
         // make generator always power 100%

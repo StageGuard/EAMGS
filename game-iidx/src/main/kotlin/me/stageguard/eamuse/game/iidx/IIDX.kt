@@ -15,8 +15,8 @@ internal val LOGGER = LoggerFactory.getLogger("IIDX")
 const val LDJ20211013 = "LDJ:2021101300"
 
 object IIDX : EAmPlugin {
-    override val name: String
-        get() = "Beatmania IIDX CastHour"
+    override val id: String  = "iidx"
+    override val name: String = "Beatmania IIDX CastHour"
 
     override val routerModules: List<RouterModule>
         get() = listOf(
