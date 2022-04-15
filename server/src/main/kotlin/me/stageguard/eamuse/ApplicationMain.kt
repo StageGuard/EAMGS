@@ -52,6 +52,8 @@ fun main() = runBlocking {
             get() = "E-Amusement Common"
         override val id: String
             get() = "common"
+        override val code: String
+            get() = "COMMON"
         override val routerModules: List<RouterModule>
             get() = listOf(Service, PCBTracker, EACoin, Package, Message, Facility, PCBEvent, EventLog, CardManager)
         override val tables: List<AddableTable<*>>

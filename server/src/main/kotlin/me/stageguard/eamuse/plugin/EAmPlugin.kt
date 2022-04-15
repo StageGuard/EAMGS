@@ -15,6 +15,10 @@ interface EAmPlugin {
      */
     val id: String
     /*
+     * Game code
+     */
+    val code: String
+    /*
      * Game routers to handle requests sent from bemani game
      */
     val routerModules: List<RouterModule>?

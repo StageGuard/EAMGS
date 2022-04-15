@@ -17,6 +17,7 @@ const val LDJ20211013 = "LDJ:2021101300"
 object IIDX : EAmPlugin {
     override val id: String  = "iidx"
     override val name: String = "Beatmania IIDX CastHour"
+    override val code: String = "LDJ"
 
     override val routerModules: List<RouterModule>
         get() = listOf(

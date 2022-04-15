@@ -46,7 +46,7 @@ val FullHttpRequest.uriParameters
         mapOf(*parameters.split("&").map {
             it.split("=").run p@ { this@p[0].lowercase() to this@p[1] }
         }.toTypedArray())
-    }.getOrNull()
+    }.getOrElse { mapOf() }
 
 fun Element.childNodeValue(name: String) = firstChild(name) ?.firstChild ?.nodeValue
 

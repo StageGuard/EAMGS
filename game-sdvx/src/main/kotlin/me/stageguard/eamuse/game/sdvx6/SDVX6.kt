@@ -31,6 +31,7 @@ const val SDVX6_20220308 = "KFC:20220308"
 object SDVX6 : EAmPlugin {
     override val id: String = "sdvx6"
     override val name: String = "SOUND VOLTEX EXCEED GEAR"
+    override val code: String = "KFC"
 
     override val routerModules: List<RouterModule>
         get() = listOf(object : RouterModule("game") {

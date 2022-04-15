@@ -29,7 +29,7 @@ abstract class SDVX6APIHandler(path: String) : AbstractAPIHandler("${SDVX6.id}/$
                 request.content().toString(Charset.forName("utf-8"))
             ).cardId
         } catch (ex: SerializationException) {
-            request.uriParameters ?.get("cardid")
+            request.uriParameters["cardid"]
                 ?: return Result.failure(Exception(apiError("CARDID")))
         }
         val refId = Database.query { db -> db.sequenceOf(EAmuseCardTable).find { c -> c.cardNFCId eq cardId } }

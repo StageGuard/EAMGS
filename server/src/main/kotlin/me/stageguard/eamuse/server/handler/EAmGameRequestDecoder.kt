@@ -27,7 +27,7 @@ internal object EAmGameRequestDecoder : SimpleChannelInboundHandler<SelectorType
         msg: SelectorType.EAGameClientRequest
     ) {
         val parameters = msg.r.uriParameters
-        if (parameters == null) {
+        if (parameters.isEmpty()) {
             ctx.writeAndFlush(badRequest())
             ctx.close()
             return
@@ -86,6 +86,8 @@ internal object EAmGameRequestDecoder : SimpleChannelInboundHandler<SelectorType
         val requestBodyPcbId = rootNode.getAttribute("srcid")
         val requestBodyModule = moduleNode.nodeName
         val requestBodyMethod = moduleNode.getAttribute("method")
+
+
 
         if (requestBodyMethod != requestMethod ||
                 requestBodyModel != requestModel ||
