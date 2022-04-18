@@ -13,10 +13,12 @@ import me.stageguard.eamuse.plugin.EAmPluginLoader
 import me.stageguard.eamuse.server.AbstractAPIHandler
 import me.stageguard.eamuse.server.EAmusementGameServer
 import me.stageguard.eamuse.server.RouterModule
-import me.stageguard.eamuse.server.api.LoadedServices
+import me.stageguard.eamuse.server.api.ServerStatus
+import me.stageguard.eamuse.server.api.OnlinePlayers
+import me.stageguard.eamuse.server.api.OnlinePlayersMonitor
 import me.stageguard.eamuse.server.router.*
 import java.io.File
-
+import java.util.logging.Logger
 
 
 val json = Json {
@@ -37,6 +39,7 @@ val config = run {
             }
         }
     } catch (_: Exception) {
+        Logger.getAnonymousLogger().warning("Failed to load config.json, reverting to default.")
         file.delete()
         ApplicationConfiguration().also {
             file.createNewFile()
@@ -60,8 +63,7 @@ fun main() = runBlocking {
             get() = listOf(EAmuseCardTable, PcbIdTable)
         override val profileChecker: ProfileChecker? = null
         override val apiHandlers: List<AbstractAPIHandler>
-            get() = listOf(LoadedServices)
-
+            get() = listOf(ServerStatus, OnlinePlayers)
     })
 
     // load game plugins
@@ -70,9 +72,11 @@ fun main() = runBlocking {
             f.isDirectory && f.name.startsWith("game-")
         }?.map { File(it.path + "/build/libs/") } ?: listOf(File("plugins/"))
     }
-    EAmPluginLoader.loadPlugins()
+    EAmPluginLoader.loadExternalPlugins()
 
     // start
+    OnlinePlayersMonitor.start()
+
     Database.connect()
     EAmusementGameServer.start(config.server.host, config.server.port).join()
 }

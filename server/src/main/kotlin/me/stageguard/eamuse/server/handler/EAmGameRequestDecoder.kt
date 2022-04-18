@@ -11,6 +11,7 @@ import io.netty.channel.SimpleChannelInboundHandler
 import io.netty.channel.socket.SocketChannel
 import io.netty.handler.codec.http.*
 import me.stageguard.eamuse.server.SelectorType
+import me.stageguard.eamuse.server.api.OnlinePlayersMonitor
 import me.stageguard.eamuse.server.packet.EAGRequestPacket
 import me.stageguard.eamuse.uriParameters
 import org.slf4j.LoggerFactory
@@ -87,7 +88,7 @@ internal object EAmGameRequestDecoder : SimpleChannelInboundHandler<SelectorType
         val requestBodyModule = moduleNode.nodeName
         val requestBodyMethod = moduleNode.getAttribute("method")
 
-
+        OnlinePlayersMonitor.inquire(requestBodyModel.split(":").first(), requestBodyPcbId)
 
         if (requestBodyMethod != requestMethod ||
                 requestBodyModel != requestModel ||

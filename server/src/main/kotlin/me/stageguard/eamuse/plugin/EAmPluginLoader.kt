@@ -16,7 +16,7 @@ internal object EAmPluginLoader {
     private val loadedPlugins: ConcurrentHashMap<String, EAmPlugin> = ConcurrentHashMap()
     val plugins get() = loadedPlugins.values
 
-    fun loadPlugins() {
+    fun loadExternalPlugins() {
         val jars = path.flatMap { it.listFiles { f -> f.isFile && f.extension == "jar" } ?.toList() ?: listOf() }
 
         jars.forEach {
@@ -39,7 +39,7 @@ internal object EAmPluginLoader {
         }
     }
 
-    fun initializePlugin(plugin: EAmPlugin) {
+    internal fun initializePlugin(plugin: EAmPlugin) {
         LOGGER.info("Loading plugin ${plugin.name}...")
         plugin.tables ?.forEach { Database.addTable(it) }
         plugin.routerModules ?.forEach { EAmGameRequestHandler.addRouter(it) }

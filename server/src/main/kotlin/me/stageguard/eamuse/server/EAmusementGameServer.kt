@@ -17,6 +17,7 @@ import java.net.InetAddress
 import java.util.concurrent.atomic.AtomicInteger
 import kotlin.concurrent.thread
 import kotlin.coroutines.CoroutineContext
+import kotlin.properties.Delegates
 
 internal object EAmusementGameServer : CoroutineScope {
     private val LOGGER = LoggerFactory.getLogger(EAmusementGameServer.javaClass)
@@ -27,6 +28,7 @@ internal object EAmusementGameServer : CoroutineScope {
     private val threadCounter = AtomicInteger(0)
 
     private lateinit var bootstrap: ServerBootstrap
+    var startupTime by Delegates.notNull<Long>()
 
     @Suppress("HttpUrlsUsage")
     @OptIn(ObsoleteCoroutinesApi::class)
@@ -62,6 +64,7 @@ internal object EAmusementGameServer : CoroutineScope {
         }, port).syncUninterruptibly().channel()
 
         LOGGER.info("Server started at http://${config.server.host}:$port")
+        startupTime = System.currentTimeMillis()
         channelFuture.closeFuture().syncUninterruptibly()
     }
 }
