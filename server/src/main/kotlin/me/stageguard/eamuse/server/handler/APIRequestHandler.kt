@@ -57,16 +57,21 @@ internal object APIRequestHandler : SimpleChannelInboundHandler<SelectorType.API
             "Unhandled request: $url " +
             "from ${(ctx.channel() as SocketChannel).run { "${remoteAddress().toString().drop(1)} at 0x${id()}" }}."
         )
-        ctx.writeAndFlush(createResponse(response, if (handled) HttpResponseStatus.OK else HttpResponseStatus.NOT_FOUND))
+        ctx.writeAndFlush(createResponse(response, when {
+            response.contains(Regex("\"result\":(\\s)?-1")) -> HttpResponseStatus.BAD_REQUEST
+            handled -> HttpResponseStatus.OK
+            else -> HttpResponseStatus.NOT_FOUND
+        }))
         ctx.close()
     }
 
-    private fun createResponse(text: String, status: HttpResponseStatus = HttpResponseStatus.OK) = text.toByteArray().run {
+    private fun createResponse(text: String, status: HttpResponseStatus = HttpResponseStatus.OK) = text.toByteArray().run b@ {
         DefaultFullHttpResponse(HttpVersion.HTTP_1_1, status).also {
             it.content().writeBytes(this)
-            it.headers().run h@{
+            it.headers().run {
                 add("Content-Type", if (status == HttpResponseStatus.OK) "application/json" else "text/plain")
-                add("Content-Length", this@run.size)
+                add("Content-Length", this@b.size)
+                add("Access-Control-Allow-Origin", "*")
             }
         }
     }
