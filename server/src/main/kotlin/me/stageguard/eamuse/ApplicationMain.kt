@@ -19,6 +19,7 @@ import me.stageguard.eamuse.server.api.OnlinePlayersMonitor
 import me.stageguard.eamuse.server.router.*
 import java.io.File
 import java.util.logging.Logger
+import kotlin.concurrent.thread
 
 
 val json = Json {
@@ -78,5 +79,12 @@ fun main() = runBlocking {
     OnlinePlayersMonitor.start()
 
     Database.connect()
-    EAmusementGameServer.start(config.server.host, config.server.port).join()
+    val serverJob = EAmusementGameServer.start(config.server.host, config.server.port)
+
+    Runtime.getRuntime().addShutdownHook(thread(start = false, name = "ShutdownHook") {
+        EAmusementGameServer.stop()
+        Database.close()
+    })
+
+    serverJob.join()
 }

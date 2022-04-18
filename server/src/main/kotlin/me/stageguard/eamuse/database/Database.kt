@@ -46,9 +46,10 @@ object Database : CoroutineScope {
                     connect()
                 } else throw it
             }) {
-                if(isConnected()) {
+                if(connected) {
                     block(t, db)
                 } else {
+                    connectionStatus = ConnectionStatus.DISCONNECTED
                     throw SQLException("Connection is closed")
                 }
             }.getOrThrow()
@@ -65,7 +66,7 @@ object Database : CoroutineScope {
         LOGGER.info("Database ${hikariSource.jdbcUrl} is connected.")
     }
 
-    private fun isConnected() = connectionStatus == ConnectionStatus.CONNECTED
+    val connected get() = connectionStatus == ConnectionStatus.CONNECTED
 
     @Suppress("SqlNoDataSourceInspection")
     private fun initDatabase() {
@@ -107,7 +108,12 @@ object Database : CoroutineScope {
 
         threadFactory = ThreadFactory { runnable ->
             thread(start = false, name = "DatabaseOperation#${threadCounter.getAndIncrement()}") {
-                runBlocking(this@Database.coroutineContext) { runnable.run() }
+                try {
+                    runBlocking(this@Database.coroutineContext) { runnable.run() }
+                } catch (_: InterruptedException) { /* shutdown hook triggered. */ }
+                catch (e: Exception) {
+                    LOGGER.error("Database operation is failed.", e)
+                }
             }
         }
     })

@@ -23,7 +23,7 @@ internal object EAmusementGameServer : CoroutineScope {
     private val LOGGER = LoggerFactory.getLogger(EAmusementGameServer.javaClass)
 
     override val coroutineContext: CoroutineContext
-        get() = SupervisorJob()
+        get() = Job() + Dispatchers.IO
 
     private val threadCounter = AtomicInteger(0)
 
@@ -59,12 +59,19 @@ internal object EAmusementGameServer : CoroutineScope {
                         .addLast("apiHandler", APIRequestHandler)
                 }
             })
-        val channelFuture = bootstrap.bind(withContext(Dispatchers.IO) {
-            InetAddress.getByName(host)
-        }, port).syncUninterruptibly().channel()
+        val channelFuture = bootstrap.bind(
+            withContext(Dispatchers.IO) { InetAddress.getByName(host) }, port
+        ).syncUninterruptibly().channel()
 
         LOGGER.info("Server started at http://${config.server.host}:$port")
         startupTime = System.currentTimeMillis()
-        channelFuture.closeFuture().syncUninterruptibly()
+        runInterruptible(coroutineContext) { channelFuture.closeFuture().await() }
+    }
+
+    fun stop() {
+        LOGGER.info("Stopping E-Amusement game server...")
+        bootstrap.group().shutdownGracefully()
+        coroutineContext.cancel()
+        LOGGER.info("E-Amusement game server stopped.")
     }
 }

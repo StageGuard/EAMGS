@@ -23,8 +23,9 @@ import kotlin.coroutines.CoroutineContext
 internal object OnlinePlayersMonitor : CoroutineScope {
     private val LOGGER = LoggerFactory.getLogger(OnlinePlayersMonitor::class.java)
     override val coroutineContext: CoroutineContext
-        get() = SupervisorJob() + EAmusementGameServer.coroutineContext +
+        get() = Job(EAmusementGameServer.coroutineContext.job) +
             CoroutineExceptionHandler { _, t -> LOGGER.warn("Exception in OnlinePlayersMonitor", t) }
+    private val opSupervisorJob = SupervisorJob(coroutineContext.job)
     private val accessLock = Mutex(false)
 
     private val gameCode by lazy {
@@ -37,7 +38,7 @@ internal object OnlinePlayersMonitor : CoroutineScope {
     private val countRecord: MutableMap<String, MutableList<Int>> = mutableMapOf()
     private val playerRecord: MutableMap<String, HashMap<String, LocalDateTime>> = mutableMapOf()
 
-    fun inquire(code: String, tag: String) = launch(coroutineContext) j@ {
+    fun inquire(code: String, tag: String) = launch(opSupervisorJob) j@ {
         val gameId = gameCode[code] ?: return@j
         accessLock.withLock {
             val players = playerRecord.getValue(gameId)
@@ -72,7 +73,7 @@ internal object OnlinePlayersMonitor : CoroutineScope {
             LocalDateTime.of(LocalDate.now(), LocalTime.now().run { LocalTime.of(hour + 1, 0) }),
             ChronoUnit.MILLIS)
 
-        launch { tickerFlow(timeDiffOfNextHour).collect {
+        launch(coroutineContext) { tickerFlow(timeDiffOfNextHour).collect {
             accessLock.withLock {
                 playerRecord.forEach { (gameId, record) ->
                     var playersEntranceWithin5Minute = 0

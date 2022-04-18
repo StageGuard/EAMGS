@@ -11,14 +11,13 @@ import me.stageguard.eamuse.server.EAmusementGameServer
 import me.stageguard.eamuse.server.RouteModel
 import org.ktorm.entity.count
 import org.ktorm.entity.sequenceOf
-import java.time.LocalDateTime
-import java.time.ZoneOffset
 
 @kotlinx.serialization.Serializable
 internal data class Status(
     val games: Map<String, GameDTO>,
     val profileCount: Int,
     val startupEpochSecond: Long,
+    val dbStatus: Boolean,
     val result: Int = 0 // identifier
 )
 
@@ -72,7 +71,7 @@ internal object ServerStatus : AbstractAPIHandler("status") {
     override suspend fun handle(request: FullHttpRequest): String {
         return try {
             val profileCount = Database.query { db -> db.sequenceOf(EAmuseCardTable).count() } ?: -1
-            json.encodeToString(Status(games, profileCount, EAmusementGameServer.startupTime))
+            json.encodeToString(Status(games, profileCount, EAmusementGameServer.startupTime, Database.connected))
         } catch (ex: Exception) {
             apiError("ERROR:$ex")
         }
