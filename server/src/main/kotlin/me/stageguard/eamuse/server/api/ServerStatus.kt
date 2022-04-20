@@ -29,41 +29,15 @@ internal data class GameDTO(
 )
 
 
-internal object ServerStatus : AbstractAPIHandler("status") {
-    // some api handlers which might have custom fields
-    private const val INFO_PATH = "info"
-    private const val RANKING_PATH = "ranking"
-    private const val PROFILE_PATH = "profile"
-    private const val CUSTOMIZE_GET_PATH = "custom/get"
-    private const val CUSTOMIZE_UPDATE_PATH = "custom/update"
-
+internal object ServerStatus : AbstractAPIHandler("server_status", "status") {
     private val games by lazy {
         val games = mutableMapOf<String, GameDTO>()
         EAmPluginLoader.plugins.filterNot { it.id == "common" }.forEach { p ->
             val supported = p.profileChecker ?.javaClass
                 ?.getAnnotation(RouteModel::class.java) ?.name ?.toList() ?: listOf()
 
-            val definedApis = p.apiHandlers ?.map { it.path } ?: listOf()
-            val api = mutableMapOf<String, String>()
-
-            definedApis.forEach a@ { a ->
-                if (a.contains("${p.id}/$INFO_PATH")) {
-                    api["info"] = a; return@a
-                }
-                if (a.contains("${p.id}/$RANKING_PATH")) {
-                    api["ranking"] = a; return@a
-                }
-                if (a.contains("${p.id}/$PROFILE_PATH")) {
-                    api["profile"] = a; return@a
-                }
-                if (a.contains("${p.id}/$CUSTOMIZE_GET_PATH")) {
-                    api["customize_get"] = a; return@a
-                }
-                if (a.contains("${p.id}/$CUSTOMIZE_UPDATE_PATH")) {
-                    api["customize_update"] = a; return@a
-                }
-            }
-            games[p.id] = GameDTO(p.name, supported, api)
+            val definedApi = p.apiHandlers ?.associate { it.name to it.path } ?: mapOf()
+            games[p.id] = GameDTO(p.name, supported, definedApi)
         }
         games
     }

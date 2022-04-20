@@ -22,7 +22,7 @@ data class VolForceDTO(
     val tailScoreForce: Double,
 )
 
-object QueryVolForce : SDVX6APIHandler("vf") {
+object QueryVolForce : SDVX6APIHandler("query_vol_force","vf") {
     override suspend fun handle0(refId: String, request: FullHttpRequest): String {
         val recordForce = Database.query { db -> db.sequenceOf(PlayRecordTable)
             .filter { it.refId eq refId }

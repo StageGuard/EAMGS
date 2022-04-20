@@ -26,7 +26,7 @@ data class ProfileDTO (
     val crewId: Int
 )
 
-object QueryProfile : SDVX6APIHandler("profile") {
+object QueryProfile : SDVX6APIHandler("profile","profile") {
     override suspend fun handle0(refId: String, request: FullHttpRequest): String {
         val profile = Database.query { db -> db.sequenceOf(UserProfileTable).find { it.refId eq refId } }
             ?: return apiError("USER_NOT_FOUND")

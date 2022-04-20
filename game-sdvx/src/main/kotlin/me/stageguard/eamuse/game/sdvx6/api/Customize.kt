@@ -28,7 +28,7 @@ data class CustomizeData(
 )
 
 class Customize {
-    object Get : SDVX6APIHandler("custom/get") {
+    object Get : SDVX6APIHandler("customize_get","custom/get") {
         override suspend fun handle0(refId: String, request: FullHttpRequest): String {
             val profile = Database.query { db -> db.sequenceOf(UserProfileTable).find { it.refId eq refId } }
                 ?: return apiError("USER_NOT_FOUND")
@@ -40,7 +40,7 @@ class Customize {
         }
     }
 
-    object Update : SDVX6APIHandler("custom/update") {
+    object Update : SDVX6APIHandler("customize_update", "custom/update") {
         override suspend fun handle0(refId: String, request: FullHttpRequest): String {
             val data = try {
                 json.decodeFromString<CustomizeData>(request.content().toString(Charset.defaultCharset()))

@@ -7,6 +7,6 @@ interface APIHandler {
     suspend fun handle(request: FullHttpRequest): String
 }
 
-abstract class AbstractAPIHandler(val path: String) : APIHandler {
+abstract class AbstractAPIHandler(val name: String, val path: String) : APIHandler {
     @Language("JSON") protected fun apiError(reason: String) = """{"result": -1, "message": "$reason"}"""
 }

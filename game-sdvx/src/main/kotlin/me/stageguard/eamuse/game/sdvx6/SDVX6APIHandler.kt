@@ -9,13 +9,12 @@ import me.stageguard.eamuse.game.sdvx6.data.CardIdDTO
 import me.stageguard.eamuse.json
 import me.stageguard.eamuse.server.AbstractAPIHandler
 import me.stageguard.eamuse.uriParameters
-import org.intellij.lang.annotations.Language
 import org.ktorm.dsl.eq
 import org.ktorm.entity.find
 import org.ktorm.entity.sequenceOf
 import java.nio.charset.Charset
 
-abstract class SDVX6APIHandler(path: String) : AbstractAPIHandler("${SDVX6.id}/$path") {
+abstract class SDVX6APIHandler(name: String, path: String) : AbstractAPIHandler(name, "${SDVX6.id}/$path") {
     abstract suspend fun handle0(refId: String, request: FullHttpRequest): String
 
     final override suspend fun handle(request: FullHttpRequest): String {

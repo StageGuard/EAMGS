@@ -86,7 +86,7 @@ internal object OnlinePlayersMonitor : CoroutineScope {
                     }
                     countRecord.getValue(gameId).apply {
                         add(playersEntranceWithin5Minute)
-                        if (size > 24) removeFirst()
+                        if (size > 12) removeFirst()
                     }
                 }
                 LOGGER.info("status of previous hour: { ${countRecord.map { "${it.key}: ${it.value}}" }.joinToString(", ")} }")
@@ -101,7 +101,7 @@ data class OnlinePlayersRecord(
     val result: Int = 0 // identifier
 )
 
-internal object OnlinePlayers : AbstractAPIHandler("online") {
+internal object OnlinePlayers : AbstractAPIHandler("online_players", "online") {
     override suspend fun handle(request: FullHttpRequest): String {
         val gameId = request.uriParameters["game"]
             ?: return apiError("INVALID_REQUEST:game")
