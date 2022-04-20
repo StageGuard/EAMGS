@@ -13,12 +13,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { provide, ref } from 'vue'
+import config from '@/config'
+import { ServerStatus } from '@/props/server-status'
+import { GameInfo } from '@/props/game-info'
 
 const contentWidth = 1200
 const sidePadding = ref<string>('40px')
 
-function __onWindowResize (): any {
+function __onWindowResize () {
   if (document.body.clientWidth > contentWidth) {
     sidePadding.value = `${Math.max((document.body.clientWidth - contentWidth) / 2, 40)}px`
   } else {
@@ -28,6 +31,68 @@ function __onWindowResize (): any {
 
 window.onresize = __onWindowResize
 __onWindowResize()
+
+interface _ServerStatus { $delegate: ServerStatus }
+interface _GameInfo { $delegate: GameInfo }
+
+const status = ref<_ServerStatus>({
+  $delegate: {
+    online: null,
+    dbStatus: null,
+    startupEpochSecond: null,
+    profileCount: null
+  }
+})
+const games = ref<Map<string, _GameInfo>>(new Map())
+
+fetch(`${config.host}/status`).then(r => r.json()).then(r => {
+  status.value.$delegate.online = true
+  if (r.result !== -1) {
+    status.value.$delegate.dbStatus = r.dbStatus
+    status.value.$delegate.startupEpochSecond = r.startupEpochSecond
+    status.value.$delegate.profileCount = r.profileCount
+
+    for (const gid in r.games) {
+      games.value.set(gid, {
+        $delegate: {
+          id: gid,
+          name: r.games[gid].name,
+          supportedVersions: r.games[gid].supportedVersions,
+          api: {
+            info: r.games[gid].api.info,
+            ranking: r.games[gid].api.ranking,
+            profile: r.games[gid].api.profile,
+            customize: {
+              get: r.games[gid].api.customize_get,
+              update: r.games[gid].api.customize_update
+            }
+          },
+          otherApi: (() => {
+            const api = r.games[gid].api
+            const commonApi = ['info', 'ranking', 'profile', 'customize_get', 'customize_update']
+            const oa = new Map<string, string>()
+            for (const k in api) {
+              if (commonApi.indexOf(k) === -1) oa.set(k, api[k])
+            }
+            return oa
+          })()
+        }
+      })
+    }
+  } else {
+    console.log('Failed to fetch server status: ' + r.message) // TODO: show error
+    status.value.$delegate.startupEpochSecond = -1
+    status.value.$delegate.profileCount = -1
+  }
+}).catch(reason => {
+  status.value.$delegate.online = false
+  status.value.$delegate.dbStatus = false
+  status.value.$delegate.startupEpochSecond = -1
+  status.value.$delegate.profileCount = -1
+  console.log(reason) // TODO: show error
+})
+provide<_ServerStatus>('server-status', status.value)
+provide('games', games.value)
 </script>
 
 <style>
@@ -81,7 +146,7 @@ nav a:hover {
 }
 
 /*noinspection ALL*/
-nav a.router-link-exact-active {
+nav .router-link-exact-active {
   font-weight: bold;
   color: white;
   background-color: rgb(20, 85, 254);

@@ -6,43 +6,83 @@
         <div class="status-item-name">Status</div>
         <div class="status-item-value">
           <div class="status-lamp" :style="{
-            'background-color': status.online !== null ? (status.online ? 'limegreen' : 'darkgray') : 'transparent'
-          }"/>{{ status.online !== null ? (status.online ? "Online" : "Offline") : "Fetching..." }}
+            'background-color': status.$injected.online !== null ? (status.$injected.online ? 'limegreen' : 'darkgray') : 'transparent'
+          }"/>{{ status.online }}
+        </div>
+      </div>
+      <div class="status-item-row">
+        <div class="status-item-name">Database</div>
+        <div class="status-item-value">
+          <div class="status-lamp" :style="{
+            'background-color': status.$injected.dbStatus !== null ? (status.$injected.dbStatus ? 'limegreen' : 'darkgray') : 'transparent'
+          }"/>{{ status.dbStatus }}
         </div>
       </div>
       <div class="status-item-row">
         <div class="status-item-name">Uptime</div>
-        <div class="status-item-value">{{
-            status.startupEpochSecond ? (status.startupEpochSecond !== -1 ? startupFormatted : "-") : "Fetching..."
-          }}</div>
+        <div class="status-item-value">{{ status.startupTime }}</div>
       </div>
       <div class="status-item-row">
         <div class="status-item-name">Profiles</div>
-        <div class="status-item-value">{{ status.profileCount ? (status.profileCount !== -1 ? status.profileCount : "-") : "Fetching..." }}</div>
+        <div class="status-item-value">{{ status.profileCount }}</div>
       </div>
+    </div>
+    <h1><font-awesome-icon icon="user"/><i class="space20px"/>Online Players</h1>
+    <div id="online-players-card-row" style="display: flex">
+      <online-player-graph v-for="g in gameInfo"  v-bind:key="g.id" :id="g.id" :name="g.name" style="margin: 15px"/>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faServer } from '@fortawesome/free-solid-svg-icons'
-import { ref } from "vue";
-import config from "../config"
-import {setup} from "vue-class-component";
+import { faServer, faUser } from '@fortawesome/free-solid-svg-icons'
+import { computed, inject, reactive, ref } from 'vue'
+import { ServerStatus } from '@/props/server-status'
+import { GameInfo } from '@/props/game-info'
+import OnlinePlayerGraph from '@/components/OnlinePlayersGraph.vue'
 
 library.add(faServer)
+library.add(faUser)
 
-const status = ref<{
-  online: Boolean | null,
-  startupEpochSecond: number | null,
-  profileCount: number | null
-}>({ online: null, startupEpochSecond: null, profileCount: null })
-const startupFormatted = ref<string>("")
-const games = ref()
+interface _ServerStatus { $delegate: ServerStatus }
+interface _GameInfo { $delegate: GameInfo }
 
-function calculateTimeDifference(startEpochMilli: number) {
-  const now = new Date().getTime() / 1000
+const _status = inject<_ServerStatus>('server-status')
+if (_status === undefined) throw new Error('server-status is not injected.')
+
+const status = reactive({
+  $injected: _status.$delegate,
+  online: computed<string>(() => {
+    return _status.$delegate.online !== null ? (_status.$delegate.online ? 'Online' : 'Offline') : 'Fetching...'
+  }),
+  dbStatus: computed<string>(() => {
+    return _status.$delegate.dbStatus !== null ? (_status.$delegate.dbStatus ? 'Online' : 'Offline') : 'Fetching...'
+  }),
+  startupTime: (() => {
+    const now = ref<number>(new Date().getTime() / 1000)
+    if (_status.$delegate.startupEpochSecond !== -1) {
+      setInterval(() => { now.value = new Date().getTime() / 1000 }, 1000)
+    }
+    return computed<string>(() => {
+      const sec = _status.$delegate.startupEpochSecond
+      return sec ? (sec !== -1 ? calculateTimeDifference(now.value, sec) : '-') : 'Fetching...'
+    })
+  })(),
+  profileCount: computed(() => {
+    return _status.$delegate.profileCount ? (_status.$delegate.profileCount !== -1 ? _status.$delegate.profileCount : '-') : 'Fetching...'
+  })
+})
+
+const games = inject<Map<string, _GameInfo>>('games')
+if (games === undefined) throw new Error('games is not injected.')
+const gameInfo = computed<{ id: string, name: string }[]>(() => {
+  const r: { id: string, name: string }[] = []
+  games.forEach((v: _GameInfo) => r.push({ id: v.$delegate.id, name: v.$delegate.name }))
+  return r
+})
+
+function calculateTimeDifference (now: number, startEpochMilli: number) {
   const diff = now - startEpochMilli / 1000
   const days = Math.floor(diff / 86400)
   const hours = Math.floor((diff % 86400) / 3600)
@@ -50,26 +90,6 @@ function calculateTimeDifference(startEpochMilli: number) {
   const seconds = Math.floor(diff % 60)
   return `${days}d ${hours}h ${minutes}m ${seconds}s`
 }
-
-fetch(`${config.host}/status`).then(r => r.json()).then(r => {
-  games.value = r.games
-  status.value.online = true
-  if (r.result !== -1) {
-    status.value.startupEpochSecond = r.startupEpochSecond;
-    status.value.profileCount = r.profileCount;
-    startupFormatted.value = calculateTimeDifference(status.value.startupEpochSecond!)
-    setInterval(() => startupFormatted.value = calculateTimeDifference(status.value.startupEpochSecond!), 1000)
-  } else {
-    status.value.startupEpochSecond = -1
-    status.value.profileCount = -1
-  }
-}).catch(reason => {
-  status.value.online = false
-  status.value.startupEpochSecond = -1
-  status.value.profileCount = -1
-  console.log(reason)
-})
-
 </script>
 
 <style>
@@ -85,18 +105,19 @@ fetch(`${config.host}/status`).then(r => r.json()).then(r => {
 #status-card {
   background-color: white;
   border-radius: 15px;
-  box-shadow: darkgray 0 0 10px 0;
+  box-shadow: lightgray 0 0 5px 0;
   border-style: none;
   width: 400px;
   height: fit-content;
   padding: 20px;
   margin-top: 40px;
   margin-left: 20px;
+  margin-bottom: 40px;
   transition: all 0.2s ease-in-out;
 }
 
 #status-card:hover {
-  box-shadow: darkgray 0 0 25px 0;
+  box-shadow: darkgray 0 0 12px 0;
   transition: all 0.2s ease-in-out;
 }
 
@@ -129,5 +150,10 @@ fetch(`${config.host}/status`).then(r => r.json()).then(r => {
   margin-right: 5px;
   transform: translate(0, -10%);
   transition: all 0.2s ease-in-out;
+}
+
+#online-players-card-row {
+  margin-left: 5px;
+  margin-right: 5px;
 }
 </style>

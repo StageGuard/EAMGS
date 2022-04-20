@@ -5,7 +5,8 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'dashboard',
-    component: DashboardView
+    component: DashboardView,
+    props: true
   },
   {
     path: '/profile',
@@ -19,9 +20,6 @@ const routes: Array<RouteRecordRaw> = [
   }
 ]
 
-const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  routes
-})
+const router = createRouter({ history: createWebHistory(process.env.BASE_URL), routes })
 
 export default router
