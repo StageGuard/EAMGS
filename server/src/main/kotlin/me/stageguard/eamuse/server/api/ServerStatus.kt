@@ -36,6 +36,7 @@ internal data class Status(
     val startupEpochSecond: Long,
     val dbStatus: Boolean,
     val serverUrl: String,
+    val pcbIdRequired: Boolean,
     val result: Int = 0, // identifier
 )
 
@@ -68,7 +69,8 @@ internal object ServerStatus : AbstractAPIHandler("server_status", "status") {
                 profileCount,
                 startupEpochSecond = EAmusementGameServer.startupTime,
                 dbStatus = Database.connected,
-                serverUrl = config.server.globalDomainName + ":" + config.server.globalPort
+                serverUrl = config.server.globalDomainName + ":" + config.server.globalPort,
+                pcbIdRequired = config.server.pcbIdCheck
             ))
         } catch (ex: Exception) {
             apiError("ERROR:$ex")

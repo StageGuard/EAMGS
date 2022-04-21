@@ -46,9 +46,10 @@ val json = Json {
 
 val config = run {
     val file = File("config.json")
+    val configText = file.readText()
     try {
         if (file.exists() && !file.isDirectory) {
-            json.decodeFromString(file.readText())
+            json.decodeFromString(configText)
         } else {
             ApplicationConfiguration().also {
                 file.createNewFile()
@@ -56,7 +57,9 @@ val config = run {
             }
         }
     } catch (_: Exception) {
-        Logger.getAnonymousLogger().warning("Failed to load config.json, reverting to default.")
+        Logger.getAnonymousLogger().warning(
+            "Failed to load config.json, reverting to default.\n Original config content: \n${configText}"
+        )
         file.delete()
         ApplicationConfiguration().also {
             file.createNewFile()

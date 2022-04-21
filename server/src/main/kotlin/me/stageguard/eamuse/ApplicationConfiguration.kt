@@ -34,6 +34,7 @@ data class ApplicationConfiguration(
         //other configurations
         val isMaintenanceMode: Boolean = false,
         val isPaseliEnabled: Boolean = true,
+        val pcbIdCheck: Boolean = true,
     )
 
     @Serializable

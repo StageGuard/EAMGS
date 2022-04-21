@@ -38,7 +38,7 @@ internal object PCBTracker : RouterModule("pcbtracker") {
     @RouteModel
     object Alive : RouteHandler("alive") {
         override suspend fun handle(packet: EAGRequestPacket): BaseXMLBuilder {
-            if (Database.query { db ->
+            if (config.server.pcbIdCheck && Database.query { db ->
                     db.sequenceOf(PcbIdTable).find { it.pcbId eq packet.pcbId }?.run { true } == true
                 } != true)
                 throw InvalidRequestException(HttpResponseStatus.BAD_REQUEST)
