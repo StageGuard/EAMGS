@@ -201,9 +201,17 @@ code {
   background-color: rgb(144, 202, 249);
   padding: 5px;
   border-width: 1px;
-  border-style: inset;
-  border-color: #1ec3ff;
+  border-style: solid;
+  border-color: #1455fe;
   border-radius: 6px;
+}
+
+a {
+  color: rgb(20, 114, 254);
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-color: rgb(144, 202, 249);
+  text-decoration-thickness: 2px;
 }
 
 </style>

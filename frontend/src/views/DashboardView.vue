@@ -78,9 +78,16 @@
         </ul>
       </div>
       <div class="info-line">
-        <h3 style="display: inline">PCB ID : </h3>
-        <span class="space20px"></span>
-
+        <h3 style="display: inline; margin-right: 10px">PCB Id : </h3>
+        <h3 style="display: inline; color: orangered" v-if="status.$injected.pcbIdRequired">Required</h3>
+        <h3 style="display: inline; color: forestgreen" v-else>Not specified</h3>
+        <span style="display: block; margin-top: 20px; margin-left: 20px; line-height: 25px"
+              v-if="status.$injected.pcbIdRequired">You need to apply for a pcb id to join the server, <a
+          @click="handleApplyForPcbId()" href="javascript:void(0);">
+          <font-awesome-icon icon="link" style="margin-right: 2px"/>click here</a> to apply for one.<br/>Note that you still need apply for a pcb id if the server switched to <span
+          style="color: orangered">Required</span> state from <span
+          style="color: forestgreen">Not specified</span>.</span>
+        <span style="display: block; margin-top: 20px; margin-left: 20px;" v-else>You don't need to fill a specify pcb id in spice config, just join the server and play.</span>
       </div>
     </div>
   </div>
@@ -89,13 +96,13 @@
 
 <script setup lang="ts">
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faInfoCircle, faServer, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faInfoCircle, faLink, faServer, faUser } from '@fortawesome/free-solid-svg-icons'
 import { computed, inject, reactive, ref } from 'vue'
 import { ServerStatus } from '@/props/server-status'
 import { GameInfo } from '@/props/game-info'
 import OnlinePlayerGraph from '@/components/OnlinePlayersGraph.vue'
 
-library.add(faServer, faUser, faInfoCircle)
+library.add(faServer, faUser, faInfoCircle, faLink)
 
 interface _ServerStatus {
   $delegate: ServerStatus
@@ -142,6 +149,10 @@ const gameInfo = (() => {
     return r
   })
 })()
+
+function handleApplyForPcbId () {
+  console.log('123')
+}
 
 function calculateTimeDifference (now: number, startEpochMilli: number) {
   const diff = now - startEpochMilli / 1000
