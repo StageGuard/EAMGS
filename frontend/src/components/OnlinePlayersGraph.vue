@@ -103,6 +103,11 @@ onMounted(() => {
           }
         }
       },
+      interaction: {
+        mode: 'nearest',
+        axis: 'x',
+        intersect: false
+      },
       animations: {
         x: {
           type: 'number',
@@ -182,7 +187,7 @@ function createLineGradient (chart: Chart, primaryColor = 'rgb(20,172,254)'): Ca
   box-shadow: lightgray 0 0 5px 0;
   border-style: none;
   width: 500px;
-  height: 240px;
+  height: 225px;
   padding: 20px;
   transition: all 0.2s ease-in-out;
 }
