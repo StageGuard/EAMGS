@@ -52,7 +52,7 @@ internal object OnlinePlayersMonitor : CoroutineScope {
     }
 
     private val countRecord: MutableMap<String, MutableList<Int>> = mutableMapOf()
-    private val playerRecord: MutableMap<String, HashMap<String, LocalDateTime>> = mutableMapOf()
+    private val playerRecord: MutableMap<String, MutableMap<String, LocalDateTime>> = mutableMapOf()
 
     fun inquire(code: String, tag: String) = launch(opSupervisorJob) j@{
         val gameId = gameCode[code] ?: return@j
@@ -95,7 +95,7 @@ internal object OnlinePlayersMonitor : CoroutineScope {
                     playerRecord.forEach { (gameId, record) ->
                         var playersEntranceWithin5Minute = 0
                         record.forEach { (tag, time) ->
-                            if (time.until(LocalDateTime.now(), ChronoUnit.MILLIS) < 30 * 1000) {
+                            if (time.until(LocalDateTime.now(), ChronoUnit.MILLIS) < 500) {
                                 playersEntranceWithin5Minute++
                             } else {
                                 record.remove(tag)

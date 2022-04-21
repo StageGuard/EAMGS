@@ -16,7 +16,6 @@
 
 package me.stageguard.eamuse.server.handler
 
-import com.buttongames.butterflycore.xml.kbinxml.prettyString
 import io.netty.channel.ChannelHandler
 import io.netty.channel.ChannelHandlerContext
 import io.netty.channel.SimpleChannelInboundHandler
@@ -90,8 +89,7 @@ internal object EAmGameRequestHandler : SimpleChannelInboundHandler<EAGRequestPa
                                 remoteAddress().toString().drop(1)
                             } at 0x${id()}"
                         }
-                    }.\n" +
-                    msg.content.ownerDocument.prettyString()
+                    }"
         )
         ctx.writeAndFlush(DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK))
         ctx.close()
