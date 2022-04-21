@@ -1,6 +1,25 @@
+/*
+ * Copyright (c) 2022 StageGuard
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package me.stageguard.eamuse.game.sdvx6.api
 
 import io.netty.handler.codec.http.FullHttpRequest
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.SerializationException
+import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import me.stageguard.eamuse.database.Database
 import me.stageguard.eamuse.game.sdvx6.SDVX6APIHandler
@@ -9,9 +28,6 @@ import me.stageguard.eamuse.json
 import org.ktorm.dsl.eq
 import org.ktorm.entity.find
 import org.ktorm.entity.sequenceOf
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.SerializationException
-import kotlinx.serialization.decodeFromString
 import java.nio.charset.Charset
 
 @Serializable
@@ -28,7 +44,7 @@ data class CustomizeData(
 )
 
 class Customize {
-    object Get : SDVX6APIHandler("customize_get","custom/get") {
+    object Get : SDVX6APIHandler("customize_get", "custom/get") {
         override suspend fun handle0(refId: String, request: FullHttpRequest): String {
             val profile = Database.query { db -> db.sequenceOf(UserProfileTable).find { it.refId eq refId } }
                 ?: return apiError("USER_NOT_FOUND")
@@ -44,7 +60,9 @@ class Customize {
         override suspend fun handle0(refId: String, request: FullHttpRequest): String {
             val data = try {
                 json.decodeFromString<CustomizeData>(request.content().toString(Charset.defaultCharset()))
-            } catch (ex: SerializationException) { return apiError("ILLEGAL_PARAM") }
+            } catch (ex: SerializationException) {
+                return apiError("ILLEGAL_PARAM")
+            }
             require(data.stamp.size == 4) { return apiError("ILLEGAL_PARAM") }
 
             val profile = Database.query { db -> db.sequenceOf(UserProfileTable).find { it.refId eq refId } }

@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2022 StageGuard
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package me.stageguard.eamuse.server.api
 
 import io.netty.handler.codec.http.FullHttpRequest
@@ -6,8 +22,8 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.encodeToString
 import me.stageguard.eamuse.json
 import me.stageguard.eamuse.plugin.EAmPluginLoader
 import me.stageguard.eamuse.server.AbstractAPIHandler
@@ -24,7 +40,7 @@ internal object OnlinePlayersMonitor : CoroutineScope {
     private val LOGGER = LoggerFactory.getLogger(OnlinePlayersMonitor::class.java)
     override val coroutineContext: CoroutineContext
         get() = Job(EAmusementGameServer.coroutineContext.job) +
-            CoroutineExceptionHandler { _, t -> LOGGER.warn("Exception in OnlinePlayersMonitor", t) }
+                CoroutineExceptionHandler { _, t -> LOGGER.warn("Exception in OnlinePlayersMonitor", t) }
     private val opSupervisorJob = SupervisorJob(coroutineContext.job)
     private val accessLock = Mutex(false)
 
@@ -38,7 +54,7 @@ internal object OnlinePlayersMonitor : CoroutineScope {
     private val countRecord: MutableMap<String, MutableList<Int>> = mutableMapOf()
     private val playerRecord: MutableMap<String, HashMap<String, LocalDateTime>> = mutableMapOf()
 
-    fun inquire(code: String, tag: String) = launch(opSupervisorJob) j@ {
+    fun inquire(code: String, tag: String) = launch(opSupervisorJob) j@{
         val gameId = gameCode[code] ?: return@j
         accessLock.withLock {
             val players = playerRecord.getValue(gameId)
@@ -49,7 +65,7 @@ internal object OnlinePlayersMonitor : CoroutineScope {
                 if (record.isEmpty()) {
                     record.add(1)
                 } else {
-                    record[record.lastIndex] ++
+                    record[record.lastIndex]++
                 }
             }
             players[tag] = LocalDateTime.now()
@@ -73,32 +89,36 @@ internal object OnlinePlayersMonitor : CoroutineScope {
             LocalDateTime.of(LocalDate.now(), LocalTime.now().run { LocalTime.of(hour + 1, 0) }),
             ChronoUnit.MILLIS)
 
-        launch(coroutineContext) { tickerFlow(timeDiffOfNextHour).collect {
-            accessLock.withLock {
-                playerRecord.forEach { (gameId, record) ->
-                    var playersEntranceWithin5Minute = 0
-                    record.forEach { (tag, time) ->
-                        if (time.until(LocalDateTime.now(), ChronoUnit.MILLIS) < 30 * 1000) {
-                            playersEntranceWithin5Minute ++
-                        } else {
-                            record.remove(tag)
+        launch(coroutineContext) {
+            tickerFlow(timeDiffOfNextHour).collect {
+                accessLock.withLock {
+                    playerRecord.forEach { (gameId, record) ->
+                        var playersEntranceWithin5Minute = 0
+                        record.forEach { (tag, time) ->
+                            if (time.until(LocalDateTime.now(), ChronoUnit.MILLIS) < 30 * 1000) {
+                                playersEntranceWithin5Minute++
+                            } else {
+                                record.remove(tag)
+                            }
+                        }
+                        countRecord.getValue(gameId).apply {
+                            add(playersEntranceWithin5Minute)
+                            if (size > 12) removeFirst()
                         }
                     }
-                    countRecord.getValue(gameId).apply {
-                        add(playersEntranceWithin5Minute)
-                        if (size > 12) removeFirst()
-                    }
+                    LOGGER.info("status of previous hour: { ${
+                        countRecord.map { "${it.key}: ${it.value}}" }.joinToString(", ")
+                    } }")
                 }
-                LOGGER.info("status of previous hour: { ${countRecord.map { "${it.key}: ${it.value}}" }.joinToString(", ")} }")
             }
-        } }
+        }
     }
 }
 
 @Serializable
 data class OnlinePlayersRecord(
     val record: List<Int>,
-    val result: Int = 0 // identifier
+    val result: Int = 0, // identifier
 )
 
 internal object OnlinePlayers : AbstractAPIHandler("online_players", "online") {

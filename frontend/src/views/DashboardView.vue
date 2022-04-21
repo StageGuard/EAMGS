@@ -1,13 +1,33 @@
+<!--
+  - Copyright (c) 2022 StageGuard
+  - This program is free software: you can redistribute it and/or modify
+  - it under the terms of the GNU Affero General Public License as published
+  - by the Free Software Foundation, either version 3 of the License, or
+  - (at your option) any later version.
+  -
+  - This program is distributed in the hope that it will be useful,
+  - but WITHOUT ANY WARRANTY; without even the implied warranty of
+  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  - GNU Affero General Public License for more details.
+  -
+  - You should have received a copy of the GNU Affero General Public License
+  - along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
 <template>
   <div class="home">
-    <h1><font-awesome-icon icon="server"/><i class="space20px"/>Server Status</h1>
+    <h1>
+      <font-awesome-icon icon="server"/>
+      <i class="space20px"/>Server Status
+    </h1>
     <div id="status-card">
       <div class="status-item-row">
         <div class="status-item-name">Status</div>
         <div class="status-item-value">
           <div class="status-lamp" :style="{
             'background-color': status.$injected.online !== null ? (status.$injected.online ? 'limegreen' : 'darkgray') : 'transparent'
-          }"/>{{ status.online }}
+          }"/>
+          {{ status.online }}
         </div>
       </div>
       <div class="status-item-row">
@@ -15,7 +35,8 @@
         <div class="status-item-value">
           <div class="status-lamp" :style="{
             'background-color': status.$injected.dbStatus !== null ? (status.$injected.dbStatus ? 'limegreen' : 'darkgray') : 'transparent'
-          }"/>{{ status.dbStatus }}
+          }"/>
+          {{ status.dbStatus }}
         </div>
       </div>
       <div class="status-item-row">
@@ -27,9 +48,12 @@
         <div class="status-item-value">{{ status.profileCount }}</div>
       </div>
     </div>
-    <h1><font-awesome-icon icon="user"/><i class="space20px"/>Online Players</h1>
+    <h1>
+      <font-awesome-icon icon="user"/>
+      <i class="space20px"/>Online Players
+    </h1>
     <div id="online-players-card-row" style="display: flex">
-      <online-player-graph v-for="g in gameInfo"  v-bind:key="g.id" :id="g.id" :name="g.name" style="margin: 15px"/>
+      <online-player-graph v-for="g in gameInfo" v-bind:key="g.id" :id="g.id" :name="g.name" style="margin: 15px"/>
     </div>
   </div>
 </template>
@@ -45,8 +69,13 @@ import OnlinePlayerGraph from '@/components/OnlinePlayersGraph.vue'
 library.add(faServer)
 library.add(faUser)
 
-interface _ServerStatus { $delegate: ServerStatus }
-interface _GameInfo { $delegate: GameInfo }
+interface _ServerStatus {
+  $delegate: ServerStatus
+}
+
+interface _GameInfo {
+  $delegate: GameInfo
+}
 
 const _status = inject<_ServerStatus>('server-status')
 if (_status === undefined) throw new Error('server-status is not injected.')
@@ -62,7 +91,9 @@ const status = reactive({
   startupTime: (() => {
     const now = ref<number>(new Date().getTime() / 1000)
     if (_status.$delegate.startupEpochSecond !== -1) {
-      setInterval(() => { now.value = new Date().getTime() / 1000 }, 1000)
+      setInterval(() => {
+        now.value = new Date().getTime() / 1000
+      }, 1000)
     }
     return computed<string>(() => {
       const sec = _status.$delegate.startupEpochSecond

@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2022 StageGuard
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package me.stageguard.eamuse.plugin
 
 import me.stageguard.eamuse.database.Database
@@ -17,7 +33,7 @@ internal object EAmPluginLoader {
     val plugins get() = loadedPlugins.values
 
     fun loadExternalPlugins() {
-        val jars = path.flatMap { it.listFiles { f -> f.isFile && f.extension == "jar" } ?.toList() ?: listOf() }
+        val jars = path.flatMap { it.listFiles { f -> f.isFile && f.extension == "jar" }?.toList() ?: listOf() }
 
         jars.forEach {
             val classLoader = URLClassLoader(
@@ -41,9 +57,9 @@ internal object EAmPluginLoader {
 
     internal fun initializePlugin(plugin: EAmPlugin) {
         LOGGER.info("Loading plugin ${plugin.name}...")
-        plugin.tables ?.forEach { Database.addTable(it) }
-        plugin.routerModules ?.forEach { EAmGameRequestHandler.addRouter(it) }
-        plugin.profileChecker ?.let { CardManager.addChecker(it) }
-        plugin.apiHandlers ?.forEach { APIRequestHandler.addHandler(it) }
+        plugin.tables?.forEach { Database.addTable(it) }
+        plugin.routerModules?.forEach { EAmGameRequestHandler.addRouter(it) }
+        plugin.profileChecker?.let { CardManager.addChecker(it) }
+        plugin.apiHandlers?.forEach { APIRequestHandler.addHandler(it) }
     }
 }

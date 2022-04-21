@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2022 StageGuard
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 @file:Suppress("DuplicatedCode")
 
 package me.stageguard.eamuse.game.iidx.router
@@ -36,24 +52,24 @@ object Common : IIDXPCRouteHandler("common") {
             .e("ir").a("beat", "3").up()
             .e("cm").a("compo", "cm_ultimate").a("folder", "cm_ultimate").a("id", "0").up()
             .e("tdj_cm")
-                .e("cm").a("filename", "cm_bn_001").a("id", "0").up()
-                .e("cm").a("filename", "cm_bn_002").a("id", "1").up()
-                .e("cm").a("filename", "event_bn_001").a("id", "2").up()
-                .e("cm").a("filename", "event_bn_004").a("id", "3").up()
-                .e("cm").a("filename", "event_bn_006").a("id", "4").up()
-                .e("cm").a("filename", "fipb_001").a("id", "5").up()
-                .e("cm").a("filename", "year_bn_004").a("id", "6").up()
-                .e("cm").a("filename", "year_bn_005").a("id", "7").up()
-                .e("cm").a("filename", "year_bn_006_2").a("id", "8").up()
-                .e("cm").a("filename", "year_bn_007").a("id", "9").up()
+            .e("cm").a("filename", "cm_bn_001").a("id", "0").up()
+            .e("cm").a("filename", "cm_bn_002").a("id", "1").up()
+            .e("cm").a("filename", "event_bn_001").a("id", "2").up()
+            .e("cm").a("filename", "event_bn_004").a("id", "3").up()
+            .e("cm").a("filename", "event_bn_006").a("id", "4").up()
+            .e("cm").a("filename", "fipb_001").a("id", "5").up()
+            .e("cm").a("filename", "year_bn_004").a("id", "6").up()
+            .e("cm").a("filename", "year_bn_005").a("id", "7").up()
+            .e("cm").a("filename", "year_bn_006_2").a("id", "8").up()
+            .e("cm").a("filename", "year_bn_007").a("id", "9").up()
             .up()
             .e("license")
-                .str("string", "StageGuard").up()
+            .str("string", "StageGuard").up()
             .up()
             .e("file_recovery").a("url", "https://example.com").up()
             .e("button_release_frame").a("frame", "0").up()
             .e("escape_package_info")
-                .e("list").a("apply_file_name", "XXX").a("apply_release_code", "XXX").up()
+            .e("list").a("apply_file_name", "XXX").a("apply_release_code", "XXX").up()
             .up()
             .e("expert").a("phase", "1").up()
             .e("expert_random_secret").a("phase", "2").up()
@@ -106,7 +122,7 @@ object GetProfileName : IIDXPCRouteHandler("getname") {
 private suspend fun resetPCData(refId: String) = Database.query { db ->
     val pcData = db.sequenceOf(PCDataTable).find { it.refId eq refId }
 
-    if(pcData != null) {
+    if (pcData != null) {
         pcData.deller = 0; pcData.sgid = -1; pcData.dgid = -1
         pcData.trophy = listOf("0", "0", "0", "0", "0", "0", "0", "0", "0", "0")
         pcData.spRank = listOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
@@ -239,7 +255,7 @@ object Get : IIDXPCRouteHandler("get") {
             ?: throw InvalidRequestException(HttpResponseStatus.BAD_REQUEST)
 
         val sortedDArray = Database.query { db -> db.sequenceOf(GradeTable).filter { it.refId eq refId } }
-            ?.map { it.dArray } ?.sortedWith comparator@ { a, b ->
+            ?.map { it.dArray }?.sortedWith comparator@{ a, b ->
                 val diff1 = a[0] - b[0]
                 if (diff1 != 0) return@comparator diff1
                 return@comparator a[1] - b[1]
@@ -258,172 +274,172 @@ object Get : IIDXPCRouteHandler("get") {
             }.also { SettingsTable.insert(it) }
         } ?: throw InvalidRequestException(HttpResponseStatus.INTERNAL_SERVER_ERROR)
 
-        val appendSetting = (if(settings.scoreFolders) 1 else 0) * 1 +
-            (if(settings.clearFolders) 1 else 0) * 2 +
-            (if(settings.difficultyFolders) 1 else 0) * 4 +
-            (if(settings.alphabetFolders) 1 else 0) * 8 +
-            (if(settings.hidePlaycount) 1 else 0) * 256 +
-            (if(settings.disableGraphcutin) 1 else 0) * 512 +
-            (if(settings.classicHispeed) 1 else 0) * 1024 +
-            (if(settings.hideIidxid) 1 else 0) * 4196
+        val appendSetting = (if (settings.scoreFolders) 1 else 0) * 1 +
+                (if (settings.clearFolders) 1 else 0) * 2 +
+                (if (settings.difficultyFolders) 1 else 0) * 4 +
+                (if (settings.alphabetFolders) 1 else 0) * 8 +
+                (if (settings.hidePlaycount) 1 else 0) * 256 +
+                (if (settings.disableGraphcutin) 1 else 0) * 512 +
+                (if (settings.classicHispeed) 1 else 0) * 1024 +
+                (if (settings.hideIidxid) 1 else 0) * 4196
 
         return createResponseNode()
             .e("pcdata")
-                .a("d_auto_scrach", pcData.dAutoScrach.toString())
-                .a("d_camera_layout", pcData.dCameraLayout.toString())
-                .a("d_disp_judge", pcData.dDispJudge.toString())
-                .a("d_gauge_disp", pcData.dGaugeDisp.toString())
-                .a("d_ghost_score", pcData.dGhostScore.toString())
-                .a("d_gno", pcData.dGno.toString())
-                .a("d_graph_score", pcData.dGraphScore.toString())
-                .a("d_gtype", pcData.dGtype.toString())
-                .a("d_hispeed", pcData.dHispeed.toString())
-                .a("d_judge", pcData.dJudge.toString())
-                .a("d_judgeAdj", pcData.dJudgeAdj.toString())
-                .a("d_lane_brignt", pcData.dLaneBrignt.toString())
-                .a("d_liflen", pcData.dLiflen.toString())
-                .a("d_notes", pcData.dNotes.toString())
-                .a("d_opstyle", pcData.dOpstyle.toString())
-                .a("d_pace", pcData.dPace.toString())
-                .a("d_sdlen", pcData.dSdlen.toString())
-                .a("d_sdtype", pcData.dSdtype.toString())
-                .a("d_sorttype", pcData.dSorttype.toString())
-                .a("d_sub_gno", pcData.dSubGno.toString())
-                .a("d_timing", pcData.dTiming.toString())
-                .a("d_tsujigiri_disp", pcData.dTsujigiriDisp.toString())
-                .a("d_tune", pcData.dTune.toString())
-                .a("dach", pcData.dach.toString())
-                .a("dp_opt", pcData.dpOpt)
-                .a("dp_opt2", pcData.dpOpt2)
-                .a("dpnum", "0")
-                .a("gpos", pcData.gpos.toString())
-                .a("id", profile.iidxId.toString())
-                .a("idstr", profile.iidxId.toString().run { "${slice(0..3)}-${slice(4..7)}" })
-                .a("mode", pcData.mode.toString())
-                .a("name", profile.name)
-                .a("pid", profile.pid.toString())
-                .a("pmode", pcData.pmode.toString())
-                .a("rtype", pcData.rtype.toString())
-                .a("s_auto_scrach", pcData.sAutoScrach.toString())
-                .a("s_camera_layout", pcData.sCameraLayout.toString())
-                .a("s_disp_judge", pcData.sDispJudge.toString())
-                .a("s_gauge_disp", pcData.sGaugeDisp.toString())
-                .a("s_ghost_score", pcData.sGhostScore.toString())
-                .a("s_gno", pcData.sGno.toString())
-                .a("s_graph_score", pcData.sGraphScore.toString())
-                .a("s_gtype", pcData.sGtype.toString())
-                .a("s_hispeed", pcData.sHispeed.toString())
-                .a("s_judge", pcData.sJudge.toString())
-                .a("s_judgeAdj", pcData.sJudgeAdj.toString())
-                .a("s_lane_brignt", pcData.sLaneBrignt.toString())
-                .a("s_liflen", pcData.sLiflen.toString())
-                .a("s_notes", pcData.sNotes.toString())
-                .a("s_opstyle", pcData.sOpstyle.toString())
-                .a("s_pace", pcData.sPace.toString())
-                .a("s_sdlen", pcData.sSdlen.toString())
-                .a("s_sdtype", pcData.sSdtype.toString())
-                .a("s_sorttype", pcData.sSorttype.toString())
-                .a("s_sub_gno", pcData.sSubGno.toString())
-                .a("s_timing", pcData.sTiming.toString())
-                .a("s_tsujigiri_disp", pcData.sTsujigiriDisp.toString())
-                .a("s_tune", pcData.sTune.toString())
-                .a("sach", pcData.sach.toString())
-                .a("sp_opt", pcData.spOpt)
-                .a("spnum", pcData.spnum.toString())
-                .a("ngrade", pcData.ngrade.toString())
-                .a("s_auto_adjust", pcData.sAutoAdjust.toString())
-                .a("d_auto_adjust", pcData.dAutoAdjust.toString()).up()
+            .a("d_auto_scrach", pcData.dAutoScrach.toString())
+            .a("d_camera_layout", pcData.dCameraLayout.toString())
+            .a("d_disp_judge", pcData.dDispJudge.toString())
+            .a("d_gauge_disp", pcData.dGaugeDisp.toString())
+            .a("d_ghost_score", pcData.dGhostScore.toString())
+            .a("d_gno", pcData.dGno.toString())
+            .a("d_graph_score", pcData.dGraphScore.toString())
+            .a("d_gtype", pcData.dGtype.toString())
+            .a("d_hispeed", pcData.dHispeed.toString())
+            .a("d_judge", pcData.dJudge.toString())
+            .a("d_judgeAdj", pcData.dJudgeAdj.toString())
+            .a("d_lane_brignt", pcData.dLaneBrignt.toString())
+            .a("d_liflen", pcData.dLiflen.toString())
+            .a("d_notes", pcData.dNotes.toString())
+            .a("d_opstyle", pcData.dOpstyle.toString())
+            .a("d_pace", pcData.dPace.toString())
+            .a("d_sdlen", pcData.dSdlen.toString())
+            .a("d_sdtype", pcData.dSdtype.toString())
+            .a("d_sorttype", pcData.dSorttype.toString())
+            .a("d_sub_gno", pcData.dSubGno.toString())
+            .a("d_timing", pcData.dTiming.toString())
+            .a("d_tsujigiri_disp", pcData.dTsujigiriDisp.toString())
+            .a("d_tune", pcData.dTune.toString())
+            .a("dach", pcData.dach.toString())
+            .a("dp_opt", pcData.dpOpt)
+            .a("dp_opt2", pcData.dpOpt2)
+            .a("dpnum", "0")
+            .a("gpos", pcData.gpos.toString())
+            .a("id", profile.iidxId.toString())
+            .a("idstr", profile.iidxId.toString().run { "${slice(0..3)}-${slice(4..7)}" })
+            .a("mode", pcData.mode.toString())
+            .a("name", profile.name)
+            .a("pid", profile.pid.toString())
+            .a("pmode", pcData.pmode.toString())
+            .a("rtype", pcData.rtype.toString())
+            .a("s_auto_scrach", pcData.sAutoScrach.toString())
+            .a("s_camera_layout", pcData.sCameraLayout.toString())
+            .a("s_disp_judge", pcData.sDispJudge.toString())
+            .a("s_gauge_disp", pcData.sGaugeDisp.toString())
+            .a("s_ghost_score", pcData.sGhostScore.toString())
+            .a("s_gno", pcData.sGno.toString())
+            .a("s_graph_score", pcData.sGraphScore.toString())
+            .a("s_gtype", pcData.sGtype.toString())
+            .a("s_hispeed", pcData.sHispeed.toString())
+            .a("s_judge", pcData.sJudge.toString())
+            .a("s_judgeAdj", pcData.sJudgeAdj.toString())
+            .a("s_lane_brignt", pcData.sLaneBrignt.toString())
+            .a("s_liflen", pcData.sLiflen.toString())
+            .a("s_notes", pcData.sNotes.toString())
+            .a("s_opstyle", pcData.sOpstyle.toString())
+            .a("s_pace", pcData.sPace.toString())
+            .a("s_sdlen", pcData.sSdlen.toString())
+            .a("s_sdtype", pcData.sSdtype.toString())
+            .a("s_sorttype", pcData.sSorttype.toString())
+            .a("s_sub_gno", pcData.sSubGno.toString())
+            .a("s_timing", pcData.sTiming.toString())
+            .a("s_tsujigiri_disp", pcData.sTsujigiriDisp.toString())
+            .a("s_tune", pcData.sTune.toString())
+            .a("sach", pcData.sach.toString())
+            .a("sp_opt", pcData.spOpt)
+            .a("spnum", pcData.spnum.toString())
+            .a("ngrade", pcData.ngrade.toString())
+            .a("s_auto_adjust", pcData.sAutoAdjust.toString())
+            .a("d_auto_adjust", pcData.dAutoAdjust.toString()).up()
             .e("join_shop")
-                .a("join_cflg", "1")
-                .a("join_id", "ea")
-                .a("join_name", "\uff33\uff27")
-                .a("joinflg", "1").up()
+            .a("join_cflg", "1")
+            .a("join_id", "ea")
+            .a("join_name", "\uff33\uff27")
+            .a("joinflg", "1").up()
             .e("grade")
-                .a("sgid", pcData.sgid.toString())
-                .a("dgid", pcData.dgid.toString()).let {
-                    var resp = it
-                    sortedDArray.forEach { arr ->
-                        resp = resp.e("g").a("__type", "u8").a("__count", "4")
-                            .t(arr.take(4).joinToString(" ")).up()
-                    }
-                    resp
+            .a("sgid", pcData.sgid.toString())
+            .a("dgid", pcData.dgid.toString()).let {
+                var resp = it
+                sortedDArray.forEach { arr ->
+                    resp = resp.e("g").a("__type", "u8").a("__count", "4")
+                        .t(arr.take(4).joinToString(" ")).up()
+                }
+                resp
             }.up()
             .e("deller").a("deller", pcData.deller.toString()).a("rate", "0").up()
             .e("rlist").up()
             .e("ir_data").up()
             .e("secret_course_data").up()
             .e("secret")
-                .e("flg1").a("__type", "s64").a("__count", "3").t("0 0 0").up()
-                .e("flg2").a("__type", "s64").a("__count", "3").t("0 0 0").up()
-                .e("flg3").a("__type", "s64").a("__count", "3").t("0 0 0").up()
-                .e("flg4").a("__type", "s64").a("__count", "3").t("0 0 0").up()
+            .e("flg1").a("__type", "s64").a("__count", "3").t("0 0 0").up()
+            .e("flg2").a("__type", "s64").a("__count", "3").t("0 0 0").up()
+            .e("flg3").a("__type", "s64").a("__count", "3").t("0 0 0").up()
+            .e("flg4").a("__type", "s64").a("__count", "3").t("0 0 0").up()
             .up()
             .e("achievements")
-                .a("last_weekly", pcData.lastWeekly.toString())
-                .a("pack", pcData.pack.toString())
-                .a("pack_comp", pcData.packComp.toString())
-                .a("rival_crush", pcData.rivalCrush.toString())
-                .a("visit_flg", pcData.visitFlg.toString())
-                .a("weekly_num", pcData.weeklyNum.toString())
-                .e("trophy").a("__type", "s64").a("__count", pcData.trophy.take(10).size.toString()) // original: 20
-                    .t(pcData.trophy.take(10).joinToString(" ")).up()
+            .a("last_weekly", pcData.lastWeekly.toString())
+            .a("pack", pcData.pack.toString())
+            .a("pack_comp", pcData.packComp.toString())
+            .a("rival_crush", pcData.rivalCrush.toString())
+            .a("visit_flg", pcData.visitFlg.toString())
+            .a("weekly_num", pcData.weeklyNum.toString())
+            .e("trophy").a("__type", "s64").a("__count", pcData.trophy.take(10).size.toString()) // original: 20
+            .t(pcData.trophy.take(10).joinToString(" ")).up()
             .up()
             .e("expert_point").up()
             .e("classic_course_data").up()
             .e("qprodata").a("__type", "u32").a("__count", "5")
-                .t(settings.run { "$qproHead $qproHair $qproFace $qproHand $qproBody" }).up()
+            .t(settings.run { "$qproHead $qproHair $qproFace $qproHand $qproBody" }).up()
             .e("step")
-                .a("dp_clear_mission_clear", pcData.dpClearMissionClear.toString())
-                .a("dp_clear_mission_level", pcData.dpClearMissionLevel.toString())
-                .a("dp_dj_mission_clear", pcData.dpDjMissionClear.toString())
-                .a("dp_dj_mission_level", pcData.dpDjMissionLevel.toString())
-                .a("dp_level", pcData.dpLevel.toString())
-                .a("dp_mission_point", pcData.dpMissionPoint.toString())
-                .a("dp_mplay", pcData.dpMplay.toString())
-                .a("enemy_damage", pcData.enemyDamage.toString())
-                .a("progress", pcData.progress.toString())
-                .a("sp_clear_mission_clear", pcData.spClearMissionClear.toString())
-                .a("sp_clear_mission_level", pcData.spClearMissionLevel.toString())
-                .a("sp_dj_mission_clear", pcData.spDjMissionClear.toString())
-                .a("sp_dj_mission_level", pcData.spDjMissionLevel.toString())
-                .a("sp_level", pcData.spLevel.toString())
-                .a("sp_mission_point", pcData.spMissionPoint.toString())
-                .a("sp_mplay", pcData.spMplay.toString())
-                .a("tips_read_list", pcData.tipsReadList.toString())
-                .a("total_point", pcData.totalPoint.toString())
-                .a("enemy_defeat_flg", pcData.enemyDefeatFlg.toString())
-                .a("mission_clear_num", pcData.missionClearNum.toString())
-                .bool("is_track_ticket", true).up()
+            .a("dp_clear_mission_clear", pcData.dpClearMissionClear.toString())
+            .a("dp_clear_mission_level", pcData.dpClearMissionLevel.toString())
+            .a("dp_dj_mission_clear", pcData.dpDjMissionClear.toString())
+            .a("dp_dj_mission_level", pcData.dpDjMissionLevel.toString())
+            .a("dp_level", pcData.dpLevel.toString())
+            .a("dp_mission_point", pcData.dpMissionPoint.toString())
+            .a("dp_mplay", pcData.dpMplay.toString())
+            .a("enemy_damage", pcData.enemyDamage.toString())
+            .a("progress", pcData.progress.toString())
+            .a("sp_clear_mission_clear", pcData.spClearMissionClear.toString())
+            .a("sp_clear_mission_level", pcData.spClearMissionLevel.toString())
+            .a("sp_dj_mission_clear", pcData.spDjMissionClear.toString())
+            .a("sp_dj_mission_level", pcData.spDjMissionLevel.toString())
+            .a("sp_level", pcData.spLevel.toString())
+            .a("sp_mission_point", pcData.spMissionPoint.toString())
+            .a("sp_mplay", pcData.spMplay.toString())
+            .a("tips_read_list", pcData.tipsReadList.toString())
+            .a("total_point", pcData.totalPoint.toString())
+            .a("enemy_defeat_flg", pcData.enemyDefeatFlg.toString())
+            .a("mission_clear_num", pcData.missionClearNum.toString())
+            .bool("is_track_ticket", true).up()
             .up()
             .e("dj_rank").a("style", "0")
-                .e("rank").a("__type", "s32").a("__count", "15").t(pcData._spRank).up()
-                .e("point").a("__type", "s32").a("__count", "15").t(pcData._spPoint).up()
+            .e("rank").a("__type", "s32").a("__count", "15").t(pcData._spRank).up()
+            .e("point").a("__type", "s32").a("__count", "15").t(pcData._spPoint).up()
             .up()
             .e("dj_rank").a("style", "1")
-                .e("rank").a("__type", "s32").a("__count", "15").t(pcData._dpRank).up()
-                .e("point").a("__type", "s32").a("__count", "15").t(pcData._dpPoint).up()
+            .e("rank").a("__type", "s32").a("__count", "15").t(pcData._dpRank).up()
+            .e("point").a("__type", "s32").a("__count", "15").t(pcData._dpPoint).up()
             .up()
             .e("notes_radar").a("style", "0")
-                .e("radar_score").a("__type", "s32").a("__count", "6").t(pcData._spRadar).up()
+            .e("radar_score").a("__type", "s32").a("__count", "6").t(pcData._spRadar).up()
             .up()
             .e("notes_radar").a("style", "1")
-                .e("radar_score").a("__type", "s32").a("__count", "6").t(pcData._dpRadar).up()
+            .e("radar_score").a("__type", "s32").a("__count", "6").t(pcData._dpRadar).up()
             .up()
             .e("ea_premium_course").up()
             .e("bind_eaappli").up()
             .e("leggendaria_open").up()
             .e("pay_per_use").a("item_num", "99").up()
             .e("playlist")
-                .a("encrypt_playlist", "0")
-                .a("index", "0")
-                .a("play_style", "0").up()
+            .a("encrypt_playlist", "0")
+            .a("index", "0")
+            .a("play_style", "0").up()
             .e("spdp_rival").a("flg", "0").up()
             .e("enable_qr_reward").up()
             .e("visitor")
-                .a("anum", "0")
-                .a("pnum", "0")
-                .a("snum", "0")
-                .a("vs_flg", "0").up()
+            .a("anum", "0")
+            .a("pnum", "0")
+            .a("snum", "0")
+            .a("vs_flg", "0").up()
             .e("konami_stytle").a("skip_flg", "0").up()
             .e("arena_penalty").up()
             .e("defeat").a("defeat_flg", "0").up()
@@ -432,49 +448,53 @@ object Get : IIDXPCRouteHandler("get") {
             .e("language_setting").a("language", "-1").up()
             .e("leggendaria_semi_open").a("flg", "0").up()
             .e("kac_entry_info")
-                .e("enable_kac_deller").up()
-                .e("disp_kac_mark").up()
-                .e("is_kac_entry").up()
-                .e("is_kac_evnet_entry").up()
-                .e("kac_secret_music").up()
+            .e("enable_kac_deller").up()
+            .e("disp_kac_mark").up()
+            .e("is_kac_entry").up()
+            .e("is_kac_evnet_entry").up()
+            .e("kac_secret_music").up()
             .up()
             .e("skin").a("__type", "s16").a("__count", "20")
-                .t(settings.run {
-                    "$frame $turntable $noteBurst $menuMusic $appendSetting " +
-                            "$laneCover 0 0 $noteSkin $fullComboSplash $noteBeam " +
-                            "$judgeFont 0 $disableMusicpreview $pacemakerCover " +
-                            "$vefxLock $effect $bombSize $disableHcnColor $firstNotePreview"
-                }).up()
+            .t(settings.run {
+                "$frame $turntable $noteBurst $menuMusic $appendSetting " +
+                        "$laneCover 0 0 $noteSkin $fullComboSplash $noteBeam " +
+                        "$judgeFont 0 $disableMusicpreview $pacemakerCover " +
+                        "$vefxLock $effect $bombSize $disableHcnColor $firstNotePreview"
+            }).up()
     }
 }
 
 @RouteModel(LDJ20211013)
-object Save: IIDXPCRouteHandler("save") {
+object Save : IIDXPCRouteHandler("save") {
     override suspend fun handle(node: Element): KXmlBuilder {
-        val refId = Database.query { db -> db.sequenceOf(EAmuseCardTable).find {
-            it.cardNFCId eq (node.getAttribute("cid")
-                ?: throw InvalidRequestException(HttpResponseStatus.BAD_REQUEST))
-        } ?.refId } ?: throw InvalidRequestException(HttpResponseStatus.BAD_REQUEST)
+        val refId = Database.query { db ->
+            db.sequenceOf(EAmuseCardTable).find {
+                it.cardNFCId eq (node.getAttribute("cid")
+                    ?: throw InvalidRequestException(HttpResponseStatus.BAD_REQUEST))
+            }?.refId
+        } ?: throw InvalidRequestException(HttpResponseStatus.BAD_REQUEST)
 
         val pcData = Database.query { db -> db.sequenceOf(PCDataTable).find { it.refId eq refId } }
             ?: throw InvalidRequestException(HttpResponseStatus.BAD_REQUEST)
 
-        when(node.getAttribute("cid").toIntOrNull() ?: 0) {
-            0 -> pcData.spnum ++
+        when (node.getAttribute("cid").toIntOrNull() ?: 0) {
+            0 -> pcData.spnum++
             1 -> {
-                pcData.spnum ++
-                pcData.dpnum ++
+                pcData.spnum++
+                pcData.dpnum++
             }
         }
 
-        pcData.deller += node.firstChild("deller") ?.getAttribute("deller") ?.toIntOrNull() ?: 0
+        pcData.deller += node.firstChild("deller")?.getAttribute("deller")?.toIntOrNull() ?: 0
 
         pcData.dLiflen = node.getAttribute("d_lift").toIntOrNull() ?: 0
         pcData.sLiflen = node.getAttribute("s_lift").toIntOrNull() ?: 0
 
-        node.firstChild("step") ?.let { step ->
-            pcData.dpClearMissionClear = step.getAttribute("dp_clear_mission_clear").toIntOrNull() ?: pcData.dpClearMissionClear
-            pcData.dpClearMissionLevel = step.getAttribute("dp_clear_mission_level").toIntOrNull() ?: pcData.dpClearMissionLevel
+        node.firstChild("step")?.let { step ->
+            pcData.dpClearMissionClear =
+                step.getAttribute("dp_clear_mission_clear").toIntOrNull() ?: pcData.dpClearMissionClear
+            pcData.dpClearMissionLevel =
+                step.getAttribute("dp_clear_mission_level").toIntOrNull() ?: pcData.dpClearMissionLevel
             pcData.dpDjMissionClear = step.getAttribute("dp_dj_mission_clear").toIntOrNull() ?: pcData.dpDjMissionClear
             pcData.dpDjMissionLevel = step.getAttribute("dp_dj_mission_level").toIntOrNull() ?: pcData.dpDjMissionLevel
             pcData.dpLevel = step.getAttribute("dp_level").toIntOrNull() ?: pcData.dpLevel
@@ -482,8 +502,10 @@ object Save: IIDXPCRouteHandler("save") {
             pcData.dpMplay = step.getAttribute("dp_mplay").toIntOrNull() ?: pcData.dpMplay
             pcData.enemyDamage = step.getAttribute("enemy_damage").toIntOrNull() ?: pcData.enemyDamage
             pcData.progress = step.getAttribute("progress").toIntOrNull() ?: pcData.progress
-            pcData.spClearMissionClear = step.getAttribute("sp_clear_mission_clear").toIntOrNull() ?: pcData.spClearMissionClear
-            pcData.spClearMissionLevel = step.getAttribute("sp_clear_mission_level").toIntOrNull() ?: pcData.spClearMissionLevel
+            pcData.spClearMissionClear =
+                step.getAttribute("sp_clear_mission_clear").toIntOrNull() ?: pcData.spClearMissionClear
+            pcData.spClearMissionLevel =
+                step.getAttribute("sp_clear_mission_level").toIntOrNull() ?: pcData.spClearMissionLevel
             pcData.spDjMissionClear = step.getAttribute("sp_dj_mission_clear").toIntOrNull() ?: pcData.spDjMissionClear
             pcData.spDjMissionLevel = step.getAttribute("sp_dj_mission_level").toIntOrNull() ?: pcData.spDjMissionLevel
             pcData.spLevel = step.getAttribute("sp_level").toIntOrNull() ?: pcData.spLevel
@@ -498,7 +520,7 @@ object Save: IIDXPCRouteHandler("save") {
         node.childElements.filter { it.nodeName == "dj_rank" }.forEach { djRank ->
             val rank = djRank.childNodeValue("rank") ?: return@forEach
             val point = djRank.childNodeValue("point") ?: return@forEach
-            when(djRank.getAttribute("style").toIntOrNull()) {
+            when (djRank.getAttribute("style").toIntOrNull()) {
                 0 -> {
                     pcData.spRank = rank.split(" ").map { it.toInt() }
                     pcData.spPoint = point.split(" ").map { it.toInt() }
@@ -512,7 +534,7 @@ object Save: IIDXPCRouteHandler("save") {
 
         node.childElements.filter { it.nodeName == "notes_radar" }.forEach { notesRadar ->
             val radarScore = notesRadar.childNodeValue("radar_score") ?: return@forEach
-            when(notesRadar.getAttribute("style").toIntOrNull()) {
+            when (notesRadar.getAttribute("style").toIntOrNull()) {
                 0 -> pcData.spRadar = radarScore.split(" ").map { it.toInt() }
                 1 -> pcData.dpRadar = radarScore.split(" ").map { it.toInt() }
             }
@@ -572,7 +594,7 @@ object Save: IIDXPCRouteHandler("save") {
         pcData.dpOpt2 = node.getAttribute("dp_opt2") ?: pcData.dpOpt2
         pcData.spOpt = node.getAttribute("sp_opt") ?: pcData.spOpt
 
-        node.firstChild("achievements") ?.let { achievements ->
+        node.firstChild("achievements")?.let { achievements ->
             pcData.lastWeekly = achievements.getAttribute("last_weekly").toIntOrNull() ?: pcData.lastWeekly
             pcData.pack = achievements.getAttribute("pack").toIntOrNull() ?: pcData.pack
             pcData.packComp = achievements.getAttribute("pack_comp").toIntOrNull() ?: pcData.packComp
@@ -580,7 +602,7 @@ object Save: IIDXPCRouteHandler("save") {
             pcData.visitFlg = achievements.getAttribute("visit_flg").toIntOrNull() ?: pcData.visitFlg
             pcData.weeklyNum = achievements.getAttribute("weekly_num").toIntOrNull() ?: pcData.weeklyNum
 
-            achievements.childNodeValue("trophy") ?.let { trophy ->
+            achievements.childNodeValue("trophy")?.let { trophy ->
                 pcData.trophy = trophy.split(" ").take(10)
             }
         }

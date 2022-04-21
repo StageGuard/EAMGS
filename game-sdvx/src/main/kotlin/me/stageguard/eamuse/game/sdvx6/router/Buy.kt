@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2022 StageGuard
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package me.stageguard.eamuse.game.sdvx6.router
 
 import com.buttongames.butterflycore.xml.XmlUtils
@@ -27,23 +43,23 @@ object Buy : SDVX6RouteHandler("buy") {
         val profile = Database.query { db -> db.sequenceOf(UserProfileTable).find { it.refId eq refId } }
             ?: throw InvalidRequestException(HttpResponseStatus.BAD_REQUEST)
 
-        val currencyType = gameNode.childNodeValue("currency_type") ?.toInt().run {
+        val currencyType = gameNode.childNodeValue("currency_type")?.toInt().run {
             if (this != null) {
                 if (this == 1) "blocks" else "packets"
             } else throw InvalidRequestException(HttpResponseStatus.BAD_REQUEST)
         }
-        val cost = XmlUtils.strAtPath(gameNode, "/item/price") ?.split(" ") ?.sumOf { it.toInt() } ?: 0
+        val cost = XmlUtils.strAtPath(gameNode, "/item/price")?.split(" ")?.sumOf { it.toInt() } ?: 0
 
         var consumed = false
         if (currencyType == "blocks") {
-            val earnedBlocks = gameNode.childNodeValue("earned_gamecoin_block") ?.toLong() ?: 0
+            val earnedBlocks = gameNode.childNodeValue("earned_gamecoin_block")?.toLong() ?: 0
             if (profile.blocks - (earnedBlocks - cost) > 0) {
                 profile.blocks -= earnedBlocks - cost
                 profile.flushChanges()
                 consumed = true
             }
         } else {
-            val earnedPackets = gameNode.childNodeValue("earned_gamecoin_packet") ?.toLong() ?: 0
+            val earnedPackets = gameNode.childNodeValue("earned_gamecoin_packet")?.toLong() ?: 0
             if (profile.packets - (earnedPackets - cost) > 0) {
                 profile.packets -= earnedPackets - cost
                 profile.flushChanges()
@@ -52,9 +68,9 @@ object Buy : SDVX6RouteHandler("buy") {
         }
 
         return if (consumed) {
-            val itemType = XmlUtils.strAtPath(gameNode, "/item/item_type") ?.split(" ") ?.map { it.toInt() } ?: listOf()
-            val itemId = XmlUtils.strAtPath(gameNode, "/item/item_id") ?.split(" ") ?.map { it.toLong() } ?: listOf()
-            val itemParam = XmlUtils.strAtPath(gameNode, "/item/param") ?.split(" ") ?.map { it.toLong() } ?: listOf()
+            val itemType = XmlUtils.strAtPath(gameNode, "/item/item_type")?.split(" ")?.map { it.toInt() } ?: listOf()
+            val itemId = XmlUtils.strAtPath(gameNode, "/item/item_id")?.split(" ")?.map { it.toLong() } ?: listOf()
+            val itemParam = XmlUtils.strAtPath(gameNode, "/item/param")?.split(" ")?.map { it.toLong() } ?: listOf()
 
             val items = itemType.zip(itemId).zip(itemParam).map {
                 Item { this.refId = refId; type = it.first.first; id = it.first.second; param = it.second }
@@ -77,12 +93,14 @@ object Buy : SDVX6RouteHandler("buy") {
             }
 
             if (toInsert.isNotEmpty()) ItemTable.batchInsert(toInsert)
-            if (toUpdate.isNotEmpty()) ItemTable.batchUpdate { toUpdate.forEach { u ->
-                item {
-                    set(ItemTable.param, u.param)
-                    where { ItemTable.refId eq u.refId and (ItemTable.type eq u.type) and (ItemTable.id eq u.id) }
+            if (toUpdate.isNotEmpty()) ItemTable.batchUpdate {
+                toUpdate.forEach { u ->
+                    item {
+                        set(ItemTable.param, u.param)
+                        where { ItemTable.refId eq u.refId and (ItemTable.type eq u.type) and (ItemTable.id eq u.id) }
+                    }
                 }
-            } }
+            }
 
             createGameResponseNode()
                 .u32("gamecoin_packet", profile.packets).up()

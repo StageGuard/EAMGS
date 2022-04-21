@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2022 StageGuard
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 @file:Suppress("DuplicatedCode")
 
 package me.stageguard.eamuse.game.iidx.model
@@ -208,6 +224,7 @@ object PCDataTable : AddableTable<PCData>("iidx_pc_data") {
         set(visitFlg, element.visitFlg)
         set(weeklyNum, element.weeklyNum)
     }
+
     override val createStatement: String = """
         `__id` INT NOT NULL AUTO_INCREMENT,
         `refId` varchar(16) NOT NULL,
@@ -416,23 +433,51 @@ interface PCData : Entity<PCData> {
 }
 
 var PCData.trophy: List<String>
-    get() { return _trophy.split(" ") }
-    set(value) { _trophy = value.joinToString(" ") }
+    get() {
+        return _trophy.split(" ")
+    }
+    set(value) {
+        _trophy = value.joinToString(" ")
+    }
 var PCData.spRank: List<Int>
-    get() { return _spRank.split(" ").map { it.toInt() } }
-    set(value) { _spRank = value.joinToString(" ") }
+    get() {
+        return _spRank.split(" ").map { it.toInt() }
+    }
+    set(value) {
+        _spRank = value.joinToString(" ")
+    }
 var PCData.spPoint: List<Int>
-    get() { return _spPoint.split(" ").map { it.toInt() } }
-    set(value) { _spPoint = value.joinToString(" ") }
+    get() {
+        return _spPoint.split(" ").map { it.toInt() }
+    }
+    set(value) {
+        _spPoint = value.joinToString(" ")
+    }
 var PCData.dpRank: List<Int>
-    get() { return _dpRank.split(" ").map { it.toInt() } }
-    set(value) { _dpRank = value.joinToString(" ") }
+    get() {
+        return _dpRank.split(" ").map { it.toInt() }
+    }
+    set(value) {
+        _dpRank = value.joinToString(" ")
+    }
 var PCData.dpPoint: List<Int>
-    get() { return _dpPoint.split(" ").map { it.toInt() } }
-    set(value) { _dpPoint = value.joinToString(" ") }
+    get() {
+        return _dpPoint.split(" ").map { it.toInt() }
+    }
+    set(value) {
+        _dpPoint = value.joinToString(" ")
+    }
 var PCData.spRadar: List<Int>
-    get() { return _spRadar.split(" ").map { it.toInt() } }
-    set(value) { _spRadar = value.joinToString(" ") }
+    get() {
+        return _spRadar.split(" ").map { it.toInt() }
+    }
+    set(value) {
+        _spRadar = value.joinToString(" ")
+    }
 var PCData.dpRadar: List<Int>
-    get() { return _dpRadar.split(" ").map { it.toInt() } }
-    set(value) { _dpRadar = value.joinToString(" ") }
+    get() {
+        return _dpRadar.split(" ").map { it.toInt() }
+    }
+    set(value) {
+        _dpRadar = value.joinToString(" ")
+    }

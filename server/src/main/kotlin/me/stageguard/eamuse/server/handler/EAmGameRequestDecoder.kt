@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2022 StageGuard
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package me.stageguard.eamuse.server.handler
 
 import com.buttongames.butterflycore.compression.Lz77
@@ -9,7 +25,10 @@ import io.netty.channel.ChannelHandler
 import io.netty.channel.ChannelHandlerContext
 import io.netty.channel.SimpleChannelInboundHandler
 import io.netty.channel.socket.SocketChannel
-import io.netty.handler.codec.http.*
+import io.netty.handler.codec.http.DefaultFullHttpResponse
+import io.netty.handler.codec.http.HttpHeaderNames
+import io.netty.handler.codec.http.HttpResponseStatus
+import io.netty.handler.codec.http.HttpVersion
 import me.stageguard.eamuse.server.SelectorType
 import me.stageguard.eamuse.server.api.OnlinePlayersMonitor
 import me.stageguard.eamuse.server.packet.EAGRequestPacket
@@ -21,11 +40,13 @@ import org.w3c.dom.Element
 internal object EAmGameRequestDecoder : SimpleChannelInboundHandler<SelectorType.EAGameClientRequest>() {
     private val LOGGER = LoggerFactory.getLogger(EAmGameRequestDecoder.javaClass)
 
-    override fun channelReadComplete(ctx: ChannelHandlerContext) { ctx.flush() }
+    override fun channelReadComplete(ctx: ChannelHandlerContext) {
+        ctx.flush()
+    }
 
     override fun channelRead0(
         ctx: ChannelHandlerContext,
-        msg: SelectorType.EAGameClientRequest
+        msg: SelectorType.EAGameClientRequest,
     ) {
         val parameters = msg.r.uriParameters
         if (parameters.isEmpty()) {
@@ -36,14 +57,14 @@ internal object EAmGameRequestDecoder : SimpleChannelInboundHandler<SelectorType
 
         val (requestModel, requestFunction) = parameters.run { listOf(get("model"), get("f")) }
 
-        if(requestModel == null) {
+        if (requestModel == null) {
             ctx.writeAndFlush(badRequest())
             ctx.close()
             return
         }
 
-        val requestModule = parameters["module"] ?: requestFunction ?.split(".")?.get(0)
-        val requestMethod = parameters["method"] ?: requestFunction ?.split(".")?.get(1)
+        val requestModule = parameters["module"] ?: requestFunction?.split(".")?.get(0)
+        val requestMethod = parameters["method"] ?: requestFunction?.split(".")?.get(1)
 
         if (requestModule == null || requestMethod == null) {
             ctx.writeAndFlush(badRequest())
@@ -66,7 +87,13 @@ internal object EAmGameRequestDecoder : SimpleChannelInboundHandler<SelectorType
 
         LOGGER.info(
             "Handle request: $requestModel <- <$requestModule.$requestMethod> " +
-            "from ${(ctx.channel() as SocketChannel).run { "${remoteAddress().toString().drop(1)} at 0x${id()}" }}."
+                    "from ${
+                        (ctx.channel() as SocketChannel).run {
+                            "${
+                                remoteAddress().toString().drop(1)
+                            } at 0x${id()}"
+                        }
+                    }."
         )
 
         val rootNode = if (XmlUtils.isBinaryXML(requestBody)) {
@@ -91,12 +118,18 @@ internal object EAmGameRequestDecoder : SimpleChannelInboundHandler<SelectorType
         OnlinePlayersMonitor.inquire(requestBodyModel.split(":").first(), requestBodyPcbId)
 
         if (requestBodyMethod != requestMethod ||
-                requestBodyModel != requestModel ||
-                requestBodyModule != requestModule
+            requestBodyModel != requestModel ||
+            requestBodyModule != requestModule
         ) {
             LOGGER.info(
                 "Handle mismatched package: (request meta: $requestModel <- <$requestModule.$requestMethod>, request body: $requestBodyModel <- <$requestBodyModule.$requestBodyMethod>) " +
-                "from ${(ctx.channel() as SocketChannel).run { "${remoteAddress().toString().drop(1)} at 0x${id()}" }}."
+                        "from ${
+                            (ctx.channel() as SocketChannel).run {
+                                "${
+                                    remoteAddress().toString().drop(1)
+                                } at 0x${id()}"
+                            }
+                        }."
             )
             ctx.writeAndFlush(badRequest())
             ctx.close()

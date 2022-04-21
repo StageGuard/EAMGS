@@ -1,20 +1,42 @@
+/*
+ * Copyright (c) 2022 StageGuard
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package me.stageguard.eamuse.game.sdvx6
 
 import com.buttongames.butterflycore.xml.XmlUtils
 import com.buttongames.butterflycore.xml.kbinxml.childElements
 import com.buttongames.butterflycore.xml.kbinxml.firstChild
 import kotlinx.serialization.decodeFromString
-import me.stageguard.eamuse.*
+import me.stageguard.eamuse.childNodeValue
 import me.stageguard.eamuse.database.AddableTable
+import me.stageguard.eamuse.game.sdvx6.api.*
+import me.stageguard.eamuse.game.sdvx6.data.SDVX6AppealCard
+import me.stageguard.eamuse.game.sdvx6.data.SDVX6Music
+import me.stageguard.eamuse.game.sdvx6.data.SDVX6MusicDifficulty
+import me.stageguard.eamuse.game.sdvx6.data.SDVX6SkillCourse
 import me.stageguard.eamuse.game.sdvx6.model.*
 import me.stageguard.eamuse.game.sdvx6.router.*
-import me.stageguard.eamuse.game.sdvx6.data.*
-import me.stageguard.eamuse.game.sdvx6.api.*
+import me.stageguard.eamuse.getResourceOrExport
+import me.stageguard.eamuse.json
 import me.stageguard.eamuse.plugin.EAmPlugin
 import me.stageguard.eamuse.server.AbstractAPIHandler
-import me.stageguard.eamuse.server.RouterModule
 import me.stageguard.eamuse.server.RouteHandler
+import me.stageguard.eamuse.server.RouterModule
 import me.stageguard.eamuse.server.router.ProfileChecker
+import me.stageguard.eamuse.tryOrNull
 import org.slf4j.LoggerFactory
 import java.nio.charset.Charset
 
@@ -36,14 +58,14 @@ object SDVX6 : EAmPlugin {
     override val routerModules: List<RouterModule>
         get() = listOf(object : RouterModule("game") {
             override val routers: Set<RouteHandler>
-            get() = mutableSetOf(Common, Longue, // common
-                New, HiScore, Load, LoadScore, LoadRival,  // profile
-                Save, SaveScore, SaveCourse, // save
-                Buy, Shop, // consume
-                *defaultSDVX6Router(
-                    "frozen", "save_e", "save_mega", "play_e", "play_s", "entry_s", "entry_e", "exception"
+                get() = mutableSetOf(Common, Longue, // common
+                    New, HiScore, Load, LoadScore, LoadRival,  // profile
+                    Save, SaveScore, SaveCourse, // save
+                    Buy, Shop, // consume
+                    *defaultSDVX6Router(
+                        "frozen", "save_e", "save_mega", "play_e", "play_s", "entry_s", "entry_e", "exception"
+                    )
                 )
-            )
         })
 
     override val tables: List<AddableTable<*>>
@@ -115,17 +137,19 @@ internal val sdvx6AppealCards by lazy {
             LOGGER.warn("Appeal card source data is not found either jar or data folder.")
             return@getResourceOrExport null
         }
-    } ?.use { i -> i.tryOrNull { XmlUtils.byteArrayToXmlFile(readAllBytes()) } ?.childElements ?.forEach { c ->
-        val cardInfo = c.firstChild("info") ?: return@forEach
-        val cardId = c.getAttribute("id").toInt()
-        cards[cardId] = SDVX6AppealCard(
-            cardId,
-            cardInfo.childNodeValue("texture") ?: return@forEach,
-            cardInfo.childNodeValue("title") ?: return@forEach,
-            cardInfo.childNodeValue("rarity") ?.toInt() ?: return@forEach,
-            cardInfo.childNodeValue("limited") ?.toInt() ?: return@forEach
-        )
-    } }
+    }?.use { i ->
+        i.tryOrNull { XmlUtils.byteArrayToXmlFile(readAllBytes()) }?.childElements?.forEach { c ->
+            val cardInfo = c.firstChild("info") ?: return@forEach
+            val cardId = c.getAttribute("id").toInt()
+            cards[cardId] = SDVX6AppealCard(
+                cardId,
+                cardInfo.childNodeValue("texture") ?: return@forEach,
+                cardInfo.childNodeValue("title") ?: return@forEach,
+                cardInfo.childNodeValue("rarity")?.toInt() ?: return@forEach,
+                cardInfo.childNodeValue("limited")?.toInt() ?: return@forEach
+            )
+        }
+    }
     cards
 }
 
@@ -133,36 +157,38 @@ internal val sdvx6AppealCards by lazy {
 internal val SDVX_DIFFICULTY_VALUE = arrayOf("novice", "advanced", "exhaust", "infinite", "maximum")
 internal val sdvx6MusicLibrary by lazy {
     val musicLibs: MutableMap<Int, SDVX6Music> = mutableMapOf()
-    sdvx6Config.value.musicDatabase.forEach _ignore@ { file ->
+    sdvx6Config.value.musicDatabase.forEach _ignore@{ file ->
         getResourceOrExport("sdvx6", file) {
             Common::class.java.getResourceAsStream("/sdvx6/$file") ?: run {
                 LOGGER.warn("Music database $file is not found either jar or data folder, please check your config.")
                 return@getResourceOrExport null
             }
-        } ?.use { i -> i.tryOrNull { XmlUtils.byteArrayToXmlFile(readAllBytes()) } ?.childElements ?.forEach { m ->
-            val musicInfo = m.firstChild("info") ?: return@forEach
-            val difficulties = m.firstChild("difficulty") ?: return@forEach
+        }?.use { i ->
+            i.tryOrNull { XmlUtils.byteArrayToXmlFile(readAllBytes()) }?.childElements?.forEach { m ->
+                val musicInfo = m.firstChild("info") ?: return@forEach
+                val difficulties = m.firstChild("difficulty") ?: return@forEach
 
-            val diffDTO = mutableListOf<SDVX6MusicDifficulty>()
-            SDVX_DIFFICULTY_VALUE.forEachIndexed { type, difficultyName ->
-                val difficultyInfo = difficulties.firstChild(difficultyName) ?: return@forEachIndexed
+                val diffDTO = mutableListOf<SDVX6MusicDifficulty>()
+                SDVX_DIFFICULTY_VALUE.forEachIndexed { type, difficultyName ->
+                    val difficultyInfo = difficulties.firstChild(difficultyName) ?: return@forEachIndexed
 
-                val difficultyNumber = difficultyInfo.childNodeValue("difnum") ?.toInt() ?: 0
-                if (difficultyNumber < 1) return@forEachIndexed
+                    val difficultyNumber = difficultyInfo.childNodeValue("difnum")?.toInt() ?: 0
+                    if (difficultyNumber < 1) return@forEachIndexed
 
-                val difficultyLimit = difficultyInfo.childNodeValue("limited") ?.toInt() ?: 1
+                    val difficultyLimit = difficultyInfo.childNodeValue("limited")?.toInt() ?: 1
 
-                diffDTO.add(SDVX6MusicDifficulty(type, difficultyNumber, difficultyLimit))
+                    diffDTO.add(SDVX6MusicDifficulty(type, difficultyNumber, difficultyLimit))
+                }
+
+                val mid = m.getAttribute("id").toInt()
+                musicLibs[mid] = SDVX6Music(mid,
+                    musicInfo.childNodeValue("title_name") ?: "unknown title",
+                    musicInfo.childNodeValue("artist_name") ?: "unknown artist",
+                    (musicInfo.childNodeValue("bpm_min")?.toInt() ?: 0) / 100.0
+                            to ((musicInfo.childNodeValue("bpm_max")?.toInt() ?: 0)) / 100.0,
+                    diffDTO)
             }
-
-            val mid = m.getAttribute("id").toInt()
-            musicLibs[mid] = SDVX6Music(mid,
-                musicInfo.childNodeValue("title_name") ?: "unknown title",
-                musicInfo.childNodeValue("artist_name") ?: "unknown artist",
-                (musicInfo.childNodeValue("bpm_min") ?.toInt() ?: 0) / 100.0
-                        to ((musicInfo.childNodeValue("bpm_max") ?.toInt() ?: 0)) / 100.0,
-                diffDTO)
-        } }
+        }
     }
     musicLibs.also {
         if (it.isEmpty()) LOGGER.warn("Music library are empty, check if resources/sdvx6/music_db.xml music_db.merged.xml and exist in jar!")
@@ -176,9 +202,9 @@ internal val sdvx6SkillCourseSessions by lazy {
             LOGGER.warn("Skill course data is not found either jar or data folder.")
             return@getResourceOrExport null
         }
-    } ?.use { i ->
+    }?.use { i ->
         i.tryOrNull { json.decodeFromString<SDVX6SkillCourse>(readAllBytes().toString(Charset.defaultCharset())) }
-    } ?.sessions ?: listOf()).also {
+    }?.sessions ?: listOf()).also {
         if (it.isEmpty()) LOGGER.warn("Skill course data is empty.")
     }
 }

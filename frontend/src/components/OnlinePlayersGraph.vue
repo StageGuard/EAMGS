@@ -1,3 +1,19 @@
+<!--
+  - Copyright (c) 2022 StageGuard
+  - This program is free software: you can redistribute it and/or modify
+  - it under the terms of the GNU Affero General Public License as published
+  - by the Free Software Foundation, either version 3 of the License, or
+  - (at your option) any later version.
+  -
+  - This program is distributed in the hope that it will be useful,
+  - but WITHOUT ANY WARRANTY; without even the implied warranty of
+  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  - GNU Affero General Public License for more details.
+  -
+  - You should have received a copy of the GNU Affero General Public License
+  - along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
 <template>
   <div class="root-card">
     <canvas :id="`online-player-graph-${id}`"></canvas>
@@ -48,6 +64,7 @@ onMounted(() => {
 
   const totalDuration = 1000
   const delayBetweenPoints = totalDuration / labels.value.length
+  // eslint-disable-next-line
   const previousY = (ctx: any) => ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(100) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y
 
   const chart = new Chart(ctx, {
@@ -169,6 +186,7 @@ function createLineGradient (chart: Chart, primaryColor = 'rgb(20,172,254)'): Ca
   padding: 20px;
   transition: all 0.2s ease-in-out;
 }
+
 .root-card:hover {
   box-shadow: darkgray 0 0 12px 0;
   transition: all 0.2s ease-in-out;

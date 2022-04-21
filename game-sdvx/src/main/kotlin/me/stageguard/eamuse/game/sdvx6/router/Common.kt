@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2022 StageGuard
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package me.stageguard.eamuse.game.sdvx6.router
 
 import com.buttongames.butterflycore.xml.kbinxml.KXmlBuilder
@@ -59,13 +75,13 @@ object Common : SDVX6RouteHandler("common") {
                     .bool("matching_assist", course.assist == 1).up()
                     .s32("clear_rate", 5000).up()
                     .u32("avg_score", 15000000).up()
-                    course.tracks.forEach { track ->
-                        resp = resp.e("track")
-                            .s16("track_no", track.no).up()
-                            .s32("music_id", track.mid).up()
-                            .s8("music_type", track.mty).up()
-                        resp = resp.up()
-                    }
+                course.tracks.forEach { track ->
+                    resp = resp.e("track")
+                        .s16("track_no", track.no).up()
+                        .s32("music_id", track.mid).up()
+                        .s8("music_type", track.mty).up()
+                    resp = resp.up()
+                }
                 resp = resp.up()
             }
         }

@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2022 StageGuard
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package me.stageguard.eamuse.server.handler
 
 import com.buttongames.butterflycore.encryption.Rc4
@@ -44,7 +60,8 @@ internal object EAmGameResponseEncoder : SimpleChannelInboundHandler<EAGResponse
                 bos.close()
 
                 if (!XmlUtils.isBinaryXML(respBytes)) respBytes = kbinEncode(String(respBytes), "UTF-8")
-                if (msg.srcReqPackage.eAmuseInfo != null) respBytes = Rc4.encrypt(respBytes, msg.srcReqPackage.eAmuseInfo)
+                if (msg.srcReqPackage.eAmuseInfo != null) respBytes =
+                    Rc4.encrypt(respBytes, msg.srcReqPackage.eAmuseInfo)
                 //if (msg.srcReqPackage.compressScheme == "lz77") respBytes = Lz77.compress(respBytes)
 
                 respBytes
@@ -64,7 +81,13 @@ internal object EAmGameResponseEncoder : SimpleChannelInboundHandler<EAGResponse
             ctx.writeAndFlush(response)
             LOGGER.info(
                 "Send response: ${msg.srcReqPackage.model} -> <${msg.srcReqPackage.module}.${msg.srcReqPackage.method}> " +
-                "to ${(ctx.channel() as SocketChannel).run { "${remoteAddress().toString().drop(1)} at 0x${id()}" }}."
+                        "to ${
+                            (ctx.channel() as SocketChannel).run {
+                                "${
+                                    remoteAddress().toString().drop(1)
+                                } at 0x${id()}"
+                            }
+                        }."
             )
         } catch (ex: Exception) {
             ex.printStackTrace()

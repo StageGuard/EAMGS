@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2022 StageGuard
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package me.stageguard.eamuse.server.api
 
 import io.netty.handler.codec.http.FullHttpRequest
@@ -18,14 +34,14 @@ internal data class Status(
     val profileCount: Int,
     val startupEpochSecond: Long,
     val dbStatus: Boolean,
-    val result: Int = 0 // identifier
+    val result: Int = 0, // identifier
 )
 
 @kotlinx.serialization.Serializable
 internal data class GameDTO(
     val name: String,
     val supportedVersions: List<String>,
-    val api: Map<String, String>
+    val api: Map<String, String>,
 )
 
 
@@ -33,10 +49,10 @@ internal object ServerStatus : AbstractAPIHandler("server_status", "status") {
     private val games by lazy {
         val games = mutableMapOf<String, GameDTO>()
         EAmPluginLoader.plugins.filterNot { it.id == "common" }.forEach { p ->
-            val supported = p.profileChecker ?.javaClass
-                ?.getAnnotation(RouteModel::class.java) ?.name ?.toList() ?: listOf()
+            val supported = p.profileChecker?.javaClass
+                ?.getAnnotation(RouteModel::class.java)?.name?.toList() ?: listOf()
 
-            val definedApi = p.apiHandlers ?.associate { it.name to it.path } ?: mapOf()
+            val definedApi = p.apiHandlers?.associate { it.name to it.path } ?: mapOf()
             games[p.id] = GameDTO(p.name, supported, definedApi)
         }
         games

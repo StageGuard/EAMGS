@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2022 StageGuard
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package me.stageguard.eamuse.server.router
 
 import com.buttongames.butterflycore.cardconv.encodeCardId
@@ -9,7 +25,10 @@ import io.netty.handler.codec.http.HttpResponseStatus
 import me.stageguard.eamuse.database.Database
 import me.stageguard.eamuse.database.model.EAmuseCard
 import me.stageguard.eamuse.database.model.EAmuseCardTable
-import me.stageguard.eamuse.server.*
+import me.stageguard.eamuse.server.InvalidRequestException
+import me.stageguard.eamuse.server.RouteHandler
+import me.stageguard.eamuse.server.RouteModel
+import me.stageguard.eamuse.server.RouterModule
 import me.stageguard.eamuse.server.packet.EAGRequestPacket
 import org.ktorm.dsl.eq
 import org.ktorm.entity.find
@@ -30,11 +49,12 @@ internal object CardManager : RouterModule("cardmng") {
         checkers.add(c)
     }
 
-    val currentTimeStamp get() = LocalDateTime.now().let {
-        it.atZone(ZoneId.systemDefault()).run {
-            it.toString() + offset.toString()
+    val currentTimeStamp
+        get() = LocalDateTime.now().let {
+            it.atZone(ZoneId.systemDefault()).run {
+                it.toString() + offset.toString()
+            }
         }
-    }
 
     @RouteModel
     internal object Inquire : RouteHandler("inquire") {
@@ -54,7 +74,7 @@ internal object CardManager : RouterModule("cardmng") {
                         if (modelAnno == null) {
                             LOGGER.warn(
                                 "RouteHandler ${c::class.simpleName} " +
-                                "doesn't have annotation ${RouteModel::class.simpleName}"
+                                        "doesn't have annotation ${RouteModel::class.simpleName}"
                             )
                         } else {
                             // game specific model
@@ -64,7 +84,7 @@ internal object CardManager : RouterModule("cardmng") {
 
                                 if (reqModel == routeModel && reqVersion.startsWith(routeVersion)) {
                                     return@run c.check(cardInfo).also {
-                                        if(it) {
+                                        if (it) {
                                             cardInfo.lastPlayTime = currentTimeStamp
                                             cardInfo.flushChanges()
                                         }
@@ -154,5 +174,5 @@ internal object CardManager : RouterModule("cardmng") {
 }
 
 interface ProfileChecker {
-    suspend fun check(cardInfo: EAmuseCard) : Boolean
+    suspend fun check(cardInfo: EAmuseCard): Boolean
 }

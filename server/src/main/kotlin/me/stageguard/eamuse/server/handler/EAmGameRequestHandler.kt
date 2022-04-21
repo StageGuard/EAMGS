@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2022 StageGuard
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package me.stageguard.eamuse.server.handler
 
 import com.buttongames.butterflycore.xml.kbinxml.prettyString
@@ -32,7 +48,9 @@ internal object EAmGameRequestHandler : SimpleChannelInboundHandler<EAGRequestPa
         rc.routers.forEach { routers["${rc.module}.${it.method}"] = it }
     }
 
-    override fun channelReadComplete(ctx: ChannelHandlerContext) { ctx.flush() }
+    override fun channelReadComplete(ctx: ChannelHandlerContext) {
+        ctx.flush()
+    }
 
     override fun channelRead0(ctx: ChannelHandlerContext, msg: EAGRequestPacket) {
         routers.forEach { (command, handler) ->
@@ -40,8 +58,8 @@ internal object EAmGameRequestHandler : SimpleChannelInboundHandler<EAGRequestPa
             if (modelAnno == null) {
                 LOGGER.warn(
                     "Router ${handler::class.simpleName} " +
-                    "which implements ${RouteHandler::class.simpleName} " +
-                    "doesn't have annotation ${RouteModel::class.simpleName}"
+                            "which implements ${RouteHandler::class.simpleName} " +
+                            "doesn't have annotation ${RouteModel::class.simpleName}"
                 )
             } else {
                 if ("${msg.module}.${msg.method}" != command) return@forEach
@@ -66,7 +84,13 @@ internal object EAmGameRequestHandler : SimpleChannelInboundHandler<EAGRequestPa
         }
         LOGGER.info(
             "Skip unknown package: ${msg.model} <- <${msg.module}.${msg.method}> " +
-            "from ${(ctx.channel() as SocketChannel).run { "${remoteAddress().toString().drop(1)} at 0x${id()}" }}.\n" +
+                    "from ${
+                        (ctx.channel() as SocketChannel).run {
+                            "${
+                                remoteAddress().toString().drop(1)
+                            } at 0x${id()}"
+                        }
+                    }.\n" +
                     msg.content.ownerDocument.prettyString()
         )
         ctx.writeAndFlush(DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK))

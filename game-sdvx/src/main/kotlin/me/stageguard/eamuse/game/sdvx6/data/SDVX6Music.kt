@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2022 StageGuard
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package me.stageguard.eamuse.game.sdvx6.data
 
 data class SDVX6Music(
@@ -5,11 +21,11 @@ data class SDVX6Music(
     val title: String,
     val artist: String,
     val bpm: Pair<Double, Double>,
-    val difficulties: List<SDVX6MusicDifficulty>
+    val difficulties: List<SDVX6MusicDifficulty>,
 )
 
 data class SDVX6MusicDifficulty(
     val type: Int, // 0: novice, 1: advanced, 2: exhaust, 3: infinite, 4: maximum
     val difficulty: Int, // 1 - 20
-    val limited: Int
+    val limited: Int,
 )

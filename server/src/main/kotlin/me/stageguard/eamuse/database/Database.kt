@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2022 StageGuard
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package me.stageguard.eamuse.database
 
 import com.zaxxer.hikari.HikariConfig
@@ -8,7 +24,6 @@ import me.stageguard.eamuse.retry
 import org.ktorm.database.Database
 import org.ktorm.database.Transaction
 import org.slf4j.LoggerFactory
-import java.lang.IllegalArgumentException
 import java.sql.SQLException
 import java.util.concurrent.ThreadFactory
 import java.util.concurrent.atomic.AtomicInteger
@@ -30,36 +45,37 @@ object Database : CoroutineScope {
 
     private val tables: MutableList<AddableTable<*>> = mutableListOf()
 
-    private lateinit var db : Database
-    private lateinit var hikariSource : HikariDataSource
+    private lateinit var db: Database
+    private lateinit var hikariSource: HikariDataSource
     private var connectionStatus: ConnectionStatus = ConnectionStatus.DISCONNECTED
 
-    suspend fun <T> query(block: suspend Transaction.(Database) -> T) : T? = if(connectionStatus == ConnectionStatus.DISCONNECTED) {
-        LOGGER.error("Database is disconnected and the query operation will not be completed.")
-        null
-    } else withContext(coroutineContext) {
-        db.useTransaction { t ->
-            retry(3, exceptionBlock = {
-                if(it is SQLException && it.toString().contains("Connection is closed")) {
-                    LOGGER.warn("Database connection is closed, reconnecting...")
-                    close()
-                    connect()
-                } else throw it
-            }) {
-                if(connected) {
-                    block(t, db)
-                } else {
-                    connectionStatus = ConnectionStatus.DISCONNECTED
-                    throw SQLException("Connection is closed")
-                }
-            }.getOrThrow()
+    suspend fun <T> query(block: suspend Transaction.(Database) -> T): T? =
+        if (connectionStatus == ConnectionStatus.DISCONNECTED) {
+            LOGGER.error("Database is disconnected and the query operation will not be completed.")
+            null
+        } else withContext(coroutineContext) {
+            db.useTransaction { t ->
+                retry(3, exceptionBlock = {
+                    if (it is SQLException && it.toString().contains("Connection is closed")) {
+                        LOGGER.warn("Database connection is closed, reconnecting...")
+                        close()
+                        connect()
+                    } else throw it
+                }) {
+                    if (connected) {
+                        block(t, db)
+                    } else {
+                        connectionStatus = ConnectionStatus.DISCONNECTED
+                        throw SQLException("Connection is closed")
+                    }
+                }.getOrThrow()
+            }
         }
-    }
 
     fun addTable(t: AddableTable<*>) = tables.add(t)
 
     @OptIn(ObsoleteCoroutinesApi::class)
-     fun connect() = launch(newSingleThreadContext("DatabaseInitializer")) {
+    fun connect() = launch(newSingleThreadContext("DatabaseInitializer")) {
         db = Database.connect(hikariDataSourceProvider().also { hikariSource = it })
         connectionStatus = ConnectionStatus.CONNECTED
         initDatabase()
@@ -84,7 +100,7 @@ object Database : CoroutineScope {
         kotlin.runCatching { hikariSource.close() }
     }
 
-    private fun hikariDataSourceProvider() : HikariDataSource = HikariDataSource(HikariConfig().apply {
+    private fun hikariDataSourceProvider(): HikariDataSource = HikariDataSource(HikariConfig().apply {
         when {
             config.database.address == "" -> throw IllegalArgumentException("Database address is not set in config file.")
             config.database.table == "" -> {
@@ -99,19 +115,19 @@ object Database : CoroutineScope {
                 config.database.maximumPoolSize = 10
             }
         }
-        jdbcUrl         = "jdbc:mysql://${config.database.address}:${config.database.port}/${config.database.table}"
+        jdbcUrl = "jdbc:mysql://${config.database.address}:${config.database.port}/${config.database.table}"
         driverClassName = "com.mysql.cj.jdbc.Driver"
-        username        = config.database.user
-        password        = config.database.password
+        username = config.database.user
+        password = config.database.password
         maximumPoolSize = config.database.maximumPoolSize!!
-        poolName        = "EAMUSE Pool"
+        poolName = "EAMUSE Pool"
 
         threadFactory = ThreadFactory { runnable ->
             thread(start = false, name = "DatabaseOperation#${threadCounter.getAndIncrement()}") {
                 try {
                     runBlocking(this@Database.coroutineContext) { runnable.run() }
-                } catch (_: InterruptedException) { /* shutdown hook triggered. */ }
-                catch (e: Exception) {
+                } catch (_: InterruptedException) { /* shutdown hook triggered. */
+                } catch (e: Exception) {
                     LOGGER.error("Database operation is failed.", e)
                 }
             }
