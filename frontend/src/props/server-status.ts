@@ -20,4 +20,5 @@ export interface ServerStatus {
   startupEpochSecond: number | null,
   profileCount: number | null,
   serverUrl: string | null,
+  pcbIdRequired: boolean | null,
 }

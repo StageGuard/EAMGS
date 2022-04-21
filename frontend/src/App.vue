@@ -62,7 +62,8 @@ const status = ref<_ServerStatus>({
     dbStatus: null,
     startupEpochSecond: null,
     profileCount: null,
-    serverUrl: null
+    serverUrl: null,
+    pcbIdRequired: null
   }
 })
 const games = ref<Map<string, _GameInfo>>(new Map())
@@ -74,6 +75,7 @@ fetch(`${config.host}/status`).then(r => r.json()).then(r => {
     status.value.$delegate.startupEpochSecond = r.startupEpochSecond
     status.value.$delegate.profileCount = r.profileCount
     status.value.$delegate.serverUrl = r.serverUrl
+    status.value.$delegate.pcbIdRequired = r.pcbIdRequired
 
     for (const gid in r.games) {
       games.value.set(gid, {

@@ -61,10 +61,26 @@
       <i class="space20px"/>Server Information
     </h1>
     <div id="server-info">
-      <div>
+      <div class="info-line">
         <h3 style="display: inline">Server url :</h3>
         <span class="space20px"/>
         <code>{{ status.$injected.serverUrl }}</code>
+      </div>
+      <div class="info-line">
+        <h3 style="display: inline">Supported model : </h3>
+        <span class="space20px"/>
+        <ul style="margin-right: 20px" v-for="g in gameInfo" v-bind:key="g.id">
+          <li style="line-height: 40px">
+            {{ g.name }} : <code style="margin-right: 10px" v-for="v in g.supportedVersions" v-bind:key="v">{{
+              v
+            }}</code>
+          </li>
+        </ul>
+      </div>
+      <div class="info-line">
+        <h3 style="display: inline">PCB ID : </h3>
+        <span class="space20px"></span>
+
       </div>
     </div>
   </div>
@@ -117,13 +133,15 @@ const status = reactive({
   })
 })
 
-const games = inject<Map<string, _GameInfo>>('games')
-if (games === undefined) throw new Error('games is not injected.')
-const gameInfo = computed<{ id: string, name: string }[]>(() => {
-  const r: { id: string, name: string }[] = []
-  games.forEach((v: _GameInfo) => r.push({ id: v.$delegate.id, name: v.$delegate.name }))
-  return r
-})
+const gameInfo = (() => {
+  const _games = inject<Map<string, _GameInfo>>('games')
+  if (_games === undefined) throw new Error('games is not injected.')
+  return computed<GameInfo[]>(() => {
+    const r: GameInfo[] = []
+    _games.forEach((v: _GameInfo) => r.push(v.$delegate))
+    return r
+  })
+})()
 
 function calculateTimeDifference (now: number, startEpochMilli: number) {
   const diff = now - startEpochMilli / 1000
@@ -135,7 +153,7 @@ function calculateTimeDifference (now: number, startEpochMilli: number) {
 }
 </script>
 
-<style>
+<style scoped>
 .home {
   padding: 20px 50px
 }
@@ -196,5 +214,9 @@ function calculateTimeDifference (now: number, startEpochMilli: number) {
 #server-info {
   margin-left: 35px;
   margin-top: 30px;
+}
+
+.info-line {
+  margin-bottom: 20px;
 }
 </style>
