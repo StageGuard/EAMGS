@@ -34,6 +34,7 @@ object ScoreTable : AddableTable<Score>("iidx_score") {
     val clidO = varchar("clid0").bindTo { it.clid0 }
     val clid1 = varchar("clid1").bindTo { it.clid1 }
     val clid2 = varchar("clid2").bindTo { it.clid2 }
+    val clid3 = varchar("clid3").bindTo { it.clid3 }
 
     override fun <T : AssignmentsBuilder> T.mapElement(element: Score) {
         set(refId, element.refId)
@@ -45,6 +46,7 @@ object ScoreTable : AddableTable<Score>("iidx_score") {
         set(clidO, element.clid0)
         set(clid1, element.clid1)
         set(clid2, element.clid2)
+        set(clid3, element.clid3)
     }
 
 
@@ -59,6 +61,7 @@ object ScoreTable : AddableTable<Score>("iidx_score") {
         `clid0` varchar(1024) NOT NULL,
         `clid1` varchar(1024) NOT NULL,
         `clid2` varchar(1024) NOT NULL,
+        `clid3` varchar(1024) NOT NULL,
         PRIMARY KEY (`__id`)
     """.trimIndent()
 }
@@ -79,6 +82,7 @@ interface Score : Entity<Score> {
     var clid0: String
     var clid1: String
     var clid2: String
+    var clid3: String
 }
 
 var Score.spmArray: List<Int>

@@ -145,9 +145,9 @@ object MusicRegister : IIDXMusicRouteHandler("reg") {
             }
         }
 
-        val update = (mArray[rank + 7] < exScore || !dbFlg).also {
-            mArray[rank + 7] = max(exScore, mArray[rank + 7])
-        }
+        val update = mArray[rank + 7] < exScore || !dbFlg
+        mArray[rank + 7] = max(exScore, mArray[rank + 7])
+
         if (musicScore == null) {
             ScoreTable.insert(Score {
                 this.refId = refId
@@ -158,14 +158,20 @@ object MusicRegister : IIDXMusicRouteHandler("reg") {
                 dpmArray = if (style == 1) mArray else listOf(-1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1)
                 if (update) when (clid) {
                     0 -> {
-                        this.clid0 = ghost; this.clid1 = ""; this.clid2 = ""; }
+                        this.clid0 = ghost; this.clid1 = ""; this.clid2 = ""; this.clid3 = ""
+                    }
                     1 -> {
-                        this.clid1 = ghost; this.clid0 = ""; this.clid2 = ""; }
+                        this.clid1 = ghost; this.clid0 = ""; this.clid2 = ""; this.clid3 = ""
+                    }
                     2 -> {
-                        this.clid2 = ghost; this.clid0 = ""; this.clid1 = ""; }
+                        this.clid2 = ghost; this.clid0 = ""; this.clid1 = ""; this.clid3 = ""
+                    }
+                    3 -> {
+                        this.clid3 = ghost; this.clid0 = ""; this.clid1 = ""; this.clid2 = ""
+                    }
                     else -> {
                         LOGGER.warn("unknown clid: $clid")
-                        this.clid2 = ""; this.clid0 = ""; this.clid1 = ""
+                        this.clid2 = ""; this.clid0 = ""; this.clid1 = ""; this.clid3 = ""
                     }
                 }
             })
@@ -182,6 +188,7 @@ object MusicRegister : IIDXMusicRouteHandler("reg") {
                 0 -> musicScore.clid0 = ghost
                 1 -> musicScore.clid1 = ghost
                 2 -> musicScore.clid2 = ghost
+                3 -> musicScore.clid3 = ghost
                 else -> LOGGER.warn("unknown clid: $clid")
             }
 
@@ -337,6 +344,7 @@ object APPoint : IIDXMusicRouteHandler("appoint") {
                     0 -> it.clidO notEq ""
                     1 -> it.clid1 notEq ""
                     2 -> it.clid2 notEq ""
+                    3 -> it.clid3 notEq ""
                     else -> return@query null
                 })
             }
@@ -348,6 +356,7 @@ object APPoint : IIDXMusicRouteHandler("appoint") {
                     0 -> it.clidO notEq ""
                     1 -> it.clid1 notEq ""
                     2 -> it.clid2 notEq ""
+                    3 -> it.clid3 notEq ""
                     else -> return@query null
                 })
             }
@@ -360,6 +369,7 @@ object APPoint : IIDXMusicRouteHandler("appoint") {
                     0 -> musicDataSP.clid0
                     1 -> musicDataSP.clid1
                     2 -> musicDataSP.clid2
+                    3 -> musicDataSP.clid3
                     else -> throw InvalidRequestException(HttpResponseStatus.INTERNAL_SERVER_ERROR)
                 }).toString(Charset.defaultCharset()))
         } else if (style == 1 && musicDataDP != null) {
@@ -369,6 +379,7 @@ object APPoint : IIDXMusicRouteHandler("appoint") {
                     0 -> musicDataDP.clid0
                     1 -> musicDataDP.clid1
                     2 -> musicDataDP.clid2
+                    3 -> musicDataDP.clid3
                     else -> throw InvalidRequestException(HttpResponseStatus.INTERNAL_SERVER_ERROR)
                 }).toString(Charset.defaultCharset()))
         } else createResponseNode()
