@@ -18,6 +18,7 @@ package me.stageguard.eamuse.server.api
 
 import io.netty.handler.codec.http.FullHttpRequest
 import kotlinx.serialization.encodeToString
+import me.stageguard.eamuse.config
 import me.stageguard.eamuse.database.Database
 import me.stageguard.eamuse.database.model.EAmuseCardTable
 import me.stageguard.eamuse.json
@@ -34,6 +35,7 @@ internal data class Status(
     val profileCount: Int,
     val startupEpochSecond: Long,
     val dbStatus: Boolean,
+    val serverUrl: String,
     val result: Int = 0, // identifier
 )
 
@@ -61,7 +63,13 @@ internal object ServerStatus : AbstractAPIHandler("server_status", "status") {
     override suspend fun handle(request: FullHttpRequest): String {
         return try {
             val profileCount = Database.query { db -> db.sequenceOf(EAmuseCardTable).count() } ?: -1
-            json.encodeToString(Status(games, profileCount, EAmusementGameServer.startupTime, Database.connected))
+            json.encodeToString(Status(
+                games,
+                profileCount,
+                startupEpochSecond = EAmusementGameServer.startupTime,
+                dbStatus = Database.connected,
+                serverUrl = config.server.globalDomainName + ":" + config.server.globalPort
+            ))
         } catch (ex: Exception) {
             apiError("ERROR:$ex")
         }
