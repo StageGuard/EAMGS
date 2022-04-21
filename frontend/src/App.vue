@@ -61,7 +61,8 @@ const status = ref<_ServerStatus>({
     online: null,
     dbStatus: null,
     startupEpochSecond: null,
-    profileCount: null
+    profileCount: null,
+    serverUrl: null
   }
 })
 const games = ref<Map<string, _GameInfo>>(new Map())
@@ -72,6 +73,7 @@ fetch(`${config.host}/status`).then(r => r.json()).then(r => {
     status.value.$delegate.dbStatus = r.dbStatus
     status.value.$delegate.startupEpochSecond = r.startupEpochSecond
     status.value.$delegate.profileCount = r.profileCount
+    status.value.$delegate.serverUrl = r.serverUrl
 
     for (const gid in r.games) {
       games.value.set(gid, {
@@ -110,6 +112,7 @@ fetch(`${config.host}/status`).then(r => r.json()).then(r => {
   status.value.$delegate.dbStatus = false
   status.value.$delegate.startupEpochSecond = -1
   status.value.$delegate.profileCount = -1
+  status.value.$delegate.serverUrl = '-'
   console.log(reason) // TODO: show error
 })
 provide<_ServerStatus>('server-status', status.value)
@@ -118,20 +121,26 @@ provide('games', games.value)
 
 <style>
 @font-face {
-  font-family: 'Gilroy Medium';
+  font-family: '_Gilroy Medium';
   src: url('./assets/Gilroy-Medium.otf') format('opentype');
   font-weight: normal;
 }
 
 @font-face {
-  font-family: 'Gilroy Bold';
+  font-family: '_Gilroy Bold';
   src: url('assets/Gilroy-Bold.otf') format('opentype');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: '_JetBrains Mono Bold';
+  src: url('assets/JetBrainsMono-Bold.ttf') format('truetype');
   font-weight: bold;
 }
 
 /*noinspection ALL*/
 #app {
-  font-family: 'Gilroy Medium', 'Gilroy Bold', sans-serif;
+  font-family: '_Gilroy Medium', '_Gilroy Bold';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -180,6 +189,19 @@ nav .router-link-exact-active {
 .root-content {
   padding-left: v-bind(sidePadding);
   padding-right: v-bind(sidePadding);
+}
+
+code {
+  font-family: '_JetBrains Mono Bold', monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: rgb(20, 85, 254);
+  background-color: rgb(144, 202, 249);
+  padding: 5px;
+  border-width: 1px;
+  border-style: inset;
+  border-color: #1ec3ff;
+  border-radius: 6px;
 }
 
 </style>

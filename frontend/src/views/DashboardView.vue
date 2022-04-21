@@ -52,22 +52,34 @@
       <font-awesome-icon icon="user"/>
       <i class="space20px"/>Online Players
     </h1>
-    <div id="online-players-card-row" style="display: flex">
-      <online-player-graph v-for="g in gameInfo" v-bind:key="g.id" :id="g.id" :name="g.name" style="margin: 15px"/>
+    <div id="online-players-card-row" style="display: flex; transition: all 0.2s ease-in-out;">
+      <online-player-graph v-for="g in gameInfo" v-bind:key="g.id" :id="g.id" :name="g.name"
+                           style="margin: 15px;"/>
+    </div>
+    <h1>
+      <font-awesome-icon icon="info-circle"/>
+      <i class="space20px"/>Server Information
+    </h1>
+    <div id="server-info">
+      <div>
+        <h3 style="display: inline">Server url :</h3>
+        <span class="space20px"/>
+        <code>{{ status.$injected.serverUrl }}</code>
+      </div>
     </div>
   </div>
+
 </template>
 
 <script setup lang="ts">
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faServer, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faInfoCircle, faServer, faUser } from '@fortawesome/free-solid-svg-icons'
 import { computed, inject, reactive, ref } from 'vue'
 import { ServerStatus } from '@/props/server-status'
 import { GameInfo } from '@/props/game-info'
 import OnlinePlayerGraph from '@/components/OnlinePlayersGraph.vue'
 
-library.add(faServer)
-library.add(faUser)
+library.add(faServer, faUser, faInfoCircle)
 
 interface _ServerStatus {
   $delegate: ServerStatus
@@ -136,7 +148,6 @@ function calculateTimeDifference (now: number, startEpochMilli: number) {
 #status-card {
   background-color: white;
   border-radius: 15px;
-  box-shadow: lightgray 0 0 5px 0;
   border-style: none;
   width: 400px;
   height: fit-content;
@@ -144,12 +155,6 @@ function calculateTimeDifference (now: number, startEpochMilli: number) {
   margin-top: 40px;
   margin-left: 20px;
   margin-bottom: 40px;
-  transition: all 0.2s ease-in-out;
-}
-
-#status-card:hover {
-  box-shadow: darkgray 0 0 12px 0;
-  transition: all 0.2s ease-in-out;
 }
 
 .status-item-row {
@@ -186,5 +191,10 @@ function calculateTimeDifference (now: number, startEpochMilli: number) {
 #online-players-card-row {
   margin-left: 5px;
   margin-right: 5px;
+}
+
+#server-info {
+  margin-left: 35px;
+  margin-top: 30px;
 }
 </style>
