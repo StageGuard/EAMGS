@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2022 StageGuard
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -18,6 +34,7 @@ subprojects {
 
     afterEvaluate {
         dependencies {
+            implementation("org.jetbrains.kotlinx:atomicfu:0.17.2")
             implementation("org.slf4j:slf4j-api:1.7.30")
             implementation("org.slf4j:slf4j-log4j12:1.7.30")
             implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")

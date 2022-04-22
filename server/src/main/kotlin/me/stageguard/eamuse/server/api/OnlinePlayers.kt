@@ -17,11 +17,11 @@
 package me.stageguard.eamuse.server.api
 
 import io.netty.handler.codec.http.FullHttpRequest
+import kotlinx.atomicfu.AtomicRef
+import kotlinx.atomicfu.atomic
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import me.stageguard.eamuse.json
@@ -42,34 +42,31 @@ internal object OnlinePlayersMonitor : CoroutineScope {
         get() = Job(EAmusementGameServer.coroutineContext.job) +
                 CoroutineExceptionHandler { _, t -> LOGGER.warn("Exception in OnlinePlayersMonitor", t) }
     private val opSupervisorJob = SupervisorJob(coroutineContext.job)
-    private val accessLock = Mutex(false)
 
     private val gameCode by lazy {
         mapOf(*EAmPluginLoader.plugins.map { it.code to it.id }.toTypedArray()).onEach { (_, id) ->
-            countRecord[id] = mutableListOf()
-            playerRecord[id] = hashMapOf()
+            countRecord.value[id] = mutableListOf()
+            playerRecord.value[id] = hashMapOf()
         }
     }
 
-    private val countRecord: MutableMap<String, MutableList<Int>> = mutableMapOf()
-    private val playerRecord: MutableMap<String, MutableMap<String, LocalDateTime>> = mutableMapOf()
+    private val countRecord: AtomicRef<MutableMap<String, MutableList<Int>>> = atomic(mutableMapOf())
+    private val playerRecord: AtomicRef<MutableMap<String, MutableMap<String, LocalDateTime>>> = atomic(mutableMapOf())
 
     fun inquire(code: String, tag: String) = launch(opSupervisorJob) j@{
         val gameId = gameCode[code] ?: return@j
-        accessLock.withLock {
-            val players = playerRecord.getValue(gameId)
+        val players = playerRecord.value.getValue(gameId)
 
-            val p = players[tag]
-            if (p == null) {
-                val record = countRecord.getValue(gameId)
-                if (record.isEmpty()) {
-                    record.add(1)
-                } else {
-                    record[record.lastIndex]++
-                }
+        val p = players[tag]
+        if (p == null) {
+            val record = countRecord.value.getValue(gameId)
+            if (record.isEmpty()) {
+                record.add(1)
+            } else {
+                record[record.lastIndex]++
             }
-            players[tag] = LocalDateTime.now()
         }
+        players[tag] = LocalDateTime.now()
     }.let { }
 
     private fun tickerFlow(initialMilli: Long, intervalMilli: Long = 3600000) = flow {
@@ -81,7 +78,7 @@ internal object OnlinePlayersMonitor : CoroutineScope {
     }
 
     fun getOnlinePlayerRecord(gameId: String): List<Int>? {
-        return countRecord[gameId]
+        return countRecord.value[gameId]
     }
 
     internal fun start() {
@@ -91,25 +88,18 @@ internal object OnlinePlayersMonitor : CoroutineScope {
 
         launch(coroutineContext) {
             tickerFlow(timeDiffOfNextHour).collect {
-                accessLock.withLock {
-                    playerRecord.forEach { (gameId, record) ->
-                        var playersEntranceWithin5Minute = 0
-                        record.forEach { (tag, time) ->
-                            if (time.until(LocalDateTime.now(), ChronoUnit.MILLIS) < 500) {
-                                playersEntranceWithin5Minute++
-                            } else {
-                                record.remove(tag)
-                            }
-                        }
-                        countRecord.getValue(gameId).apply {
-                            add(playersEntranceWithin5Minute)
-                            if (size > 12) removeFirst()
-                        }
+                playerRecord.value.forEach { (gameId, record) ->
+                    val within5Min = record.filterValues { it.until(LocalDateTime.now(), ChronoUnit.MILLIS) < 300000 }
+                    record.clear()
+                    record.putAll(within5Min)
+                    countRecord.value.getValue(gameId).apply {
+                        add(within5Min.size)
+                        if (size > 12) removeFirst()
                     }
-                    LOGGER.info("status of previous hour: { ${
-                        countRecord.map { "${it.key}: ${it.value}}" }.joinToString(", ")
-                    } }")
                 }
+                LOGGER.info("status of previous hour: { ${
+                    countRecord.value.map { "${it.key}: ${it.value}}" }.joinToString(", ")
+                } }")
             }
         }
     }
