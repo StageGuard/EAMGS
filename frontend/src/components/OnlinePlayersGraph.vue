@@ -16,7 +16,7 @@
 
 <template>
   <div class="root-card">
-    <canvas :id="`online-player-graph-${id}`"></canvas>
+    <canvas ref="canvasDom"></canvas>
   </div>
 </template>
 
@@ -31,6 +31,7 @@ const gameInfo = defineProps<{
 }>()
 
 const data = ref<number[]>([])
+const canvasDom = ref<HTMLCanvasElement | null>(null)
 
 const labels = computed(() => {
   const r = ['-1h', 'now']
@@ -53,10 +54,8 @@ const normalizedData = computed(() => {
 
 onMounted(() => {
   const ctx = (() => {
-    const canvas = document.getElementById(`online-player-graph-${gameInfo.id}`)
-    if (!canvas) throw new Error(`Canvas with id ${gameInfo.id} not found.`)
-
-    const context = (canvas as HTMLCanvasElement).getContext('2d')
+    if (!canvasDom.value) throw new Error(`Canvas with id ${gameInfo.id} not found.`)
+    const context = canvasDom.value.getContext('2d')
     if (!context) throw new Error(`Cannot get 2d context of canvas ${gameInfo.id}.`)
 
     return context
