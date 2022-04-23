@@ -63,9 +63,7 @@ onMounted(() => {
   })()
 
   const totalDuration = 1000
-  const delayBetweenPoints = totalDuration / labels.value.length
-  // eslint-disable-next-line
-  const previousY = (ctx: any) => ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(100) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y
+  const delayBetweenPoints = ref<number>(totalDuration / labels.value.length)
 
   const chart = new Chart(ctx, {
     type: 'line',
@@ -112,28 +110,12 @@ onMounted(() => {
         x: {
           type: 'number',
           easing: 'easeOutCubic',
-          duration: delayBetweenPoints,
-          from: NaN,
-          delay (ctx: { type: string, xStarted: boolean, index: number }) {
-            if (ctx.type !== 'data' || ctx.xStarted) {
-              return 0
-            }
-            ctx.xStarted = true
-            return ctx.index * delayBetweenPoints
-          }
+          duration: delayBetweenPoints.value
         },
         y: {
           type: 'number',
           easing: 'easeOutCubic',
-          duration: delayBetweenPoints,
-          from: previousY,
-          delay (ctx: { type: string, yStarted: boolean, index: number }) {
-            if (ctx.type !== 'data' || ctx.yStarted) {
-              return 0
-            }
-            ctx.yStarted = true
-            return ctx.index * delayBetweenPoints
-          }
+          duration: delayBetweenPoints.value
         }
       },
       plugins: {
