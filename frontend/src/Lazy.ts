@@ -13,9 +13,22 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+export interface Lazy<T> {
+  (): T;
 
-const { defineConfig } = require('@vue/cli-service')
-module.exports = defineConfig({
-  transpileDependencies: true,
-  configureWebpack: { devtool: 'source-map' }
-})
+  isLazy: boolean;
+}
+
+export const lazy = <T>(getter: () => T): Lazy<T> => {
+  let evaluated = false
+  let _res: T | null = null
+  const res = <Lazy<T>> function (): T {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    if (evaluated) return _res!
+    _res = getter()
+    evaluated = true
+    return _res
+  }
+  res.isLazy = true
+  return res
+}

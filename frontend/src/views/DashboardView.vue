@@ -60,38 +60,39 @@
       <font-awesome-icon icon="info-circle"/>
       <i class="space20px"/>Server Information
     </h1>
-    <div id="server-info">
-      <div class="info-line">
-        <h3 style="display: inline">Server url :</h3>
-        <span class="space20px"/>
-        <code>{{ status.$injected.serverUrl }}</code>
-      </div>
-      <div class="info-line">
-        <h3 style="display: inline">Supported model : </h3>
-        <span class="space20px"/>
-        <ul style="margin-right: 20px" v-for="g in gameInfo" v-bind:key="g.id">
-          <li style="line-height: 40px">
-            {{ g.name }} : <code style="margin-right: 10px" v-for="v in g.supportedVersions" v-bind:key="v">{{
-              v
-            }}</code>
-          </li>
-        </ul>
-      </div>
-      <div class="info-line">
-        <h3 style="display: inline; margin-right: 10px">PCB Id : </h3>
-        <h3 style="display: inline; color: orangered" v-if="status.$injected.pcbIdRequired">Required</h3>
-        <h3 style="display: inline; color: forestgreen" v-else>Not specified</h3>
-        <span style="display: block; margin-top: 20px; margin-left: 20px; line-height: 25px"
-              v-if="status.$injected.pcbIdRequired">You need to apply for a pcb id to join the server, <a
-          @click="handleApplyForPcbId()" href="javascript:void(0);">
+    <div v-if="status.$injected.serverUrl">
+      <div id="server-info">
+        <div class="info-line">
+          <h3 style="display: inline">Server url :</h3>
+          <span class="space20px"/>
+          <code>{{ status.$injected.serverUrl }}</code>
+        </div>
+        <div class="info-line">
+          <h3 style="display: inline">Supported model : </h3>
+          <span class="space20px"/>
+          <ul style="margin-right: 20px" v-for="g in gameInfo" v-bind:key="g.id">
+            <li style="line-height: 40px">
+              {{ g.name }} : <code style="margin-right: 10px" v-for="v in g.supportedVersions" v-bind:key="v">{{
+                v
+              }}</code>
+            </li>
+          </ul>
+        </div>
+        <div class="info-line">
+          <h3 style="display: inline; margin-right: 10px">PCB Id : </h3>
+          <h3 style="display: inline; color: orangered" v-if="status.$injected.pcbIdRequired">Required</h3>
+          <h3 style="display: inline; color: forestgreen" v-else>Not specified</h3>
+          <span style="display: block; margin-top: 20px; margin-left: 20px; line-height: 25px"
+                v-if="status.$injected.pcbIdRequired">You need to apply for a pcb id to join the server, <a
+            @click="handleApplyForPcbId()" href="javascript:void(0);">
           <font-awesome-icon icon="link" style="margin-right: 2px"/>click here</a> to apply for one.<br/>Note that you still need apply for a pcb id if the server switched to <span
-          style="color: orangered">Required</span> state from <span
-          style="color: forestgreen">Not specified</span>.</span>
-        <span style="display: block; margin-top: 20px; margin-left: 20px;" v-else>You don't need to fill a specify pcb id in spice config, just join the server and play.</span>
+            style="color: orangered">Required</span> state from <span
+            style="color: forestgreen">Not specified</span>.</span>
+          <span style="display: block; margin-top: 20px; margin-left: 20px;" v-else>You don't need to fill a specify pcb id in spice config, just join the server and play.</span>
+        </div>
       </div>
     </div>
   </div>
-
 </template>
 
 <script setup lang="ts">
