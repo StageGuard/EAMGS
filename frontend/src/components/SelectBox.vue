@@ -15,7 +15,7 @@
   -->
 
 <template>
-  <div id="select-box" class="box-style" @click="openSelectBox($event)" ref="selectBox">
+  <div id="select-box" class="box-style" @click="openSelectBox()" ref="selectBox">
     <span style="margin: auto; user-select: none">{{ options[currentSelection] }}</span>
   </div>
   <div id="popup-box" class="box-style" ref="popupBox" v-show="selectBoxOpened">
@@ -23,7 +23,7 @@
         'box-item-singleton': options.length === 1,
         'box-item-head': index === 0,
         'box-item-tail': index === options.length - 1
-      }" @click="handleSelect($event, index)">
+      }" @click="handleSelect(index)">
       <span id="text" style="margin: auto; user-select: none">{{ item }}</span>
     </div>
   </div>
@@ -78,58 +78,55 @@ const currentShowingSlot = computed<number>(() => {
     }
   }
 })
-const selectBoxSize = lazy(() => {
+
+const selectBoxHeight = lazy(() => {
   if (selectBox.value == null) throw new Error('Cannot handle select element of select box')
   const selectBoxRect = selectBox.value.getBoundingClientRect()
-  return {
-    width: Math.abs(selectBoxRect.right - selectBoxRect.left),
-    height: Math.abs(selectBoxRect.bottom - selectBoxRect.top)
-  }
-})
-const popupBoxHeight = lazy(() => selectBoxSize().height * showItemsCount)
-const setItemSize = lazy(() => {
+  const selectBoxHeight = Math.abs(selectBoxRect.bottom - selectBoxRect.top)
+
+  // lazily set select item height
   for (let i = 0; i < props.options.length; i++) {
     if (popupBox.value == null) throw new Error('Cannot handle popup element of select box')
     const item = popupBox.value.children.item(i) as HTMLDivElement | null
-    if (item != null) {
-      item.style.width = `${selectBoxSize().width}px`
-      item.style.height = `${selectBoxSize().height}px`
-    }
+    if (item != null) item.style.height = `${selectBoxHeight}px`
   }
+
+  return selectBoxHeight
 })
 
-// eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
-function openSelectBox (ev: PointerEvent) {
+function setItemWidth (w: number) {
+  for (let i = 0; i < props.options.length; i++) {
+    if (popupBox.value == null) throw new Error('Cannot handle popup element of select box')
+    const item = popupBox.value.children.item(i) as HTMLDivElement | null
+    if (item != null) item.style.width = `${w}px`
+  }
+}
+
+function openSelectBox () {
   if (selectBox.value == null) throw new Error('Cannot handle select element of select box')
   if (popupBox.value == null) throw new Error('Cannot handle popup element of select box')
   if (animPlaying) return
 
-  setItemSize()
+  const selectBoxRect = selectBox.value.getBoundingClientRect()
+  const selectBoxWidth = Math.abs(selectBoxRect.right - selectBoxRect.left)
+  setItemWidth(selectBoxWidth)
+
   if (!selectBoxOpened.value) {
     const selectBoxRect = selectBox.value.getBoundingClientRect()
     popupBox.value.style.left = `${selectBoxRect.left}px`
     selectBoxOpened.value = true
     selectBox.value.style.opacity = '0'
 
-    const popupBoxTop = selectBoxRect.top - selectBoxSize().height * currentShowingSlot.value
+    const popupBoxTop = selectBoxRect.top - selectBoxHeight() * currentShowingSlot.value
 
-    const openAnim = popupBox.value.animate([
-      {
-        top: `${selectBoxRect.top}px`,
-        height: `${selectBoxSize().height}px`
-      },
-      {
-        top: `${popupBoxTop}px`,
-        height: `${popupBoxHeight()}px`
-      }
-    ], {
-      easing: 'ease-out',
-      duration: animDuration
-    })
+    const openAnim = popupBox.value.animate(
+      [{ top: `${selectBoxRect.top}px`, height: `${selectBoxHeight()}px` },
+        { top: `${popupBoxTop}px`, height: `${selectBoxHeight() * showItemsCount}px` }],
+      { easing: 'ease-out', duration: animDuration })
     openAnim.onfinish = () => {
       if (popupBox.value == null) throw new Error('Cannot handle popup element of select box')
       popupBox.value.style.top = `${popupBoxTop}px`
-      popupBox.value.style.height = `${selectBoxSize().height * showItemsCount}px`
+      popupBox.value.style.height = `${selectBoxHeight() * showItemsCount}px`
       animPlaying = false
     }
     // play animation
@@ -138,7 +135,7 @@ function openSelectBox (ev: PointerEvent) {
       step () {
         if (popupBox.value == null) throw Error('Cannot handle popup element of select box')
         const popupBoxTop = popupBox.value.getBoundingClientRect().top
-        popupBox.value.scrollTop = currentSelection.value * selectBoxSize().height + (popupBoxTop - selectBoxRect.top)
+        popupBox.value.scrollTop = currentSelection.value * selectBoxHeight() + (popupBoxTop - selectBoxRect.top)
       }
     })
     openAnim.play()
@@ -182,11 +179,26 @@ function openSelectBox (ev: PointerEvent) {
       }
     }
 
+    setTimeout(() => {
+      const prevWindowClickEvent = window.onclick
+      window.onclick = (ev: MouseEvent) => {
+        if (selectBoxOpened.value && popupBox.value != null) {
+          ev.preventDefault()
+          const popupBoxRect = popupBox.value.getBoundingClientRect()
+          if (!(
+            (ev.clientX >= popupBoxRect.left && ev.clientX <= popupBoxRect.right) &&
+            (ev.clientY >= popupBoxRect.top && ev.clientY <= popupBoxRect.bottom)
+          )) handleSelect(-1)
+        }
+        window.onclick = prevWindowClickEvent
+      }
+    })
+
     animPlaying = true
   }
 }
 
-function handleSelect (ev: PointerEvent, index: number) {
+function handleSelect (index: number) {
   if (selectBox.value == null) throw new Error('Cannot handle select element of select box')
   if (popupBox.value == null) throw new Error('Cannot handle popup element of select box')
   if (animPlaying) return
@@ -194,8 +206,10 @@ function handleSelect (ev: PointerEvent, index: number) {
   const selectBoxRect = selectBox.value.getBoundingClientRect()
   selectBox.value.style.opacity = '1'
 
-  currentSelection.value = index
-  callbackEmit('onSelect', currentSelection.value)
+  if (index >= 0) {
+    currentSelection.value = index
+    callbackEmit('onSelect', currentSelection.value)
+  }
   animPlaying = true
   const closeAnim = popupBox.value.animate(
     [{ opacity: '1' }, { opacity: '0' }],
@@ -209,7 +223,6 @@ function handleSelect (ev: PointerEvent, index: number) {
   }
   closeAnim.play()
 }
-
 </script>
 
 <style scoped>
@@ -239,6 +252,7 @@ function handleSelect (ev: PointerEvent, index: number) {
   width: auto;
   overflow-y: scroll;
   -ms-overflow-style: none;
+  /*noinspection CssUnknownProperty*/
   scrollbar-width: none;
 }
 
