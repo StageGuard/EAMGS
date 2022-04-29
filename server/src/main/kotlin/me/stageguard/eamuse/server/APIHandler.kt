@@ -26,4 +26,7 @@ interface APIHandler {
 abstract class AbstractAPIHandler(val name: String, val path: String) : APIHandler {
     @Language("JSON")
     protected fun apiError(reason: String) = """{"result": -1, "message": "$reason"}"""
+
+    @Language("JSON")
+    protected fun ok() = """{"result": 0}"""
 }

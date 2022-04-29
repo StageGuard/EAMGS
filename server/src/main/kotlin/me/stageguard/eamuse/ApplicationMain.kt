@@ -32,6 +32,7 @@ import me.stageguard.eamuse.server.RouterModule
 import me.stageguard.eamuse.server.api.OnlinePlayers
 import me.stageguard.eamuse.server.api.OnlinePlayersMonitor
 import me.stageguard.eamuse.server.api.ServerStatus
+import me.stageguard.eamuse.server.api.VerifyCardId
 import me.stageguard.eamuse.server.router.*
 import java.io.File
 import java.util.logging.Logger
@@ -83,7 +84,7 @@ fun main() = runBlocking {
             get() = listOf(EAmuseCardTable, PcbIdTable)
         override val profileChecker: ProfileChecker? = null
         override val apiHandlers: List<AbstractAPIHandler>
-            get() = listOf(ServerStatus, OnlinePlayers)
+            get() = listOf(ServerStatus, OnlinePlayers, VerifyCardId)
     })
 
     // load game plugins

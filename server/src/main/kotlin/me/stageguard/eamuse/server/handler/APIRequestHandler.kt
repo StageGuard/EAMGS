@@ -104,7 +104,7 @@ internal object APIRequestHandler : SimpleChannelInboundHandler<SelectorType.API
             DefaultFullHttpResponse(HttpVersion.HTTP_1_1, status).also {
                 it.content().writeBytes(this)
                 it.headers().run {
-                    add("Content-Type", if (status == HttpResponseStatus.OK) "application/json" else "text/plain")
+                    add("Content-Type", "application/json")
                     add("Content-Length", this@b.size)
                     add("Access-Control-Allow-Origin", "*")
                 }
