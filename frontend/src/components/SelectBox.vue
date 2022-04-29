@@ -33,7 +33,7 @@
 <script setup lang="ts">
 import { computed, defineEmits, defineProps, ref } from 'vue'
 import $ from 'jquery'
-import { lazy } from '@/Lazy'
+import { lazy } from '@/utils/Lazy'
 
 const props = defineProps<{
   options: string[],
