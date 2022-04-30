@@ -14,6 +14,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-export default {
-  host: 'http://localhost:11451/api'
+const getCookie = function (key: string) {
+  let cookieString = ''
+  document.cookie.split(';').forEach(e => {
+    const value = e.trim()
+    if (value.startsWith(key + '=')) {
+      cookieString = value.replace(key + '=', '')
+    }
+  })
+  return cookieString
 }
+
+export default getCookie

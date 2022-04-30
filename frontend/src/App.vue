@@ -21,11 +21,22 @@
     <router-link to="/ranking">Ranking</router-link>
     <router-link to="/settings">Settings</router-link>
     <router-link to="/about">About</router-link>
-    <span class="user-info">user name</span>
+    <span class="card-info" @click="handleClickCardInfo()">{{ refId ? refId : "[UNVERIFIED]" }}</span>
   </nav>
-  <div class="root-content">
+  <div id="root-content">
     <router-view/>
   </div>
+  <full-screen-dialog
+    ref="verificationDialog"
+    type="input"
+    title="Verification"
+    desc="Please input card id and pin to verify your profile"
+    :input="[
+      { name: 'Card Id', desc: 'Your EAM card id, start with E004', default: cardInfo.id.value },
+      { name: 'Pin', desc: 'Password of your card, 4 digit', default: cardInfo.pin.value }
+    ]"
+    @on-select="handleVerificationDialog"
+  ></full-screen-dialog>
 </template>
 
 <script setup lang="ts">
@@ -33,6 +44,8 @@ import { provide, ref } from 'vue'
 import config from '@/config'
 import { ServerStatus } from '@/props/server-status'
 import { GameInfo } from '@/props/game-info'
+import getCookie from '@/utils/cookie'
+import FullScreenDialog from '@/components/FullScreenDialog.vue'
 
 const contentWidth = 1200
 const sidePadding = ref<string>('40px')
@@ -47,6 +60,8 @@ function __onWindowResize () {
 
 window.onresize = __onWindowResize
 __onWindowResize()
+
+const verificationDialog = ref<InstanceType<typeof FullScreenDialog> | null>(null)
 
 interface _ServerStatus {
   $delegate: ServerStatus
@@ -105,7 +120,7 @@ fetch(`${config.host}/status`).then(r => r.json()).then(r => {
       })
     }
   } else {
-    console.log('Failed to fetch server status: ' + r.message) // TODO: show error
+    alert('Failed to fetch server status: ' + r.message) // TODO: show error
     status.value.$delegate.startupEpochSecond = -1
     status.value.$delegate.profileCount = -1
   }
@@ -115,10 +130,64 @@ fetch(`${config.host}/status`).then(r => r.json()).then(r => {
   status.value.$delegate.startupEpochSecond = -1
   status.value.$delegate.profileCount = -1
   status.value.$delegate.serverUrl = '-'
-  console.log(reason) // TODO: show error
+  console.error(reason) // TODO: show error
 })
 provide<_ServerStatus>('server-status', status.value)
 provide('games', games.value)
+
+const cardInfo = {
+  id: ref(getCookie('cid')),
+  pin: ref(getCookie('p'))
+}
+
+const refId = ref<string | null>(null)
+
+if (cardInfo.id && cardInfo.pin) {
+  verify(cardInfo.id.value, Number(cardInfo.pin.value)).then(r => {
+    if (r.result !== -1) {
+      refId.value = r.refId
+    } else {
+      alert('Verification failed: ' + r.message) // TODO: show error
+    }
+  }).catch(e => {
+    alert('Verification failed: ' + e) // TODO: show error
+  })
+}
+
+function handleClickCardInfo () {
+  cardInfo.id.value = getCookie('cid')
+  cardInfo.pin.value = getCookie('p')
+  verificationDialog.value?.show()
+}
+
+function handleVerificationDialog (index: number, input?: string[]): boolean {
+  if (index === 0 && input) {
+    verify(input[0], Number(input[1])).then(r => {
+      if (r.result !== -1) {
+        refId.value = r.refId
+        document.cookie = `cid=${input[0]}`
+        document.cookie = `p=${input[1]}`
+      } else {
+        if (refId.value === null) {
+          document.cookie = `cid=${input[0]}`
+          document.cookie = `p=${input[1]}`
+        }
+        alert('Verification failed: ' + r.message) // TODO: show error
+      }
+    }).catch(e => {
+      alert('Verification failed: ' + e) // TODO: show error
+    })
+  }
+  return true
+}
+
+async function verify (cardId: string, pin: number) {
+  return fetch(`${config.host}/verify`, {
+    method: 'POST',
+    body: JSON.stringify({ cardId, pin })
+  }).then(r => r.json())
+}
+
 </script>
 
 <style>
@@ -147,9 +216,15 @@ provide('games', games.value)
   -moz-osx-font-smoothing: grayscale;
 }
 
-.user-info {
+.card-info {
   display: flex;
   float: right;
+  color: gray;
+  transition: all 0.2s linear;
+}
+
+.card-info:hover {
+  color: black;
 }
 
 nav {
@@ -188,7 +263,7 @@ nav .router-link-exact-active {
   transition: all 0.2s ease-in-out;
 }
 
-.root-content {
+#root-content {
   padding-left: v-bind(sidePadding);
   padding-right: v-bind(sidePadding);
 }
