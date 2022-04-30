@@ -149,9 +149,7 @@ function openSelectBox () {
             [{ opacity: '0' }, { opacity: '1' }],
             { duration: 150, easing: 'ease-in', delay: 50 * (i + 1) }
           )
-          anim.onfinish = () => {
-            lastElement.style.opacity = '1'
-          }
+          anim.onfinish = () => (lastElement.style.opacity = '1')
           lastElement.animate(
             [{ top: '8px' }, { top: '0' }],
             { duration: 100, easing: 'ease-out', delay: 50 * (i + 1) }
@@ -167,9 +165,7 @@ function openSelectBox () {
             [{ opacity: '0' }, { opacity: '1' }],
             { duration: 150, easing: 'ease-in', delay: 50 * (i + 1) }
           )
-          anim.onfinish = () => {
-            nextElement.style.opacity = '1'
-          }
+          anim.onfinish = () => (nextElement.style.opacity = '1')
           nextElement.animate(
             [{ top: '-8px' }, { top: '0' }],
             { duration: 100, easing: 'ease-out', delay: 50 * (i + 1) }
