@@ -15,13 +15,13 @@
  */
 
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import DashboardView from '@/views/DashboardView.vue'
+import definedGameModules from '@/modules'
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'dashboard',
-    component: DashboardView,
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/views/DashboardView.vue'),
     props: true
   },
   {
@@ -37,7 +37,8 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/settings',
     name: 'settings',
-    component: () => import(/* webpackChunkName: "settings" */ '@/views/SettingsView.vue')
+    component: () => import(/* webpackChunkName: "settings" */ '@/views/SettingsView.vue'),
+    children: definedGameModules.map(m => m.settingRoute)
   }
 ]
 

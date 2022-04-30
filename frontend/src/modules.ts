@@ -14,15 +14,30 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-const getCookie = function (key: string, defValue?: string) {
-  let cookieString = defValue || ''
-  document.cookie.split(';').forEach(e => {
-    const value = e.trim()
-    if (value.startsWith(key + '=')) {
-      cookieString = value.replace(key + '=', '')
-    }
-  })
-  return cookieString
+import { RouteRecordRaw } from 'vue-router'
+
+interface GameModule {
+  gameId: string,
+  settingRoute: RouteRecordRaw
 }
 
-export default getCookie
+const definedGameModules: GameModule[] = [
+  {
+    gameId: 'sdvx6',
+    settingRoute: {
+      path: '/settings/sdvx6',
+      name: 'settings-sdvx6',
+      component: () => import(/* webpackChunkName: "settings.sdvx6" */ '@/views/settings/SDVX6Settings.vue')
+    }
+  },
+  {
+    gameId: 'iidx',
+    settingRoute: {
+      path: '/settings/iidx',
+      name: 'settings-iidx',
+      component: () => import(/* webpackChunkName: "settings.iidx" */ '@/views/settings/IIDXSettings.vue')
+    }
+  }
+]
+
+export default definedGameModules

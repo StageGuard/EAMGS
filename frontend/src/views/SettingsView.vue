@@ -16,30 +16,50 @@
 
 <template>
   <div class="settings-view">
-    <div class="select-games" style="margin-top: 200px">
-      <h2 style="margin-right: 20px;">Current selection</h2>
+    <div class="select-games">
+      <h2 style="margin-right: 20px;">Current game selection</h2>
       <select-box
-        :options="[
-          '739AF21EBFFA4EF0','2CC6EAF30B7B4E85','7B641D6D47C84408','0033ADC1F7964DC7',
-          'B2FE53B2F42040B5','44AEFFF08339469E','4A09D33D47714071','50D1E2B0E2EC4C6D',
-          'ABC8C9EC740B4671','3675404D37024ADF','C3FBD55B610E481C','C438A123B2614063',
-          '26ABB4985EFA48BD','04F04EFF42E74938','2B14E2447BAD4D85','CC9F321B346043DA',
-          'FD8349ECB9D24E95','3203134C2B2641F6','96F3CE780AB14A12','A915614281DF49CE',
-          'BE79154A59A8492E','ED4A2F642FA347C9','96F42FBFB5AE481A','1163019745224083',
-          '0D990B758C4A4943','CEC05DA29F7A475D','64C0CF60D785459A','E3A0C5AD8D3A422A'
-        ]"
-        :current="0" :show-items-count="9" @on-select="selectGame"></select-box>
+        :options="games.map(g => g.name)"
+        :current="games.findIndex(g => g.id === getCookie('sel', 'sdvx6'))" :show-items-count="2"
+        @on-select="handleSelectGame"
+      />
+    </div>
+    <div id="settings-panel">
+      <router-view/>
     </div>
   </div>
 </template>
 
-<script setup type="ts">
+<script setup lang="ts">
 import SelectBox from '@/components/SelectBox.vue'
+import { GameInfo } from '@/props/game-info'
+import { computed, inject, onMounted } from 'vue'
+import getCookie from '@/utils/cookie'
+import router from '@/router'
 
-function selectGame (index) {
-  console.log(index)
+interface _GameInfo {
+  $delegate: GameInfo
 }
 
+const games = (() => {
+  const _games = inject<Map<string, _GameInfo>>('games')
+  if (_games === undefined) throw new Error('games is not injected.')
+  return computed<GameInfo[]>(() => {
+    const r: GameInfo[] = []
+    _games.forEach((v: _GameInfo) => r.push(v.$delegate))
+    return r
+  })
+})()
+
+onMounted(() => {
+  const currentSelection = getCookie('sel', 'sdvx6')
+  router.push({ name: `settings-${currentSelection}` })
+})
+
+function handleSelectGame (index: number) {
+  document.cookie = `sel=${games.value[index].id}`
+  router.push({ name: `settings-${games.value[index].id}` })
+}
 </script>
 
 <style scoped>
