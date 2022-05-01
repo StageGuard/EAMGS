@@ -34,7 +34,7 @@
 import SelectBox from '@/components/SelectBox.vue'
 import { GameInfo } from '@/props/game-info'
 import { computed, inject, onMounted } from 'vue'
-import getCookie from '@/utils/cookie'
+import { getCookie, setCookie } from '@/utils/cookie'
 import router from '@/router'
 
 interface _GameInfo {
@@ -57,7 +57,7 @@ onMounted(() => {
 })
 
 function handleSelectGame (index: number) {
-  document.cookie = `sel=${games.value[index].id}`
+  setCookie('sel', games.value[index].id, 365)
   router.push({ name: `settings-${games.value[index].id}` })
 }
 </script>

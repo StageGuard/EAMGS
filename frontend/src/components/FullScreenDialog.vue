@@ -59,7 +59,10 @@ if (props.type === 'input' && (props.input === undefined || props.input.length =
   throw Error('No input options in dialog since type is input.')
 }
 
-const callbackEmits = defineEmits<{(e: 'onSelect', index: number, input?: string[]): boolean }>()
+// eslint-disable-next-line func-call-spacing
+const callbackEmits = defineEmits<{
+  (e: 'onSelect', index: number, input?: string[], shouldClose?: (r: boolean) => void): void
+}>()
 
 const showing = ref<boolean>(props.initialShow ? props.initialShow : false)
 const selectionItems = props.selection ? props.selection : ['Apply', 'Cancel']
@@ -120,11 +123,12 @@ setTimeout(() => {
 })
 
 function handleSelect (index: number) {
-  let closeDialog = callbackEmits('onSelect', index, inputItems()?.map(e => e.value))
-  if (closeDialog === undefined) closeDialog = true
-  if (index < 0) closeDialog = true
+  callbackEmits('onSelect', index, inputItems()?.map(e => e.value), (closeDialog: boolean) => {
+    if (closeDialog === undefined) closeDialog = true
+    if (index < 0) closeDialog = true
 
-  if (closeDialog) dismissDialog()
+    if (closeDialog) dismissDialog()
+  })
 }
 
 </script>

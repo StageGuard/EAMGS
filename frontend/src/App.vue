@@ -32,19 +32,19 @@
     title="Verification"
     desc="Please input card id and pin to verify your profile"
     :input="[
-      { name: 'Card Id', desc: 'Your EAM card id, start with E004', default: cardInfo.id.value },
-      { name: 'Pin', desc: 'Password of your card, 4 digit', default: cardInfo.pin.value }
+      { name: 'Card Id', desc: 'Your EAM card id, start with E004', default: cardId },
+      { name: 'Pin', desc: 'Password of your card, 4 digit', default: cardPin }
     ]"
     @on-select="handleVerificationDialog"
   ></full-screen-dialog>
 </template>
 
 <script setup lang="ts">
-import { provide, ref } from 'vue'
+import { computed, provide, ref } from 'vue'
 import config from '@/config'
 import { ServerStatus } from '@/props/server-status'
 import { GameInfo } from '@/props/game-info'
-import getCookie from '@/utils/cookie'
+import { getCookie, setCookie } from '@/utils/cookie'
 import FullScreenDialog from '@/components/FullScreenDialog.vue'
 
 const contentWidth = 1200
@@ -135,15 +135,12 @@ fetch(`${config.host}/status`).then(r => r.json()).then(r => {
 provide<_ServerStatus>('server-status', status.value)
 provide('games', games.value)
 
-const cardInfo = {
-  id: ref(getCookie('cid')),
-  pin: ref(getCookie('p'))
-}
-
+const cardId = computed<string>(() => getCookie('cid'))
+const cardPin = computed<string>(() => getCookie('p'))
 const refId = ref<string | null>(null)
 
-if (cardInfo.id && cardInfo.pin) {
-  verify(cardInfo.id.value, Number(cardInfo.pin.value)).then(r => {
+if (cardId.value && cardPin.value) {
+  verify(cardId.value, Number(cardPin.value)).then(r => {
     if (r.result !== -1) {
       refId.value = r.refId
     } else {
@@ -155,30 +152,30 @@ if (cardInfo.id && cardInfo.pin) {
 }
 
 function handleClickCardInfo () {
-  cardInfo.id.value = getCookie('cid')
-  cardInfo.pin.value = getCookie('p')
   verificationDialog.value?.show()
 }
 
-function handleVerificationDialog (index: number, input?: string[]): boolean {
+function handleVerificationDialog (index: number, input?: string[], shouldClose?: (r: boolean) => void) {
   if (index === 0 && input) {
     verify(input[0], Number(input[1])).then(r => {
       if (r.result !== -1) {
         refId.value = r.refId
-        document.cookie = `cid=${input[0]}`
-        document.cookie = `p=${input[1]}`
+        setCookie('cid', input[0], 365)
+        setCookie('p', input[1], 365)
+        if (shouldClose) shouldClose(true)
       } else {
         if (refId.value === null) {
-          document.cookie = `cid=${input[0]}`
-          document.cookie = `p=${input[1]}`
+          setCookie('cid', input[0], 365)
+          setCookie('p', input[1], 365)
         }
         alert('Verification failed: ' + r.message) // TODO: show error
+        if (shouldClose) shouldClose(false)
       }
     }).catch(e => {
       alert('Verification failed: ' + e) // TODO: show error
+      if (shouldClose) shouldClose(false)
     })
-  }
-  return true
+  } else if (shouldClose) shouldClose(true)
 }
 
 async function verify (cardId: string, pin: number) {

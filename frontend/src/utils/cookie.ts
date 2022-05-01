@@ -14,7 +14,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-const getCookie = function (key: string, defValue?: string) {
+export const getCookie = function (key: string, defValue?: string) {
   let cookieString = defValue || ''
   document.cookie.split(';').forEach(e => {
     const value = e.trim()
@@ -25,4 +25,11 @@ const getCookie = function (key: string, defValue?: string) {
   return cookieString
 }
 
-export default getCookie
+export const setCookie = function (cname: string, cvalue: string, exdays: number) {
+  const d = new Date()
+  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000))
+  const expires = 'expires=' + d.toUTCString()
+  document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/'
+}
+
+export default { getCookie, setCookie }
