@@ -16,6 +16,16 @@
 
 <template>
   <div>sdvx6 settings</div>
+  <div>sdvx6 settings</div>
+  <div>sdvx6 settings</div>
+  <div>sdvx6 settings</div>
+  <div>sdvx6 settings</div>
+  <div>sdvx6 settings</div>
+  <div>sdvx6 settings</div>
+  <div>sdvx6 settings</div>
+  <div>sdvx6 settings</div>
+  <div>sdvx6 settings</div>
+  <div>sdvx6 settings</div>
 </template>
 
 <script setup lang="ts">

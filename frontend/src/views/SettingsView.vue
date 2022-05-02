@@ -15,14 +15,11 @@
   -->
 
 <template>
-  <div class="settings-view">
-    <div class="select-games">
-      <h2 style="margin-right: 20px;">Current game selection</h2>
-      <select-box
-        :options="games.map(g => g.name)"
-        :current="games.findIndex(g => g.id === currentSelection)" :show-items-count="2"
-        @on-select="handleSelectGame"
-      />
+  <div id="settings-view">
+    <div id="select-games" ref="selectGameSidebar">
+      <div class="game-selection" v-for="(g, index) in games" :key="index"
+           @click="handleSelectGame(index)">{{ g.name }}
+      </div>
     </div>
     <div id="settings-panel">
       <router-view/>
@@ -31,7 +28,6 @@
 </template>
 
 <script setup lang="ts">
-import SelectBox from '@/components/SelectBox.vue'
 import { GameInfo } from '@/props/game-info'
 import { computed, inject, onMounted, ref } from 'vue'
 import { getCookie, setCookie } from '@/utils/cookie'
@@ -46,30 +42,80 @@ const games = (() => {
   if (_games === undefined) throw new Error('games is not injected.')
   return computed<GameInfo[]>(() => {
     const r: GameInfo[] = []
-    _games.forEach((v: _GameInfo) => r.push(v.$delegate))
+    _games.forEach(v => r.push(v.$delegate))
     return r
   })
 })()
 
 const currentSelection = ref<string>(getCookie('sel', 'sdvx6'))
+const selectGameSidebar = ref<HTMLDivElement | null>(null)
+
+function activeSidebarItem (index: number) {
+  if (index === -1) return
+  if (selectGameSidebar.value === null) throw new Error('Cannot handle select game sidebar')
+  const sidebarChildren = selectGameSidebar.value.children
+  for (let i = 0; i < games.value.length; i++) {
+    const item = sidebarChildren.item(i)
+    if (index === i) {
+      item?.classList.add('game-selection-active')
+    } else {
+      item?.classList.remove('game-selection-active')
+    }
+  }
+}
+
 onMounted(() => {
   router.push({ name: `settings-${currentSelection.value}` })
+  activeSidebarItem(games.value.findIndex(g => g.id === currentSelection.value))
 })
 
 function handleSelectGame (index: number) {
-  setCookie('sel', games.value[index].id, 365)
-  router.push({ name: `settings-${games.value[index].id}` })
+  const selected = games.value[index]
+  currentSelection.value = selected.id
+  setCookie('sel', selected.id, 365)
+  activeSidebarItem(index)
+  router.push({ name: `settings-${selected.id}` })
 }
 </script>
 
 <style scoped>
-.settings-view {
-  padding: 20px 50px;
+#settings-view {
+  padding: 20px 50px 20px 0;
+  display: flex;
 }
 
-.select-games {
-  margin-left: 20px;
-  display: flex;
-  align-items: center;
+#select-games {
+  margin-left: 20px;;
+  margin-right: 20px;
 }
+
+.game-selection {
+  display: block;
+  padding: 15px;
+  margin-top: 6px;
+  margin-bottom: 6px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: rgb(179, 184, 194);
+  user-select: none;
+  transition: all 0.15s ease-in-out;
+}
+
+.game-selection:hover {
+  background-color: rgb(199, 204, 213);
+  color: white;
+}
+
+/*noinspection CssUnusedSymbol*/
+.game-selection-active {
+  background-color: rgb(20, 85, 254);
+  color: white;
+}
+
+/*noinspection CssUnusedSymbol*/
+.game-selection-active:hover {
+  background-color: rgb(20, 85, 254);
+  color: white;
+}
+
 </style>

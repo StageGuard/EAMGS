@@ -251,7 +251,12 @@ nav a:hover {
   background-color: rgb(199, 204, 213);
 }
 
-/*noinspection ALL*/
+/*noinspection CssUnusedSymbol*/
+nav .router-link-active:hover {
+  background-color: rgb(20, 85, 254);
+}
+
+/*noinspection CssUnusedSymbol*/
 nav .router-link-active {
   font-weight: bold;
   color: white;
