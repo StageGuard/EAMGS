@@ -15,21 +15,21 @@
   -->
 
 <template>
-  <div id="settings-view">
+  <div id="settings-view" v-if="games.length">
     <div id="select-games" ref="selectGameSidebar">
       <div class="game-selection" v-for="(g, index) in games" :key="index"
            @click="handleSelectGame(index)">{{ g.name }}
       </div>
     </div>
     <div id="settings-panel">
-      <router-view/>
+      <router-view v-if="refId !== null && games.length"/>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { GameInfo } from '@/props/game-info'
-import { computed, inject, onMounted, ref } from 'vue'
+import { computed, inject, onMounted, Ref, ref } from 'vue'
 import { getCookie, setCookie } from '@/utils/cookie'
 import router from '@/router'
 
@@ -38,21 +38,27 @@ interface _GameInfo {
 }
 
 const games = (() => {
-  const _games = inject<Map<string, _GameInfo>>('games')
+  const _games = inject<Ref<Map<string, _GameInfo>>>('games')
   if (_games === undefined) throw new Error('games is not injected.')
   return computed<GameInfo[]>(() => {
     const r: GameInfo[] = []
-    _games.forEach(v => r.push(v.$delegate))
+    _games.value.forEach(v => r.push(v.$delegate))
     return r
   })
 })()
+
+const refId = computed(() => {
+  const _refId = inject<Ref<string | null>>('refId')
+  if (_refId === undefined) throw new Error('refId is not injected.')
+  return _refId.value
+})
 
 const currentSelection = ref<string>(getCookie('sel', 'sdvx6'))
 const selectGameSidebar = ref<HTMLDivElement | null>(null)
 
 function activeSidebarItem (index: number) {
   if (index === -1) return
-  if (selectGameSidebar.value === null) throw new Error('Cannot handle select game sidebar')
+  if (selectGameSidebar.value === null) return
   const sidebarChildren = selectGameSidebar.value.children
   for (let i = 0; i < games.value.length; i++) {
     const item = sidebarChildren.item(i)

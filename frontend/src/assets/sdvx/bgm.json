@@ -1,0 +1,75 @@
+{
+    "bgm": [{
+            "value": 0,
+            "name": "EXCEED GEAR"
+        },
+        {
+            "value": 1,
+            "name": "Max Burning"
+        },
+        {
+            "value": 2,
+            "name": "Bangin' Burst"
+        },
+        {
+            "value": 3,
+            "name": "Ultraplayer"
+        },
+        {
+            "value": 4,
+            "name": "Everlasting Message"
+        },
+        {
+            "value": 5,
+            "name": "Lachryma《Re:Queen’M》"
+        },
+        {
+            "value": 6,
+            "name": "HE4VEN ～天国へようこそ～"
+        },
+        {
+            "value": 7,
+            "name": "iLLness LiLin"
+        },
+        {
+            "value": 8,
+            "name": "I"
+        },
+        {
+            "value": 9,
+            "name": "SOUND VOLTEX -BOOTH-"
+        },
+        {
+            "value": 10,
+            "name": "SOUND VOLTEX II -INFINITE INFECTION-"
+        },
+        {
+            "value": 11,
+            "name": "SOUND VOLTEX III GRAVITY WARS S1"
+        },
+        {
+            "value": 12,
+            "name": "SOUND VOLTEX III GRAVITY WARS S2"
+        },
+        {
+            "value": 13,
+            "name": "SOUND VOLTEX IV HEAVENLY HAVEN"
+        },
+        {
+            "value": 14,
+            "name": "SOUND VOLTEX VIVIDWAVE"
+        },
+        {
+            "value": 15,
+            "name": "*Feels Seasickness...*"
+        },
+        {
+            "value": 16,
+            "name": "ΣmbryØ"
+        },
+        {
+            "value": 17,
+            "name": "666"
+        }
+    ]
+}

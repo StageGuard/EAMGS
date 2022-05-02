@@ -15,5 +15,6 @@
  */
 
 export default {
-  host: 'http://localhost:11451/api'
+  host: 'http://localhost:11451/api',
+  assetsHost: 'http://localhost:8080/eam_assets'
 }

@@ -40,7 +40,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, provide, ref } from 'vue'
+import { computed, provide, Ref, ref } from 'vue'
 import config from '@/config'
 import { ServerStatus } from '@/props/server-status'
 import { GameInfo } from '@/props/game-info'
@@ -132,12 +132,13 @@ fetch(`${config.host}/status`).then(r => r.json()).then(r => {
   status.value.$delegate.serverUrl = '-'
   console.error(reason) // TODO: show error
 })
-provide<_ServerStatus>('server-status', status.value)
-provide('games', games.value)
+provide<Ref<_ServerStatus>>('server-status', status)
+provide<Ref<Map<string, _GameInfo>>>('games', games)
 
 const cardId = computed<string>(() => getCookie('cid'))
 const cardPin = computed<string>(() => getCookie('p'))
 const refId = ref<string | null>(null)
+provide<Ref<string | null>>('refId', refId)
 
 if (cardId.value && cardPin.value) {
   verify(cardId.value, Number(cardPin.value)).then(r => {
@@ -184,6 +185,9 @@ async function verify (cardId: string, pin: number) {
     body: JSON.stringify({ cardId, pin })
   }).then(r => r.json())
 }
+
+const globals = ref<Map<string, unknown>>(new Map())
+provide<Ref<Map<string, unknown>>>('globals', globals)
 
 </script>
 

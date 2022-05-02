@@ -98,7 +98,7 @@
 <script setup lang="ts">
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faInfoCircle, faLink, faServer, faUser } from '@fortawesome/free-solid-svg-icons'
-import { computed, inject, reactive, ref } from 'vue'
+import { computed, inject, reactive, Ref, ref } from 'vue'
 import { ServerStatus } from '@/props/server-status'
 import { GameInfo } from '@/props/game-info'
 import OnlinePlayerGraph from '@/components/OnlinePlayersGraph.vue'
@@ -113,40 +113,40 @@ interface _GameInfo {
   $delegate: GameInfo
 }
 
-const _status = inject<_ServerStatus>('server-status')
+const _status = inject<Ref<_ServerStatus>>('server-status')
 if (_status === undefined) throw new Error('server-status is not injected.')
 
 const status = reactive({
-  $injected: _status.$delegate,
+  $injected: _status.value.$delegate,
   online: computed<string>(() => {
-    return _status.$delegate.online !== null ? (_status.$delegate.online ? 'Online' : 'Offline') : 'Fetching...'
+    return _status.value.$delegate.online !== null ? (_status.value.$delegate.online ? 'Online' : 'Offline') : 'Fetching...'
   }),
   dbStatus: computed<string>(() => {
-    return _status.$delegate.dbStatus !== null ? (_status.$delegate.dbStatus ? 'Online' : 'Offline') : 'Fetching...'
+    return _status.value.$delegate.dbStatus !== null ? (_status.value.$delegate.dbStatus ? 'Online' : 'Offline') : 'Fetching...'
   }),
   startupTime: (() => {
     const now = ref<number>(new Date().getTime() / 1000)
-    if (_status.$delegate.startupEpochSecond !== -1) {
+    if (_status.value.$delegate.startupEpochSecond !== -1) {
       setInterval(() => {
         now.value = new Date().getTime() / 1000
       }, 1000)
     }
     return computed<string>(() => {
-      const sec = _status.$delegate.startupEpochSecond
+      const sec = _status.value.$delegate.startupEpochSecond
       return sec ? (sec !== -1 ? calculateTimeDifference(now.value, sec) : '-') : 'Fetching...'
     })
   })(),
   profileCount: computed(() => {
-    return _status.$delegate.profileCount ? (_status.$delegate.profileCount !== -1 ? _status.$delegate.profileCount : '-') : 'Fetching...'
+    return _status.value.$delegate.profileCount ? (_status.value.$delegate.profileCount !== -1 ? _status.value.$delegate.profileCount : '-') : 'Fetching...'
   })
 })
 
 const gameInfo = (() => {
-  const _games = inject<Map<string, _GameInfo>>('games')
+  const _games = inject<Ref<Map<string, _GameInfo>>>('games')
   if (_games === undefined) throw new Error('games is not injected.')
   return computed<GameInfo[]>(() => {
     const r: GameInfo[] = []
-    _games.forEach((v: _GameInfo) => r.push(v.$delegate))
+    _games.value.forEach((v: _GameInfo) => r.push(v.$delegate))
     return r
   })
 })()
