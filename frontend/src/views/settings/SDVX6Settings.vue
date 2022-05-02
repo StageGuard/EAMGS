@@ -15,7 +15,7 @@
   -->
 
 <template>
-  <div v-if="refId !== null && game">sdvx6 settings</div>
+  <div>sdvx6 settings</div>
 </template>
 
 <script setup lang="ts">
@@ -23,6 +23,7 @@
 import { computed, inject, reactive, Ref } from 'vue'
 import config from '@/config'
 import { GameInfo } from '@/props/game-info'
+import bgmData from '@/assets/sdvx/bgm.json'
 
 interface AppealCard {
   name: string,
@@ -41,6 +42,7 @@ const game = computed(() => {
   if (_games === undefined) throw new Error('games is not injected.')
   return _games.value.get('sdvx6')?.$delegate
 })
+if (!game.value) throw new Error('Game SDVX6 is not found in server.')
 
 const refId = computed(() => {
   const _refId = inject<Ref<string | null>>('refId')
@@ -51,10 +53,6 @@ const refId = computed(() => {
 const data = reactive({
   appealCards: (() => {
     const m = globalPool.value.get('sdvx_appeal_cards') as Map<string, AppealCard> || new Map()
-    if (!game.value) {
-      console.error('Game SDVX6 is not found in server.')
-      return m
-    }
 
     const api = game.value.otherApi.get('get_appeal_cards')
     if (!api) console.warn('SDVX6 get_appeal_cards api is not found.')
@@ -79,11 +77,7 @@ const data = reactive({
     return m
   })(),
   chatStamps: (() => {
-    const m = globalPool.value.get('sdvx_chat_stamps') as Map<string, string> || new Map()
-    if (!game.value) {
-      console.error('Game SDVX6 is not found in server.')
-      return m
-    }
+    const m = globalPool.value.get('sdvx_chat_stamps') as Map<number, string> || new Map()
 
     const api = game.value.otherApi.get('get_chat_stamps')
     if (!api) console.warn('SDVX6 get_chat_stamps api is not found.')
@@ -92,7 +86,7 @@ const data = reactive({
       fetch(`${config.host}/${api}?refId=${refId.value}`).then(r => r.json()).then(r => {
         if (r.result !== -1) {
           for (const id in r.data) {
-            m.set(id, r.data[id])
+            m.set(Number(id), r.data[id])
           }
           globalPool.value.set('sdvx_chat_stamps', m)
         } else {
@@ -105,11 +99,7 @@ const data = reactive({
     return m
   })(),
   akaName: (() => {
-    const m = globalPool.value.get('sdvx_akanames') as Map<string, string> || new Map()
-    if (!game.value) {
-      console.error('Game SDVX6 is not found in server.')
-      return m
-    }
+    const m = globalPool.value.get('sdvx_akanames') as Map<number, string> || new Map()
 
     const api = game.value.otherApi.get('get_akaname')
     if (!api) console.warn('SDVX6 get_akaname api is not found.')
@@ -118,7 +108,7 @@ const data = reactive({
       fetch(`${config.host}/${api}?refId=${refId.value}`).then(r => r.json()).then(r => {
         if (r.result !== -1) {
           for (const id in r.data) {
-            m.set(id, r.data[id])
+            m.set(Number(id), r.data[id])
           }
           globalPool.value.set('sdvx_akanames', m)
         } else {
@@ -131,11 +121,7 @@ const data = reactive({
     return m
   })(),
   nemsys: (() => {
-    const m = globalPool.value.get('sdvx_nemsys') as Map<string, string> || new Map()
-    if (!game.value) {
-      console.error('Game SDVX6 is not found in server.')
-      return m
-    }
+    const m = globalPool.value.get('sdvx_nemsys') as Map<number, string> || new Map()
 
     const api = game.value.otherApi.get('get_nemsys')
     if (!api) console.warn('SDVX6 get_nemsys api is not found.')
@@ -144,7 +130,7 @@ const data = reactive({
       fetch(`${config.host}/${api}?refId=${refId.value}`).then(r => r.json()).then(r => {
         if (r.result !== -1) {
           for (const id in r.data) {
-            m.set(id, r.data[id])
+            m.set(Number(id), r.data[id])
           }
           globalPool.value.set('sdvx_nemsys', m)
         } else {
@@ -155,8 +141,36 @@ const data = reactive({
       })
     }
     return m
-  })()
+  })(),
+  bgm: new Map(bgmData.bgm.map(v => [v.value, v.name]))
 })
+
+const profileSettings = reactive({
+  name: '',
+  appealCard: 0,
+  chatStamp: new Array<number>(4).fill(0),
+  akaName: 0,
+  nemsys: 0,
+  subScreenBackground: 0
+})
+
+const customizeGetApi = game.value.api.customize.get
+if (customizeGetApi !== null) {
+  fetch(`${config.host}/${customizeGetApi}?refId=${refId.value}`).then(r => r.json()).then(r => {
+    if (r.result !== -1) {
+      profileSettings.name = r.name
+      profileSettings.appealCard = r.appeal
+      profileSettings.nemsys = r.nemsys
+      profileSettings.akaName = r.akaName
+      profileSettings.subScreenBackground = r.subbg
+      profileSettings.chatStamp = r.stamp
+    } else {
+      console.warn(`Error while getting profile custom settings: ${r.message}`)
+    }
+  }).catch(r => {
+    console.warn(`Error while getting profile custom settings: ${r}`)
+  })
+}
 
 </script>
 
