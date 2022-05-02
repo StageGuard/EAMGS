@@ -252,7 +252,7 @@ nav a:hover {
 }
 
 /*noinspection ALL*/
-nav .router-link-exact-active {
+nav .router-link-active {
   font-weight: bold;
   color: white;
   background-color: rgb(20, 85, 254);

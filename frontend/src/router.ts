@@ -16,6 +16,7 @@
 
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import definedGameModules from '@/modules'
+import { getCookie } from '@/utils/cookie'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -38,7 +39,14 @@ const routes: Array<RouteRecordRaw> = [
     path: '/settings',
     name: 'settings',
     component: () => import(/* webpackChunkName: "settings" */ '@/views/SettingsView.vue'),
-    children: definedGameModules.map(m => m.settingRoute)
+    children: definedGameModules.map(m => {
+      return {
+        path: `/settings/${m.gameId}`,
+        name: `settings-${m.gameId}`,
+        component: m.settingRoute
+      }
+    }),
+    redirect: { name: `settings-${getCookie('sel', 'sdvx6')}` }
   }
 ]
 

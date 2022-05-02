@@ -20,7 +20,7 @@
       <h2 style="margin-right: 20px;">Current game selection</h2>
       <select-box
         :options="games.map(g => g.name)"
-        :current="games.findIndex(g => g.id === getCookie('sel', 'sdvx6'))" :show-items-count="2"
+        :current="games.findIndex(g => g.id === currentSelection)" :show-items-count="2"
         @on-select="handleSelectGame"
       />
     </div>
@@ -33,7 +33,7 @@
 <script setup lang="ts">
 import SelectBox from '@/components/SelectBox.vue'
 import { GameInfo } from '@/props/game-info'
-import { computed, inject, onMounted } from 'vue'
+import { computed, inject, onMounted, ref } from 'vue'
 import { getCookie, setCookie } from '@/utils/cookie'
 import router from '@/router'
 
@@ -51,9 +51,9 @@ const games = (() => {
   })
 })()
 
+const currentSelection = ref<string>(getCookie('sel', 'sdvx6'))
 onMounted(() => {
-  const currentSelection = getCookie('sel', 'sdvx6')
-  router.push({ name: `settings-${currentSelection}` })
+  router.push({ name: `settings-${currentSelection.value}` })
 })
 
 function handleSelectGame (index: number) {

@@ -14,29 +14,23 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { RouteRecordRaw } from 'vue-router'
-
 interface GameModule {
   gameId: string,
-  settingRoute: RouteRecordRaw
+  settingRoute: Promise<InstanceType<never>>
 }
 
 const definedGameModules: GameModule[] = [
   {
     gameId: 'sdvx6',
-    settingRoute: {
-      path: '/settings/sdvx6',
-      name: 'settings-sdvx6',
-      component: () => import(/* webpackChunkName: "settings.sdvx6" */ '@/views/settings/SDVX6Settings.vue')
-    }
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    settingRoute: () => import(/* webpackChunkName: "settings.sdvx6" */ '@/views/settings/SDVX6Settings.vue')
   },
   {
     gameId: 'iidx',
-    settingRoute: {
-      path: '/settings/iidx',
-      name: 'settings-iidx',
-      component: () => import(/* webpackChunkName: "settings.iidx" */ '@/views/settings/IIDXSettings.vue')
-    }
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    settingRoute: () => import(/* webpackChunkName: "settings.iidx" */ '@/views/settings/IIDXSettings.vue')
   }
 ]
 
