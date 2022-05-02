@@ -217,6 +217,7 @@ async function verify (cardId: string, pin: number) {
   display: flex;
   float: right;
   color: gray;
+  user-select: none;
   transition: all 0.2s linear;
 }
 
@@ -231,6 +232,7 @@ nav {
   border-color: rgba(169, 169, 169, 0.85);
   background-color: white;
   box-shadow: darkgrey 0 3px 20px 0;
+  user-select: none;
 }
 
 nav a {
