@@ -1,0 +1,1679 @@
+<?xml version="1.0" encoding="shift-jis"?>
+<akaname_parts>
+	<part id="0">
+			<word></word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10001">
+			<word>よろしくお願いします</word>
+			<default __type="u8">1</default>
+	</part>
+	<part id="10002">
+			<word>初心者です</word>
+			<default __type="u8">1</default>
+	</part>
+	<part id="10003">
+			<word>慣れてきました</word>
+			<default __type="u8">1</default>
+	</part>
+	<part id="10004">
+			<word>古参プレーヤー</word>
+			<default __type="u8">1</default>
+	</part>
+	<part id="10005">
+			<word>ケンバンマン</word>
+			<default __type="u8">1</default>
+	</part>
+	<part id="10006">
+			<word>ツマミスト</word>
+			<default __type="u8">1</default>
+	</part>
+	<part id="10007">
+			<word>好敵手募集中！</word>
+			<default __type="u8">1</default>
+	</part>
+	<part id="10008">
+			<word>はわっはわのふわっふわ♪</word>
+			<default __type="u8">1</default>
+	</part>
+	<part id="10009">
+			<word>爽快感1600%</word>
+			<default __type="u8">1</default>
+	</part>
+	<part id="10010">
+			<word>名も無き草</word>
+			<default __type="u8">1</default>
+	</part>
+	<part id="10011">
+			<word>一人前</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10012">
+			<word>百戦錬磨</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10013">
+			<word>クリア埋め頑張ってます</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10014">
+			<word>手練れの貫禄</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10015">
+			<word>お前もクリアしてやろうか</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10016">
+			<word>クリア大明神</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10017">
+			<word>COMPLETENESS</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10018">
+			<word>スリルを味わいたくて</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10019">
+			<word>百花繚乱</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10020">
+			<word>エクセッシブ埋め頑張ってます</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10021">
+			<word>ブラスターゲージ↑↑↑</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10022">
+			<word>お前もエクセッシブしてやろうか</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10023">
+			<word>エクセッシブ大明神</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10024">
+			<word>SURVIVOR</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10025">
+			<word>キレてないデス～</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10026">
+			<word>チェインマスター</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10027">
+			<word>UC埋め頑張ってます</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10028">
+			<word>アルティメットチェインは俺の嫁</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10029">
+			<word>お前もUCしてやろうか</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10030">
+			<word>UC大明神</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10031">
+			<word>アルティメット・プレーヤー</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10032">
+			<word>伝説の始まり</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10033">
+			<word>完全無欠</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10034">
+			<word>PUC埋め頑張ってます</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10035">
+			<word>生ける精密機械</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10036">
+			<word>お前もPUCしてやろうか</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10037">
+			<word>PUC大明神</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10038">
+			<word>前人未到</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10039">
+			<word>日進月歩</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10040">
+			<word>金の種子</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10041">
+			<word>じわじわきてる</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10042">
+			<word>Aの風雲児</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10043">
+			<word>Aの鬼才</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10044">
+			<word>Aの支配者</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10045">
+			<word>才能開花</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10046">
+			<word>AA職人</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10047">
+			<word>ツバメ返し</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10048">
+			<word>AA埋め頑張ってます</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10049">
+			<word>AAの風雲児</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10050">
+			<word>AAの鬼才</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10051">
+			<word>AAの支配者</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10052">
+			<word>双子星</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10053">
+			<word>三ツ星</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10054">
+			<word>シャイニングウィザード</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10055">
+			<word>AAA埋め頑張ってます</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10056">
+			<word>AAAの風雲児</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10057">
+			<word>AAAの鬼才</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10058">
+			<word>AAAの支配者</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10059">
+			<word>不死鳥</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10060">
+			<word>このプレーヤーがスゴい！</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10061">
+			<word>正確無比</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10062">
+			<word>S埋め頑張ってます</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10063">
+			<word>Sの風雲児</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10064">
+			<word>Sの鬼才</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10065">
+			<word>Sの支配者</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10066">
+			<word>エスペランサ</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10067">
+			<word>準備万端</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10068">
+			<word>新進気鋭</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10069">
+			<word>3倍アイスクリーム</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10070">
+			<word>猪突猛進</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10071">
+			<word>五行相克</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10072">
+			<word>不撓不屈</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10073">
+			<word>勇猛果敢</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10074">
+			<word>大胆不敵</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10075">
+			<word>順風満帆</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10076">
+			<word>縦横無尽</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10077">
+			<word>波乱万丈</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10078">
+			<word>意気揚々</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10079">
+			<word>国士無双</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10080">
+			<word>疾風怒涛</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10081">
+			<word>電光石火</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10082">
+			<word>花鳥風月</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10083">
+			<word>威風堂々</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10084">
+			<word>天衣無縫</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10085">
+			<word>森羅万象</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10086">
+			<word>画竜点睛</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10087">
+			<word>若芽</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10088">
+			<word>樹葉</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10089">
+			<word>新緑</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10090">
+			<word>桜花</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10091">
+			<word>睡蓮</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10092">
+			<word>桔梗</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10093">
+			<word>雪月花</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10094">
+			<word>小雨</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10095">
+			<word>霧雨</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10096">
+			<word>村雨</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10097">
+			<word>時雨</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10098">
+			<word>彩雲</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10099">
+			<word>紫雲</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10100">
+			<word>暁雲</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10101">
+			<word>金剛雲</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10102">
+			<word>蒼空</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10103">
+			<word>天空</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10104">
+			<word>絶空</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10105">
+			<word>虚空</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10106">
+			<word>一期一会</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10107">
+			<word>コミュ力高め</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10108">
+			<word>コネクション</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10109">
+			<word>有名人</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10110">
+			<word>アピカメッセージ送り上手</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10111">
+			<word>いつだって私がいる</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10112">
+			<word>電脳世界の住人</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10113">
+			<word>World Famous</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10114">
+			<word>ボルテ仲間</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10115">
+			<word>幹事</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10116">
+			<word>青春、それはロカマチの香り</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10117">
+			<word>☆リア充☆</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10118">
+			<word>ズッ友だよ…！</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10119">
+			<word>友達100人</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10120">
+			<word>一日一善</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10121">
+			<word>いい人</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10122">
+			<word>ライフセーバー</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10123">
+			<word>まかせとけって♪</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10124">
+			<word>英雄</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10125">
+			<word>守護神</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10126">
+			<word>救世主</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10127">
+			<word>満員御礼</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10128">
+			<word>今日もボルテ</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10129">
+			<word>明日もボルテ</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10130">
+			<word>三日三晩</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10131">
+			<word>いつかの夢</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10132">
+			<word>連日連夜</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10133">
+			<word>ボルテは日課</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10134">
+			<word>皆勤賞</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10135">
+			<word>NO ボルテ NO LIFE</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10136">
+			<word>エンジョイ勢</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10137">
+			<word>勢いが来てる</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10138">
+			<word>常連</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10139">
+			<word>毎度おなじみ</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10140">
+			<word>ガチ勢</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10141">
+			<word>継続は力なり</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10142">
+			<word>週刊ボルテ</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10143">
+			<word>筋トレ</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10144">
+			<word>NEVER GIVE UP</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10145">
+			<word>九死一生</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10146">
+			<word>土俵際の魔術師</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10147">
+			<word>結果オーライ</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10148">
+			<word>背水之陣</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10149">
+			<word>岳を翔ける歌声</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10150">
+			<word>流れる星々のように</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10151">
+			<word>月からの衝動</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10152">
+			<word>瞬く光芒</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10153">
+			<word>天の極へ至る道</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10154">
+			<word>烈々たる風音</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10155">
+			<word>雷として電なる者</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10156">
+			<word>麗しきその華</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10157">
+			<word>魔の騎士を冠する指先</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10158">
+			<word>剛として羅する力</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10159">
+			<word>或帝が滅する刻</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10160">
+			<word>暴るる龍、天をも穿つ</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10161">
+			<word>ハイテンション</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10162">
+			<word>スピードアップ</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10163">
+			<word>アナタ色に染めてくだサイ</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10164">
+			<word>ｵﾎﾊﾊﾊﾊﾊwwwww</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10165">
+			<word>BEMANI Backstage</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10166">
+			<word>ぐみっと参上☆</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10167">
+			<word>俺達の挑戦状、受けてみろ！！！</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10168">
+			<word>魅惑のコラボレーション</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10169">
+			<word>無限のアレンジャー</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10170">
+			<word>キミの世界がひろがる</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10171">
+			<word>運命を操る程度の能力</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10172">
+			<word>常夏休み</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10173">
+			<word>みんな…お待たせ☆</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10174">
+			<word>そして世界は動き出す</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10175">
+			<word>また此処で巡り逢う</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10176">
+			<word>打ち出の小槌を扱う程度の能力</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10177">
+			<word>ぐみっと解決♪</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10178">
+			<word>クレープおじさん</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10179">
+			<word>ボルテキャラ通</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10180">
+			<word>闘え、堕ちるまで。</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10181">
+			<word>永遠に語り継ぐ物語を。</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10182">
+			<word>死を操る程度の能力</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10183">
+			<word>ここなつ箱推し</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10184">
+			<word>もしもの話をしよう。</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10185">
+			<word>プチセレブ</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10186">
+			<word>ボルジョワ</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10187">
+			<word>資産家</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10188">
+			<word>石油王</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10189">
+			<word>北海道民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10190">
+			<word>青森県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10191">
+			<word>岩手県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10192">
+			<word>宮城県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10193">
+			<word>秋田県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10194">
+			<word>山形県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10195">
+			<word>福島県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10196">
+			<word>茨城県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10197">
+			<word>栃木県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10198">
+			<word>群馬県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10199">
+			<word>埼玉県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10200">
+			<word>千葉県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10201">
+			<word>東京都民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10202">
+			<word>神奈川県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10203">
+			<word>新潟県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10204">
+			<word>富山県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10205">
+			<word>石川県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10206">
+			<word>福井県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10207">
+			<word>山梨県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10208">
+			<word>長野県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10209">
+			<word>岐阜県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10210">
+			<word>静岡県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10211">
+			<word>愛知県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10212">
+			<word>三重県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10213">
+			<word>滋賀県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10214">
+			<word>京都府民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10215">
+			<word>大阪府民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10216">
+			<word>兵庫県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10217">
+			<word>奈良県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10218">
+			<word>和歌山県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10219">
+			<word>鳥取県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10220">
+			<word>島根県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10221">
+			<word>岡山県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10222">
+			<word>広島県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10223">
+			<word>山口県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10224">
+			<word>徳島県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10225">
+			<word>香川県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10226">
+			<word>愛媛県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10227">
+			<word>高知県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10228">
+			<word>福岡県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10229">
+			<word>佐賀県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10230">
+			<word>長崎県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10231">
+			<word>熊本県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10232">
+			<word>大分県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10233">
+			<word>宮崎県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10234">
+			<word>鹿児島県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10235">
+			<word>沖縄県民</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10236">
+			<word>北の国カラこんにちハ</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10237">
+			<word>東の都deてやんデイ！</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10238">
+			<word>日本アルプス★ヨロレイヒ～♪</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10239">
+			<word>西の大地deなんでヤネ～ン!!</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10240">
+			<word>神の大地においでマセ～</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10241">
+			<word>四つの国を巡るゼヨ！！</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10242">
+			<word>南の海deかいほうカ～ン♪</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10243">
+			<word>天下布武</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10244">
+			<word>エイプリルフゥー↑↑↑</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10245">
+			<word>コバルト</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10246">
+			<word>ダンデライオン</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10247">
+			<word>シアン</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10248">
+			<word>スカーレット</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10249">
+			<word>コーラル</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10250">
+			<word>アルジェント</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10251">
+			<word>エルドラ</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10252">
+			<word>クリムゾン</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10253">
+			<word>インペリアル</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10254">
+			<word>シェンナ</word>
+			<default __type="u8">1</default>
+	</part>
+	<part id="10255">
+			<word>鬼業</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10256">
+			<word>ごっといずかも</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10257">
+			<word>復帰しました</word>
+			<default __type="u8">1</default>
+	</part>
+	<part id="10258">
+			<word>期待の新人</word>
+			<default __type="u8">1</default>
+	</part>
+	<part id="10259">
+			<word>ビビッとキター！</word>
+			<default __type="u8">1</default>
+	</part>
+	<part id="10260">
+			<word>臨場感3200%</word>
+			<default __type="u8">1</default>
+	</part>
+	<part id="10261">
+			<word>STARLiGHT</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10262">
+			<word>キミの音色で輝ける世界を――！！</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10263">
+			<word>さあ、奇跡の向こう側へ。</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10264">
+			<word>世界の新鋭</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10265">
+			<word>永遠と須臾を操る程度の能力</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10266">
+			<word>言葉にできない、この気持ちは。</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10267">
+			<word>その威光、無垢なりて無慈悲なり。</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10268">
+			<word>キミと繋がる未来の舞台</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10269">
+			<word>百度参り</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10270">
+			<word>悟りの境地</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10271">
+			<word>パラダイス始めました</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10272">
+			<word>ミクスチャー</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10273">
+			<word>変幻自在</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10274">
+			<word>アルティメットハーモニー</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10275">
+			<word>TOHOMATION PARADISE</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10276">
+			<word>FLOOR ANTHEM</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10277">
+			<word>スピードスター</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10278">
+			<word>スローライフ</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10279">
+			<word>駆け出しブラスター</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10280">
+			<word>衝　壁　撃　破</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10281">
+			<word>ピチピチスーツ</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10282">
+			<word>血を贄に。心は鉄に。永劫続く“航海”を。</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10283">
+			<word>狂宴の魍魎、此処に集結せり。</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10284">
+			<word>人類が残すべき尊い感情を。</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10285">
+			<word>なみだあふれる、ゆめをみた。</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10286">
+			<word>ココロかよわす、ものがたり。</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10287">
+			<word>天　地　開　闢</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10288">
+			<word>生まれ変わった名曲たち</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10289">
+			<word>御伽の夢を見続けるか――</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10290">
+			<word>おうちボルテ</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10291">
+			<word>この武奏で限界を超える――</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10292">
+			<word>我　龍　天　生</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10293">
+			<word>蟲　喰　繚　乱</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10294">
+			<word>全て斬り裂いてあげる…！</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10295">
+			<word>イッツ　ショウターイム♪</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10296">
+			<word>（…絶望を与えよう…）</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30001">
+			<word>炎の申し子</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30002">
+			<word>King God Emperor of SDVX</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30003">
+			<word>King of Lachryma</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30004">
+			<word>特技:ラストで1ニア</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30005">
+			<word>東の隠密</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30006">
+			<word>グレイスを大好きな人</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30007">
+			<word>The Rank of Black Emperor</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30008">
+			<word>中部からの下剋上</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30009">
+			<word>大口のワルツ</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30010">
+			<word>KAC Champion</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30011">
+			<word>(∩・v・)∩ノアだよ！</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30012">
+			<word>天下四位の姫川P</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30013">
+			<word>くろまく～</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30014">
+			<word>KAC Champion</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30015">
+			<word>今、ジュワユースって……？</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30016">
+			<word>＼さっとりーん／</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30017">
+			<word>定時退社に失敗した男</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30018">
+			<word>カリスマちびギャル</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30019">
+			<word>Everlasting 沖田</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30020">
+			<word>MEDIUMなフレンズ</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30021">
+			<word>ワイトもそう思います。</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30022">
+			<word>万年補欠枠</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30023">
+			<word>町田からの襲来者</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30024">
+			<word>土着神の頂点</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30025">
+			<word>愛しさと切なさと城ヶ崎</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30026">
+			<word>本厚木の王</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30027">
+			<word>RANDOM OPTION Player</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30028">
+			<word>バァー!!お腹減ったズラ!!</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30029">
+			<word>BMI27.68</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30030">
+			<word>紅い墨染</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30031">
+			<word>脂っぽい料理大好き</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30032">
+			<word>テスト期間の休日潰して来ました。</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30033">
+			<word>メイメイ楽しい</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30034">
+			<word>特技：つまみに突き指</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30035">
+			<word>グレイスちゃんの腹心の部下</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30036">
+			<word>卵割り検定七級不合格</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30037">
+			<word>中部からの天元突破</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30038">
+			<word>Respect for ぺのれり</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30039">
+			<word>天下無双</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30040">
+			<word>八戸のチューバ吹き</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30041">
+			<word>神暴龍天</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30042">
+			<word>(∩^-^)∩ニアだよー！</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30043">
+			<word>出そうと思えば（王者の風格）</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30044">
+			<word>神暴龍天</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30045">
+			<word>今何度？World’s en度</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30047">
+			<word>Angraecum</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30048">
+			<word>リミットオーバーアクセルシンクロ</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30049">
+			<word>クリスタライズシルバー</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30050">
+			<word>アスナは俺が守る</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30051">
+			<word>素晴らしき日々</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30052">
+			<word>あ、自己ベ</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30053">
+			<word>Determination.</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30054">
+			<word>なせば大抵なんとかなる！</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30055">
+			<word>二代目天下無双</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30056">
+			<word>音ゲー界のカリスマ</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30057">
+			<word></word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30058">
+			<word>三代目天下無双</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30059">
+			<word>World Wakarimi Organization</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30060">
+			<word>星の導火線</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30061">
+			<word>大須の番人</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30062">
+			<word>人の家で唐揚げを揚げるマン</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30063">
+			<word>戦場の青木Twilight</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30064">
+			<word>私今日&quot;大吉&quot;ですから</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30065">
+			<word>アホなそめちゃん</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30066">
+			<word>この世は弱肉強食！ボルテで負けても拳で潰す。</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30067">
+			<word>jubeat Champion</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30068">
+			<word>Who done it?!</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30069">
+			<word>MINI</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30070">
+			<word></word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30071">
+			<word>第五のセフィラ†の従者</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30072">
+			<word>ンパパBBQ</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30073">
+			<word>Iシテイマス</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30074">
+			<word>勇者部/手芸部所属</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30075">
+			<word>おおきいおてて</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30076">
+			<word>おいしいから大丈夫だよ～♪</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30077">
+			<word></word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30078">
+			<word></word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30079">
+			<word>決勝ブロック参加者0人</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30080">
+			<word>南瓜でも天婦羅でもなく</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30081">
+			<word>北の影</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30082">
+			<word>浪速の専属バーテンダー</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30083">
+			<word>初見の神</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30084">
+			<word>精度の乱れは心の乱れ</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30085">
+			<word>ランダムを愛し、ランダムに取り憑かれた男</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30086">
+			<word>好きなお花は椿</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30087">
+			<word>揚げたてのとんかつに触ると熱い</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30088">
+			<word>レベル20征服者</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30089">
+			<word>プロ11段</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30090">
+			<word>Bangkok&apos; Burst</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30091">
+			<word>The 9th KAC セミファイナリスト</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40001">
+			<word>第十四回博麗神社例大祭</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40002">
+			<word>第十五回博麗神社例大祭</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40003">
+			<word>初代PCB勢</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40004">
+			<word>初代PCB番長</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40005">
+			<word>初代PCB将軍</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40006">
+			<word>初代PCB大臣</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40007">
+			<word>初代PCB王</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40008">
+			<word>初代PCB神</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40009">
+			<word>初代MIX勢</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40010">
+			<word>初代MIX番長</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40011">
+			<word>初代MIX将軍</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40012">
+			<word>初代MIX大臣</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40013">
+			<word>初代MIX王</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40014">
+			<word>初代MIX神</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40015">
+			<word>初代回転勢</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40016">
+			<word>初代回転番長</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40017">
+			<word>初代回転将軍</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40018">
+			<word>初代回転大臣</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40019">
+			<word>初代回転王</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40020">
+			<word>初代回転神</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40021">
+			<word>初代得点勢</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40022">
+			<word>初代得点番長</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40023">
+			<word>初代得点将軍</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40024">
+			<word>初代得点大臣</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40025">
+			<word>初代得点王</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40026">
+			<word>初代得点神</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40027">
+			<word>初代マッチング勢</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40028">
+			<word>初代マッチング番長</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40029">
+			<word>初代マッチング将軍</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40030">
+			<word>初代マッチング大臣</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40031">
+			<word>初代マッチング王</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40032">
+			<word>初代マッチング神</word>
+			<default __type="u8">0</default>
+	</part>
+</akaname_parts>

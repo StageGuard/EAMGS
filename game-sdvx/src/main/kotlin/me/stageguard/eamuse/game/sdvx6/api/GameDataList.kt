@@ -19,17 +19,14 @@ package me.stageguard.eamuse.game.sdvx6.api
 import io.netty.handler.codec.http.FullHttpRequest
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
-import me.stageguard.eamuse.game.sdvx6.SDVX6APIHandler
-import me.stageguard.eamuse.game.sdvx6.sdvx6AppealCards
-import me.stageguard.eamuse.game.sdvx6.sdvx6ChatStamp
-import me.stageguard.eamuse.game.sdvx6.sdvx6Nemsys
+import me.stageguard.eamuse.game.sdvx6.*
 import me.stageguard.eamuse.json
 
 @Serializable
 data class AppealCardListDTO(
     val data: Map<Int, AppealCard>,
     // identifier
-    val result: Int = 0
+    val result: Int = 0,
 )
 
 @Serializable
@@ -42,14 +39,21 @@ data class AppealCard(
 data class ChatStampListDTO(
     val data: Map<Int, String>,
     // identifier
-    val result: Int = 0
+    val result: Int = 0,
 )
 
 @Serializable
 data class NemsysListDTO(
     val data: Map<Int, String>,
     // identifier
-    val result: Int = 0
+    val result: Int = 0,
+)
+
+@Serializable
+data class AkaNameListDTO(
+    val data: Map<Int, String>,
+    // identifier
+    val result: Int = 0,
 )
 
 
@@ -90,6 +94,20 @@ object GameDataList {
         override suspend fun handle0(refId: String, request: FullHttpRequest): String {
             return try {
                 return json.encodeToString(NemsysListDTO(lazyEvaluated))
+            } catch (ex: Exception) {
+                apiError("ERR:$ex")
+            }
+        }
+    }
+
+    object GetAkaName : SDVX6APIHandler("get_akaname", "data/akaname") {
+        private val lazyEvaluated by lazy {
+            sdvx6AkaNames.map { (id, a) -> id to a.word }.toMap()
+        }
+
+        override suspend fun handle0(refId: String, request: FullHttpRequest): String {
+            return try {
+                return json.encodeToString(AkaNameListDTO(lazyEvaluated))
             } catch (ex: Exception) {
                 apiError("ERR:$ex")
             }

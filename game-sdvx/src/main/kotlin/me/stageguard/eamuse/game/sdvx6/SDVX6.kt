@@ -75,7 +75,7 @@ object SDVX6 : EAmPlugin {
         get() = listOf(
             QueryRecentPlay, QueryProfile, QueryVolForce, QueryBest50Plays,
             Customize.Get, Customize.Update,
-            GameDataList.GetAppealCards, GameDataList.GetChatStamps, GameDataList.GetNemsys,
+            GameDataList.GetAppealCards, GameDataList.GetChatStamps, GameDataList.GetNemsys, GameDataList.GetAkaName
         )
 
 }
@@ -188,6 +188,26 @@ internal val sdvx6Nemsys by lazy {
     }
     nemsys.also {
         if (it.isEmpty()) LOGGER.warn("Custom nemsys data is empty, check if resource/sdvx6/custom_nemsys.xml exists in jar file!")
+    }
+}
+
+/* aka name*/
+internal val sdvx6AkaNames by lazy {
+    val akaNames: MutableMap<Int, SDVX6AkaName> = mutableMapOf()
+    getResourceOrExport("sdvx6", "akaname_parts.xml") {
+        Load::class.java.getResourceAsStream("/sdvx6/akaname_parts.xml") ?: run {
+            LOGGER.warn("Aka name source data is not found either jar or data folder.")
+            return@getResourceOrExport null
+        }
+    }?.use { i ->
+        i.tryOrNull { XmlUtils.byteArrayToXmlFile(readAllBytes()) }?.childElements?.forEach { a ->
+            val id = a.getAttribute("id").toInt()
+            val word = a.childNodeValue("word") ?: return@forEach
+            akaNames[id] = SDVX6AkaName(id, word)
+        }
+    }
+    akaNames.also {
+        if (it.isEmpty()) LOGGER.warn("Aka name data is empty, check if resource/sdvx6/custom_nemsys.xml exists in jar file!")
     }
 }
 
