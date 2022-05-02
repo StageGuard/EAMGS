@@ -32,8 +32,6 @@ import org.ktorm.entity.sortedBy
 
 @Serializable
 data class RecentPlayDTO(
-    // identifier
-    val result: Int = 0,
     // music info
     val mId: Int,
     val mDiffType: Int,
@@ -50,6 +48,8 @@ data class RecentPlayDTO(
     // force
     val force: Double,
     val time: Long,
+    // identifier
+    val result: Int = 0,
 )
 
 object QueryRecentPlay : SDVX6APIHandler("query_recent_play", "recent") {

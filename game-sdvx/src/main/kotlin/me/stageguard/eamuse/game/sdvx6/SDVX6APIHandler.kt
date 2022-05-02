@@ -20,13 +20,13 @@ import io.netty.handler.codec.http.FullHttpRequest
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.decodeFromString
 import me.stageguard.eamuse.database.Database
-import me.stageguard.eamuse.database.model.EAmuseCardTable
 import me.stageguard.eamuse.game.sdvx6.data.CardIdDTO
+import me.stageguard.eamuse.game.sdvx6.model.UserProfileTable
 import me.stageguard.eamuse.json
 import me.stageguard.eamuse.server.AbstractAPIHandler
 import me.stageguard.eamuse.uriParameters
 import org.ktorm.dsl.eq
-import org.ktorm.entity.find
+import org.ktorm.entity.count
 import org.ktorm.entity.sequenceOf
 import java.nio.charset.Charset
 
@@ -39,17 +39,17 @@ abstract class SDVX6APIHandler(name: String, path: String) : AbstractAPIHandler(
     }
 
     private suspend fun validate(request: FullHttpRequest): Result<String> {
-        val cardId = try {
+        val refId = try {
             json.decodeFromString<CardIdDTO>(
                 request.content().toString(Charset.forName("utf-8"))
             ).cardId
         } catch (ex: SerializationException) {
-            request.uriParameters["cardid"]
-                ?: return Result.failure(Exception(apiError("CARDID")))
+            request.uriParameters["refid"]
+                ?: return Result.failure(Exception(apiError("REFID")))
         }
-        val refId = Database.query { db -> db.sequenceOf(EAmuseCardTable).find { c -> c.cardNFCId eq cardId } }
-            ?.refId ?: return Result.failure(Exception(apiError("REFID")))
 
-        return Result.success(refId)
+        return (Database.query { db -> db.sequenceOf(UserProfileTable).count { p -> p.refId eq refId } } ?: 0)
+            .let { if (it > 0) Result.success(refId) else Result.failure(Exception(apiError("REFID"))) }
+
     }
 }

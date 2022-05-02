@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="shift-jis"?>
+<custom_nemsys_data>
+	<info>
+		<id __type="u16">0</id>
+		<texture_name>nemsys_0000</texture_name>
+		<io_type_suffix>v</io_type_suffix>
+	</info>
+	<info>
+		<id __type="u16">1</id>
+		<texture_name>nemsys_0001</texture_name>
+		<io_type_suffix>v</io_type_suffix>
+	</info>
+	<info>
+		<id __type="u16">2</id>
+		<texture_name>nemsys_0002</texture_name>
+		<io_type_suffix>v</io_type_suffix>
+	</info>
+	<info>
+		<id __type="u16">3</id>
+		<texture_name>nemsys_0003</texture_name>
+		<io_type_suffix>v</io_type_suffix>
+	</info>
+	<info>
+		<id __type="u16">4</id>
+		<texture_name>nemsys_0004</texture_name>
+		<io_type_suffix>v</io_type_suffix>
+	</info>
+	<info>
+		<id __type="u16">5</id>
+		<texture_name>nemsys_0005</texture_name>
+		<io_type_suffix>v</io_type_suffix>
+	</info>
+	<info>
+		<id __type="u16">6</id>
+		<texture_name>nemsys_0006</texture_name>
+		<io_type_suffix>v</io_type_suffix>
+	</info>
+	<info>
+		<id __type="u16">7</id>
+		<texture_name>nemsys_0007</texture_name>
+		<io_type_suffix>v</io_type_suffix>
+	</info>
+	<info>
+		<id __type="u16">8</id>
+		<texture_name>nemsys_0008</texture_name>
+		<io_type_suffix>i</io_type_suffix>
+	</info>
+	<info>
+		<id __type="u16">9</id>
+		<texture_name>nemsys_0009</texture_name>
+		<io_type_suffix>ii</io_type_suffix>
+	</info>
+	<info>
+		<id __type="u16">10</id>
+		<texture_name>nemsys_0010</texture_name>
+		<io_type_suffix>iii</io_type_suffix>
+	</info>
+	<info>
+		<id __type="u16">11</id>
+		<texture_name>nemsys_0011</texture_name>
+		<io_type_suffix>iv</io_type_suffix>
+	</info>
+	<info>
+		<id __type="u16">12</id>
+		<texture_name>nemsys_0012</texture_name>
+		<io_type_suffix>iv</io_type_suffix>
+	</info>
+	<info>
+		<id __type="u16">13</id>
+		<texture_name>nemsys_0013</texture_name>
+		<io_type_suffix>iv</io_type_suffix>
+	</info>
+	<info>
+		<id __type="u16">14</id>
+		<texture_name>nemsys_0014</texture_name>
+		<io_type_suffix>iv</io_type_suffix>
+	</info>
+	<info>
+		<id __type="u16">15</id>
+		<texture_name>nemsys_0015</texture_name>
+		<io_type_suffix>v</io_type_suffix>
+	</info>
+	<info>
+		<id __type="u16">16</id>
+		<texture_name>nemsys_0016</texture_name>
+		<io_type_suffix>iii</io_type_suffix>
+	</info>
+	<info>
+		<id __type="u16">17</id>
+		<texture_name>nemsys_0017</texture_name>
+		<io_type_suffix>iii</io_type_suffix>
+	</info>
+	<info>
+		<id __type="u16">18</id>
+		<texture_name>nemsys_0018</texture_name>
+		<io_type_suffix>v</io_type_suffix>
+	</info>
+	<info>
+		<id __type="u16">19</id>
+		<texture_name>nemsys_0019</texture_name>
+		<io_type_suffix>ii</io_type_suffix>
+	</info>
+	<info>
+		<id __type="u16">20</id>
+		<texture_name>nemsys_0020</texture_name>
+		<io_type_suffix>ii</io_type_suffix>
+		<related_music>
+			<id __type="u32">824</id>
+			<id __type="u32">1150</id>
+		</related_music>
+	</info>
+</custom_nemsys_data>

@@ -33,11 +33,11 @@ import org.ktorm.entity.sequenceOf
 
 @Serializable
 data class VolForceDTO(
-    // identifier
-    val result: Int = 0,
     // vf data
     val volForce: Double,
     val tailScoreForce: Double,
+    // identifier
+    val result: Int = 0,
 )
 
 object QueryVolForce : SDVX6APIHandler("query_vol_force", "vf") {

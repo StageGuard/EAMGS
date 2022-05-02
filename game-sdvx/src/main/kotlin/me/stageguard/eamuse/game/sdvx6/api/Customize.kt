@@ -24,6 +24,7 @@ import kotlinx.serialization.encodeToString
 import me.stageguard.eamuse.database.Database
 import me.stageguard.eamuse.game.sdvx6.SDVX6APIHandler
 import me.stageguard.eamuse.game.sdvx6.model.UserProfileTable
+import me.stageguard.eamuse.game.sdvx6.sdvx6AppealCards
 import me.stageguard.eamuse.json
 import org.ktorm.dsl.eq
 import org.ktorm.entity.find
@@ -57,6 +58,8 @@ class Customize {
     }
 
     object Update : SDVX6APIHandler("customize_update", "custom/update") {
+        private val NAME_REGEX_REV = Regex("[^A-Za-z\\d!\\?#\\\$&\\*-\\.\\s]{1,8}")
+
         override suspend fun handle0(refId: String, request: FullHttpRequest): String {
             val data = try {
                 json.decodeFromString<CustomizeData>(request.content().toString(Charset.defaultCharset()))
@@ -68,7 +71,9 @@ class Customize {
             val profile = Database.query { db -> db.sequenceOf(UserProfileTable).find { it.refId eq refId } }
                 ?: return apiError("USER_NOT_FOUND")
 
+            if (profile.name.matches(NAME_REGEX_REV)) return apiError("ILLEGAL_NAME")
             profile.name = data.name
+            if (sdvx6AppealCards[data.appeal] == null) return apiError("ILLEGAL_APPEAL")
             profile.appeal = data.appeal
             profile.akaname = data.akaName
             profile.nemsys = data.nemsys
@@ -82,7 +87,7 @@ class Customize {
             }
             profile.flushChanges()
 
-            return """{"result": 0}"""
+            return ok()
         }
     }
 }

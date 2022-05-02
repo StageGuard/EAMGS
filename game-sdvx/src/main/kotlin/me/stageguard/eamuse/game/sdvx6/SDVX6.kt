@@ -23,10 +23,7 @@ import kotlinx.serialization.decodeFromString
 import me.stageguard.eamuse.childNodeValue
 import me.stageguard.eamuse.database.AddableTable
 import me.stageguard.eamuse.game.sdvx6.api.*
-import me.stageguard.eamuse.game.sdvx6.data.SDVX6AppealCard
-import me.stageguard.eamuse.game.sdvx6.data.SDVX6Music
-import me.stageguard.eamuse.game.sdvx6.data.SDVX6MusicDifficulty
-import me.stageguard.eamuse.game.sdvx6.data.SDVX6SkillCourse
+import me.stageguard.eamuse.game.sdvx6.data.*
 import me.stageguard.eamuse.game.sdvx6.model.*
 import me.stageguard.eamuse.game.sdvx6.router.*
 import me.stageguard.eamuse.getResourceOrExport
@@ -77,7 +74,8 @@ object SDVX6 : EAmPlugin {
     override val apiHandlers: List<AbstractAPIHandler>
         get() = listOf(
             QueryRecentPlay, QueryProfile, QueryVolForce, QueryBest50Plays,
-            Customize.Get, Customize.Update
+            Customize.Get, Customize.Update,
+            GameDataList.GetAppealCards, GameDataList.GetChatStamps, GameDataList.GetNemsys,
         )
 
 }
@@ -151,6 +149,46 @@ internal val sdvx6AppealCards by lazy {
         }
     }
     cards
+}
+
+/* chat stamp */
+internal val sdvx6ChatStamp by lazy {
+    val chatStamps: MutableMap<Int, SDVX6ChatStamp> = mutableMapOf()
+    getResourceOrExport("sdvx6", "chat_stamp.xml") {
+        Load::class.java.getResourceAsStream("/sdvx6/chat_stamp.xml") ?: run {
+            LOGGER.warn("Chat stamp source data is not found either jar or data folder.")
+            return@getResourceOrExport null
+        }
+    }?.use { i ->
+        i.tryOrNull { XmlUtils.byteArrayToXmlFile(readAllBytes()) }?.childElements?.forEach { n ->
+            val id = n.childNodeValue("id")?.toInt() ?: return@forEach
+            val path = n.childNodeValue("filename") ?: return@forEach
+            chatStamps[id] = SDVX6ChatStamp(id, path)
+        }
+    }
+    chatStamps.also {
+        if (it.isEmpty()) LOGGER.warn("Chat stamp data is empty, check if resource/sdvx6/custom_nemsys.xml exists in jar file!")
+    }
+}
+
+/* nemsys */
+internal val sdvx6Nemsys by lazy {
+    val nemsys: MutableMap<Int, SDVX6Nemsys> = mutableMapOf()
+    getResourceOrExport("sdvx6", "custom_nemsys.xml") {
+        Load::class.java.getResourceAsStream("/sdvx6/custom_nemsys.xml") ?: run {
+            LOGGER.warn("Custom nemsys source data is not found either jar or data folder.")
+            return@getResourceOrExport null
+        }
+    }?.use { i ->
+        i.tryOrNull { XmlUtils.byteArrayToXmlFile(readAllBytes()) }?.childElements?.forEach { n ->
+            val id = n.childNodeValue("id")?.toInt() ?: return@forEach
+            val texture = n.childNodeValue("texture_name") ?: return@forEach
+            nemsys[id] = SDVX6Nemsys(id, texture)
+        }
+    }
+    nemsys.also {
+        if (it.isEmpty()) LOGGER.warn("Custom nemsys data is empty, check if resource/sdvx6/custom_nemsys.xml exists in jar file!")
+    }
 }
 
 /* Music library */

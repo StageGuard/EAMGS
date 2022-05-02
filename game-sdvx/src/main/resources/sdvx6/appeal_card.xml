@@ -33523,7 +33523,7 @@
 			<rarity __type="u8">5</rarity>
 			<generator_no __type="u8">0</generator_no>
 			<is_default __type="u8">0</is_default>
-			<sort_no __type="u16">11526</sort_no>
+			<sort_no __type="u16">15526</sort_no>
 			<genre __type="u8">0</genre>
 			<limited __type="u8">2</limited>
 		</info>
@@ -33535,7 +33535,7 @@
 			<message_a>おかげさまでボルテも[br:0]いよいよ九周年！！</message_a>
 			<message_b>KACでは熱き決闘の記憶が[br:0]刻まれました</message_b>
 			<message_c>そして始まる[br:0]新たな物語</message_c>
-			<message_d>HEXA DIVERに囚われた[br:0]仲間を開放せよ！</message_d>
+			<message_d>HEXA DIVERに囚われた[br:0]仲間を解放せよ！</message_d>
 			<message_e>夏のボルフェスでは[br:0]NEW CREWも登場し</message_e>
 			<message_f>衝撃の新作SDVX[br:0]EXCEED GEARの発表…</message_f>
 			<message_g>鮮やかな舞台は[br:0]幕を閉じ――</message_g>
@@ -33545,7 +33545,7 @@
 			<rarity __type="u8">5</rarity>
 			<generator_no __type="u8">0</generator_no>
 			<is_default __type="u8">0</is_default>
-			<sort_no __type="u16">11527</sort_no>
+			<sort_no __type="u16">15527</sort_no>
 			<genre __type="u8">0</genre>
 			<limited __type="u8">2</limited>
 		</info>
@@ -33570,6 +33570,50 @@
 			<sort_no __type="u16">14001</sort_no>
 			<genre __type="u8">0</genre>
 			<limited __type="u8">3</limited>
+		</info>
+	</card>
+	<card id="5501">
+		<info>
+			<texture>ap_06_R0001</texture>
+			<title>タイガーハニー♪二〇二二</title>
+			<message_a>みなさん、あけまして[br:0]おめでとうございます！</message_a>
+			<message_b>ハニーと呼んで下さいね♪</message_b>
+			<message_c>特製ハニーカフェラテ[br:0]はいかがでしょうか？</message_c>
+			<message_d>今…私のこと[br:0]本名で呼びましたか？</message_d>
+			<message_e>スイーツはぜひ[br:0]「Cafe VOLTE」へ♪</message_e>
+			<message_f>許しませんよ？[br:0]私を本名で呼ぶのは…</message_f>
+			<message_g>ありがとうございます！[br:0]またのお越しを♪</message_g>
+			<message_h>今年も「Cafe VOLTE」を[br:0]よろしくお願いしますね</message_h>
+			<illustrator>すえ</illustrator>
+			<distribution_date __type="u32">0</distribution_date>
+			<rarity __type="u8">5</rarity>
+			<generator_no __type="u8">0</generator_no>
+			<is_default __type="u8">0</is_default>
+			<sort_no __type="u16">14501</sort_no>
+			<genre __type="u8">0</genre>
+			<limited __type="u8">2</limited>
+		</info>
+	</card>
+	<card id="5502">
+		<info>
+			<texture>ap_06_R0002</texture>
+			<title>ボルテ10周年★記念限定カード</title>
+			<message_a>はわわ～！ボルテはついニ[br:0]10周年を迎えまシタ～♪</message_a>
+			<message_b>10周年…[br:0]大きな節目を迎えたわね！</message_b>
+			<message_c>∩ ^-^ )∩わーい！[br:0]∩・v・)∩お祝いしよー！</message_c>
+			<message_d>わわワ～！にぎゃかですッ！[br:0]全員集合ですョーッ！</message_d>
+			<message_e>Foo！記念すべき日に[br:0]先生も燃えているゾッ★</message_e>
+			<message_f>魂たちに連れまわされて[br:0]眠気が…、オヤスミ…。</message_f>
+			<message_g>料理はまだまだあるよ！[br:0]おにーちゃん♪</message_g>
+			<message_h>*△ これからもボルテを！[br:0]†△ 宜しくお願いします。</message_h>
+			<illustrator>minoru</illustrator>
+			<distribution_date __type="u32">0</distribution_date>
+			<rarity __type="u8">5</rarity>
+			<generator_no __type="u8">0</generator_no>
+			<is_default __type="u8">0</is_default>
+			<sort_no __type="u16">14502</sort_no>
+			<genre __type="u8">0</genre>
+			<limited __type="u8">2</limited>
 		</info>
 	</card>
 </appeal_card_data>

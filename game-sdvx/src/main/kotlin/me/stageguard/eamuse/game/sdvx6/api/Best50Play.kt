@@ -34,10 +34,10 @@ import org.ktorm.entity.sequenceOf
 
 @Serializable
 data class Best50PlayDTO(
-    // identifier
-    val result: Int = 0,
     val volForce: Double,
     val plays: List<Best50PlayItemDTO>,
+    // identifier
+    val result: Int = 0,
 )
 
 @Serializable

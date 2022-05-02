@@ -1,0 +1,759 @@
+<?xml version="1.0" encoding="shift-jis"?>
+<chat_stamp_data>
+	<info>
+		<id __type="u16">1</id>
+		<filename>stamp_0001/stamp_0001_01</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">2</id>
+		<filename>stamp_0001/stamp_0001_02</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">3</id>
+		<filename>stamp_0001/stamp_0001_03</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">4</id>
+		<filename>stamp_0001/stamp_0001_04</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">5</id>
+		<filename>stamp_0002/stamp_0002_01</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">6</id>
+		<filename>stamp_0002/stamp_0002_02</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">7</id>
+		<filename>stamp_0002/stamp_0002_03</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">8</id>
+		<filename>stamp_0002/stamp_0002_04</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">9</id>
+		<filename>stamp_0003/stamp_0003_01</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">10</id>
+		<filename>stamp_0003/stamp_0003_02</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">11</id>
+		<filename>stamp_0003/stamp_0003_03</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">12</id>
+		<filename>stamp_0003/stamp_0003_04</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">13</id>
+		<filename>stamp_0004/stamp_0004_01</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">14</id>
+		<filename>stamp_0004/stamp_0004_02</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">15</id>
+		<filename>stamp_0004/stamp_0004_03</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">16</id>
+		<filename>stamp_0004/stamp_0004_04</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">17</id>
+		<filename>stamp_0005/stamp_0005_01</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">18</id>
+		<filename>stamp_0005/stamp_0005_02</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">19</id>
+		<filename>stamp_0005/stamp_0005_03</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">20</id>
+		<filename>stamp_0005/stamp_0005_04</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">21</id>
+		<filename>stamp_0006/stamp_0006_01</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">22</id>
+		<filename>stamp_0006/stamp_0006_02</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">23</id>
+		<filename>stamp_0006/stamp_0006_03</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">24</id>
+		<filename>stamp_0006/stamp_0006_04</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">25</id>
+		<filename>stamp_0007/stamp_0007_01</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">26</id>
+		<filename>stamp_0007/stamp_0007_02</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">27</id>
+		<filename>stamp_0007/stamp_0007_03</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">28</id>
+		<filename>stamp_0007/stamp_0007_04</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">29</id>
+		<filename>stamp_0008/stamp_0008_01</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">30</id>
+		<filename>stamp_0008/stamp_0008_02</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">31</id>
+		<filename>stamp_0008/stamp_0008_03</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">32</id>
+		<filename>stamp_0008/stamp_0008_04</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">33</id>
+		<filename>stamp_0009/stamp_0009_01</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">34</id>
+		<filename>stamp_0009/stamp_0009_02</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">35</id>
+		<filename>stamp_0009/stamp_0009_03</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">36</id>
+		<filename>stamp_0009/stamp_0009_04</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">37</id>
+		<filename>stamp_0010/stamp_0010_01</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">38</id>
+		<filename>stamp_0010/stamp_0010_02</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">39</id>
+		<filename>stamp_0010/stamp_0010_03</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">40</id>
+		<filename>stamp_0010/stamp_0010_04</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">41</id>
+		<filename>stamp_0011/stamp_0011_01</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">42</id>
+		<filename>stamp_0011/stamp_0011_02</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">43</id>
+		<filename>stamp_0011/stamp_0011_03</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">44</id>
+		<filename>stamp_0011/stamp_0011_04</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">45</id>
+		<filename>stamp_0012/stamp_0012_01</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">46</id>
+		<filename>stamp_0012/stamp_0012_02</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">47</id>
+		<filename>stamp_0012/stamp_0012_03</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">48</id>
+		<filename>stamp_0012/stamp_0012_04</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">49</id>
+		<filename>stamp_0013/stamp_0013_01</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">50</id>
+		<filename>stamp_0013/stamp_0013_02</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">51</id>
+		<filename>stamp_0013/stamp_0013_03</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">52</id>
+		<filename>stamp_0013/stamp_0013_04</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">53</id>
+		<filename>stamp_0014/stamp_0014_01</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">54</id>
+		<filename>stamp_0014/stamp_0014_02</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">55</id>
+		<filename>stamp_0014/stamp_0014_03</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">56</id>
+		<filename>stamp_0014/stamp_0014_04</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">57</id>
+		<filename>stamp_0015/stamp_0015_01</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">58</id>
+		<filename>stamp_0015/stamp_0015_02</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">59</id>
+		<filename>stamp_0015/stamp_0015_03</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">60</id>
+		<filename>stamp_0015/stamp_0015_04</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">61</id>
+		<filename>stamp_0016/stamp_0016_01</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">62</id>
+		<filename>stamp_0016/stamp_0016_02</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">63</id>
+		<filename>stamp_0016/stamp_0016_03</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">64</id>
+		<filename>stamp_0016/stamp_0016_04</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">65</id>
+		<filename>stamp_0017/stamp_0017_01</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">66</id>
+		<filename>stamp_0017/stamp_0017_02</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">67</id>
+		<filename>stamp_0017/stamp_0017_03</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">68</id>
+		<filename>stamp_0017/stamp_0017_04</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">69</id>
+		<filename>stamp_0018/stamp_0018_01</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">70</id>
+		<filename>stamp_0018/stamp_0018_02</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">71</id>
+		<filename>stamp_0018/stamp_0018_03</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">72</id>
+		<filename>stamp_0018/stamp_0018_04</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">73</id>
+		<filename>stamp_0019/stamp_0019_01</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">74</id>
+		<filename>stamp_0019/stamp_0019_02</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">75</id>
+		<filename>stamp_0019/stamp_0019_03</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">76</id>
+		<filename>stamp_0019/stamp_0019_04</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">77</id>
+		<filename>stamp_0020/stamp_0020_01</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">78</id>
+		<filename>stamp_0020/stamp_0020_02</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">79</id>
+		<filename>stamp_0020/stamp_0020_03</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">80</id>
+		<filename>stamp_0020/stamp_0020_04</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">81</id>
+		<filename>stamp_0021/stamp_0021_01</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">82</id>
+		<filename>stamp_0021/stamp_0021_02</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">83</id>
+		<filename>stamp_0021/stamp_0021_03</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">84</id>
+		<filename>stamp_0021/stamp_0021_04</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">85</id>
+		<filename>stamp_0022/stamp_0022_01</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">86</id>
+		<filename>stamp_0022/stamp_0022_02</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">87</id>
+		<filename>stamp_0022/stamp_0022_03</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">88</id>
+		<filename>stamp_0022/stamp_0022_04</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">89</id>
+		<filename>stamp_0023/stamp_0023_01</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">90</id>
+		<filename>stamp_0023/stamp_0023_02</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">91</id>
+		<filename>stamp_0023/stamp_0023_03</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">92</id>
+		<filename>stamp_0023/stamp_0023_04</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">93</id>
+		<filename>stamp_0024/stamp_0024_01</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">94</id>
+		<filename>stamp_0024/stamp_0024_02</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">95</id>
+		<filename>stamp_0024/stamp_0024_03</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">96</id>
+		<filename>stamp_0024/stamp_0024_04</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">97</id>
+		<filename>stamp_0025/stamp_0025_01</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">98</id>
+		<filename>stamp_0025/stamp_0025_02</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">99</id>
+		<filename>stamp_0025/stamp_0025_03</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">100</id>
+		<filename>stamp_0025/stamp_0025_04</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">101</id>
+		<filename>stamp_0026/stamp_0026_01</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">102</id>
+		<filename>stamp_0026/stamp_0026_02</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">103</id>
+		<filename>stamp_0026/stamp_0026_03</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">104</id>
+		<filename>stamp_0026/stamp_0026_04</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">105</id>
+		<filename>stamp_0027/stamp_0027_01</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">106</id>
+		<filename>stamp_0027/stamp_0027_02</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">107</id>
+		<filename>stamp_0027/stamp_0027_03</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+	<info>
+		<id __type="u16">108</id>
+		<filename>stamp_0027/stamp_0027_04</filename>
+		<filename_se></filename_se>
+		<title></title>
+		<illustrator>SOUND VOLTEX Designers</illustrator>
+	</info>
+</chat_stamp_data>

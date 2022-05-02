@@ -33,14 +33,14 @@ import org.ktorm.entity.sequenceOf
 
 @Serializable
 data class ProfileDTO(
-    // identifier
-    val result: Int = 0,
     // profile
     val name: String,
     val appealId: Int,
     val akaNameIndex: Int,
     val skill: Int,
     val crewId: Int,
+    // identifier
+    val result: Int = 0,
 )
 
 object QueryProfile : SDVX6APIHandler("profile", "profile") {
