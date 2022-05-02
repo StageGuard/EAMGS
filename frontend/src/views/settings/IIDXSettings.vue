@@ -15,7 +15,7 @@
   -->
 
 <template>
-  <div>iidx settings</div>
+  <h2 style="margin-top: 10px">This page is not finished yet.</h2>
 </template>
 
 <script setup lang="ts">
