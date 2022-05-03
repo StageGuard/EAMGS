@@ -19,7 +19,9 @@ package me.stageguard.eamuse.game.sdvx6
 import com.buttongames.butterflycore.xml.XmlUtils
 import com.buttongames.butterflycore.xml.kbinxml.childElements
 import com.buttongames.butterflycore.xml.kbinxml.firstChild
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.decodeFromStream
 import me.stageguard.eamuse.childNodeValue
 import me.stageguard.eamuse.database.AddableTable
 import me.stageguard.eamuse.game.sdvx6.api.*
@@ -75,7 +77,8 @@ object SDVX6 : EAmPlugin {
         get() = listOf(
             QueryRecentPlay, QueryProfile, QueryVolForce, QueryBest50Plays,
             Customize.Get, Customize.Update,
-            GameDataList.GetAppealCards, GameDataList.GetChatStamps, GameDataList.GetNemsys, GameDataList.GetAkaName
+            GameDataList.GetAppealCards, GameDataList.GetChatStamps,
+            GameDataList.GetNemsys, GameDataList.GetAkaName, GameDataList.GetCrews,
         )
 
 }
@@ -211,6 +214,21 @@ internal val sdvx6AkaNames by lazy {
     }
 }
 
+/* crew */
+@OptIn(ExperimentalSerializationApi::class)
+internal val sdvx6Crews by lazy {
+    (getResourceOrExport("sdvx6", "crew.json") {
+        Load::class.java.getResourceAsStream("/sdvx6/crew.json") ?: run {
+            LOGGER.warn("Crew source data is not found either jar or data folder.")
+            return@getResourceOrExport null
+        }
+    }?.use { i ->
+        i.tryOrNull { json.decodeFromStream<SDVX6CrewList>(i) }?.crew?.associate { it.id to it }
+    } ?: mapOf()).also {
+        if (it.isEmpty()) LOGGER.warn("Crew data are empty, check if resources/sdvx6/crew.json and exist in jar!")
+    }
+}
+
 /* Music library */
 internal val SDVX_DIFFICULTY_VALUE = arrayOf("novice", "advanced", "exhaust", "infinite", "maximum")
 internal val sdvx6MusicLibrary by lazy {
@@ -249,7 +267,7 @@ internal val sdvx6MusicLibrary by lazy {
         }
     }
     musicLibs.also {
-        if (it.isEmpty()) LOGGER.warn("Music library are empty, check if resources/sdvx6/music_db.xml music_db.merged.xml and exist in jar!")
+        if (it.isEmpty()) LOGGER.warn("Music library are empty, check if resources/sdvx6/music_db.xml and music_db.merged.xml exist in jar!")
     }
 }
 

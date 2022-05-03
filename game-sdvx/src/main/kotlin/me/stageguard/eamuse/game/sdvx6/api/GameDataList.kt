@@ -20,6 +20,7 @@ import io.netty.handler.codec.http.FullHttpRequest
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import me.stageguard.eamuse.game.sdvx6.*
+import me.stageguard.eamuse.game.sdvx6.data.SDVX6Crew
 import me.stageguard.eamuse.json
 
 @Serializable
@@ -52,6 +53,13 @@ data class NemsysListDTO(
 @Serializable
 data class AkaNameListDTO(
     val data: Map<Int, String>,
+    // identifier
+    val result: Int = 0,
+)
+
+@Serializable
+data class CrewListDTO(
+    val data: Map<Int, SDVX6Crew>,
     // identifier
     val result: Int = 0,
 )
@@ -108,6 +116,16 @@ object GameDataList {
         override suspend fun handle0(refId: String, request: FullHttpRequest): String {
             return try {
                 return json.encodeToString(AkaNameListDTO(lazyEvaluated))
+            } catch (ex: Exception) {
+                apiError("ERR:$ex")
+            }
+        }
+    }
+
+    object GetCrews : SDVX6APIHandler("get_crews", "data/crew") {
+        override suspend fun handle0(refId: String, request: FullHttpRequest): String {
+            return try {
+                return json.encodeToString(CrewListDTO(sdvx6Crews))
             } catch (ex: Exception) {
                 apiError("ERR:$ex")
             }
