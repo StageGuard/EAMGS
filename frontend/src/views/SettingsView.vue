@@ -86,7 +86,7 @@ function handleSelectGame (index: number) {
 
 <style scoped>
 #settings-view {
-  padding: 20px 50px 20px 0;
+  padding: 20px 0 20px 0;
   display: flex;
 }
 

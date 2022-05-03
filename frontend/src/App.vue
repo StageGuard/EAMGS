@@ -194,7 +194,7 @@ provide<Ref<Map<string, unknown>>>('globals', globals)
 <style>
 @font-face {
   font-family: '_Gilroy Medium';
-  src: url('./assets/Gilroy-Medium.otf') format('opentype');
+  src: url('assets/Gilroy-Medium.otf') format('opentype');
   font-weight: normal;
 }
 
@@ -208,6 +208,24 @@ provide<Ref<Map<string, unknown>>>('globals', globals)
   font-family: '_JetBrains Mono Bold';
   src: url('assets/JetBrainsMono-Bold.ttf') format('truetype');
   font-weight: bold;
+}
+
+@font-face {
+  font-family: '_JetBrains Mono Bold';
+  src: url('assets/JetBrainsMono-Bold.ttf') format('truetype');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: '_Continuum Medium';
+  src: url('assets/sdvx/font/continuum_medium.ttf') format('truetype');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: '_DFHSMaruGothic W4 Reform';
+  src: url('assets/sdvx/font/DFHSMaruGothic_W4_reform.ttf') format('truetype');
+  font-weight: normal;
 }
 
 /*noinspection ALL*/

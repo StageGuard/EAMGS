@@ -15,12 +15,33 @@
   -->
 
 <template>
-  <div>sdvx6 settings</div>
+  <div id="profilePreview">
+    <div id="profilePanel">
+      <div id="blasterPassBg"/>
+      <div id="profileCrew" v-if="data.crew"/>
+      <div id="blasterPass"></div>
+      <div id="appealCard" v-if="data.appealCards"/>
+      <div id="profileBox1">
+        <span id="akaName" class="profileFont" v-if="data.akaName">{{ computedTexture.akaName }}</span>
+        <span id="profileName" class="profileFont">{{ customizeData.name }}</span>
+        <span id="shopName" class="profileFont">SG EAG</span>
+        <div id="skillBanner"/>
+        <div id="skillFrame" v-if="skill.level !== 0"/>
+        <div id="volForceBanner"></div>
+        <div id="volForceStarGroup">
+          <div id="volForceStar" v-for="(_, i) in computedTexture.volForceStar.count" :key="i"/>
+        </div>
+        <span id="volForceName" class="profileFont" v-html="computedTexture.volForceName"></span>
+        <span id="volForce" class="profileFont">{{ skill.volForce.toFixed(3) }}</span>
+
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
 
-import { computed, inject, reactive, Ref } from 'vue'
+import { computed, inject, reactive, ref, Ref } from 'vue'
 import config from '@/config'
 import { GameInfo } from '@/props/game-info'
 import bgmData from '@/assets/sdvx/bgm.json'
@@ -29,9 +50,19 @@ interface AppealCard {
   name: string,
   texture: string
 }
+interface Crew {
+  name: string,
+  texture: string
+}
 
 interface _GameInfo {
   $delegate: GameInfo
+}
+
+interface Skill {
+  volForce: number,
+  level: number,
+  passedAllSkillSeason: boolean
 }
 
 const globalPool = inject<Ref<Map<string, unknown>>>('globals')
@@ -52,7 +83,7 @@ const refId = computed(() => {
 
 const data = reactive({
   appealCards: (() => {
-    const m = globalPool.value.get('sdvx_appeal_cards') as Map<string, AppealCard> || new Map()
+    const m = globalPool.value.get('sdvx_appeal_cards') as Map<number, AppealCard> || new Map()
 
     const api = game.value.otherApi.get('get_appeal_cards')
     if (!api) console.warn('SDVX6 get_appeal_cards api is not found.')
@@ -61,17 +92,18 @@ const data = reactive({
       fetch(`${config.host}/${api}?refId=${refId.value}`).then(r => r.json()).then(r => {
         if (r.result !== -1) {
           for (const id in r.data) {
-            m.set(id, {
+            m.set(Number(id), {
               name: r.data[Number(id)].name,
               texture: r.data[Number(id)].texture
             })
           }
           globalPool.value.set('sdvx_appeal_cards', m)
+          data.appealCards = m
         } else {
-          console.warn(`Error while getting appeal cards: ${r.message}`)
+          console.warn(`Failed to fetch appeal cards: ${r.message}`)
         }
       }).catch(r => {
-        console.warn(`Error while getting appeal cards: ${r}`)
+        console.warn(`Failed to fetch appeal cards: ${r}`)
       })
     }
     return m
@@ -89,11 +121,12 @@ const data = reactive({
             m.set(Number(id), r.data[id])
           }
           globalPool.value.set('sdvx_chat_stamps', m)
+          data.chatStamps = m
         } else {
-          console.warn(`Error while getting chat stamps: ${r.message}`)
+          console.warn(`Failed to fetch chat stamps: ${r.message}`)
         }
       }).catch(r => {
-        console.warn(`Error while getting chat stamps: ${r}`)
+        console.warn(`Failed to fetch chat stamps: ${r}`)
       })
     }
     return m
@@ -111,11 +144,12 @@ const data = reactive({
             m.set(Number(id), r.data[id])
           }
           globalPool.value.set('sdvx_akanames', m)
+          data.akaName = m
         } else {
-          console.warn(`Error while getting akanames: ${r.message}`)
+          console.warn(`Failed to fetch akanames: ${r.message}`)
         }
       }).catch(r => {
-        console.warn(`Error while getting akanames: ${r}`)
+        console.warn(`Failed to fetch akanames: ${r}`)
       })
     }
     return m
@@ -133,47 +167,341 @@ const data = reactive({
             m.set(Number(id), r.data[id])
           }
           globalPool.value.set('sdvx_nemsys', m)
+          data.nemsys = m
         } else {
-          console.warn(`Error while getting nemsys: ${r.message}`)
+          console.warn(`Failed to fetch nemsys: ${r.message}`)
         }
       }).catch(r => {
-        console.warn(`Error while getting nemsys: ${r}`)
+        console.warn(`Failed to fetch nemsys: ${r}`)
       })
     }
     return m
   })(),
-  bgm: new Map(bgmData.bgm.map(v => [v.value, v.name]))
+  bgm: new Map(bgmData.bgm.map(v => [v.value, v.name])),
+  crew: (() => {
+    const m = globalPool.value.get('sdvx_crew') as Map<number, Crew> || new Map()
+
+    const api = game.value.otherApi.get('get_crews')
+    if (!api) console.warn('SDVX6 get_crews api is not found.')
+
+    if (!m.size && api && refId.value) {
+      fetch(`${config.host}/${api}?refId=${refId.value}`).then(r => r.json()).then(r => {
+        if (r.result !== -1) {
+          for (const id in r.data) {
+            m.set(Number(id), {
+              name: r.data[id].name,
+              texture: r.data[id].texture_id
+            })
+          }
+          globalPool.value.set('sdvx_crew', m)
+          data.crew = m
+        } else {
+          console.warn(`Failed to fetch crews: ${r.message}`)
+        }
+      }).catch(r => {
+        console.warn(`Failed to fetch crews: ${r}`)
+      })
+    }
+    return m
+  })()
 })
 
-const profileSettings = reactive({
-  name: '',
-  appealCard: 0,
+const customizeData = reactive({
+  name: 'SDVX6',
+  appealCard: 5001,
   chatStamp: new Array<number>(4).fill(0),
-  akaName: 0,
+  akaName: 10001,
   nemsys: 0,
-  subScreenBackground: 0
+  subBg: 0,
+  crew: 113
+})
+const skill = ref<Skill>({
+  volForce: 0,
+  level: 0,
+  passedAllSkillSeason: false
 })
 
-const customizeGetApi = game.value.api.customize.get
-if (customizeGetApi !== null) {
-  fetch(`${config.host}/${customizeGetApi}?refId=${refId.value}`).then(r => r.json()).then(r => {
+// do fetch
+
+if (game.value.api.customize.get !== null) {
+  fetch(`${config.host}/${game.value.api.customize.get}?refId=${refId.value}`).then(r => r.json()).then(r => {
     if (r.result !== -1) {
-      profileSettings.name = r.name
-      profileSettings.appealCard = r.appeal
-      profileSettings.nemsys = r.nemsys
-      profileSettings.akaName = r.akaName
-      profileSettings.subScreenBackground = r.subbg
-      profileSettings.chatStamp = r.stamp
+      customizeData.name = r.name
+      customizeData.appealCard = r.appeal || 5001 // g6 initial ap card default
+      customizeData.nemsys = r.nemsys
+      customizeData.akaName = r.akaName || 10001 // default
+      customizeData.subBg = r.subbg
+      customizeData.chatStamp = r.stamp
+      customizeData.crew = r.crew || 113 // g6 rasis default
     } else {
-      console.warn(`Error while getting profile custom settings: ${r.message}`)
+      console.warn(`Failed to fetch profile custom settings: ${r.message}`)
     }
   }).catch(r => {
-    console.warn(`Error while getting profile custom settings: ${r}`)
+    console.warn(`Failed to fetch profile custom settings: ${r}`)
   })
 }
 
+if (game.value.api.profile !== null) {
+  fetch(`${config.host}/${game.value.api.profile}?refId=${refId.value}`).then(r => r.json()).then(r => {
+    if (r.result !== -1) {
+      skill.value.level = r.skillLevel
+      skill.value.passedAllSkillSeason = r.passedAllSkillSeason
+    } else {
+      console.warn(`Failed to fetch profile: ${r.message}`)
+    }
+  }).catch(r => {
+    console.warn(`Failed to fetch profile: ${r}`)
+  })
+
+  const queryVfApi = game.value.otherApi.get('query_vol_force')
+  if (!queryVfApi) console.warn('SDVX6 query_vol_force api is not found.')
+  fetch(`${config.host}/${queryVfApi}?refId=${refId.value}`).then(r => r.json()).then(r => {
+    if (r.result !== -1) {
+      skill.value.volForce = r.volForce
+    } else {
+      console.warn(`Failed to fetch vol force: ${r.message}`)
+    }
+  }).catch(r => {
+    console.warn(`Failed to fetch vol force: ${r}`)
+  })
+}
+
+const computedTexture = reactive({
+  subBg: computed(() => {
+    const id = customizeData.subBg.toString().padStart(4, '0')
+    const url = `${config.assetsHost}/sdvx/submonitor_bg/subbg_${id}.png`
+    return `url("${url}")`
+  }),
+  crew: computed(() => {
+    const crewData = data.crew.get(customizeData.crew)
+    const id = crewData ? crewData.texture.toString().padStart(4, '0') : '0014'
+    const url = `${config.assetsHost}/sdvx/psd_crew/psd_crew_${id}.png`
+    return `url("${url}")`
+  }),
+  appealCard: computed(() => {
+    const appeal = data.appealCards.get(customizeData.appealCard)
+    const texture = appeal ? appeal.texture : 'ap_06_0001'
+    const url = `${config.assetsHost}/sdvx/ap_card/${texture}.png`
+    return `url("${url}")`
+  }),
+  akaName: computed(() => {
+    const akaName = data.akaName.get(customizeData.akaName)
+    return akaName || 'よろしくお願いします' // default
+  }),
+  skillBanner: computed(() => {
+    const level = skill.value.level
+    return `url("${config.assetsHost}/sdvx/skill/skill_${level ? level.toString().padStart(2, '0') : 'none'}.png")`
+  }),
+  skillFrame: computed(() => {
+    const p = skill.value.passedAllSkillSeason
+    return `url("${config.assetsHost}/sdvx/skill/skill_frame${p ? '' : '_nomal'}.png")`
+  }),
+  volForceBanner: computed(() => {
+    const bannerIndex = Math.max(1, Math.floor(Math.max(0, skill.value.volForce - 10.0)))
+    return `url("${config.assetsHost}/sdvx/force/em6_s${bannerIndex.toString().padStart(2, '0')}_i_eab.png")`
+  }),
+  volForceStar: computed(() => {
+    const bannerIndex = Math.max(1, Math.floor(Math.max(0, skill.value.volForce - 10.0)))
+    if (bannerIndex <= 5) {
+      return {
+        count: new Array<number>(Math.max(1, bannerIndex)).fill(0),
+        texture: `url("${config.assetsHost}/sdvx/force/star_silver_i_eab.png")`
+      }
+    } else {
+      return {
+        count: new Array<number>(Math.min(5, Math.max(1, bannerIndex - 5))).fill(0),
+        texture: `url("${config.assetsHost}/sdvx/force/star_gold_i_eab.png")`
+      }
+    }
+  }),
+  volForceName: computed(() => {
+    const mapping = [
+      ['SIENNA', '#c07b24'],
+      ['COBALT', '#315eff'],
+      ['DANDELION', '#ffc21f'],
+      ['CYAN', '#32fce0'],
+      ['SCARLET', '#ff1717'],
+      ['CORAL', '#ff638e'],
+      ['ARGENTO', '#bfc6cb'],
+      ['ELDORA', '#f3d63a'],
+      ['CRIMSON', '#ff0504'],
+      ['IMPERIAL', '#b159ff']
+    ]
+    const index = Math.max(0, Math.floor(Math.max(0, skill.value.volForce - 11.0)))
+    return `VOLFORCE</br><span style="color: ${mapping[index][1]}">${mapping[index][0]}</span>`
+  })
+})
+
+// scale: 0.78125
 </script>
 
+<!--suppress CssUnknownTarget -->
 <style scoped>
+#profilePreview {
+  width: 850px;
+  height: 496px;
+  display: flex;
+  background-image: v-bind(computedTexture.subBg);
+  background-repeat:no-repeat;
+  background-size: 850px;
+}
+
+#profilePanel {
+  position: relative;
+  margin: auto;
+  width: 700px;
+  height: 300px;
+  background-size: 700px;
+  top: -15px;
+  background-image: url("@/assets/sdvx/profile/box_playdata.png");
+  background-repeat: no-repeat;
+  background-position-y: 78px;
+}
+
+#profileCrew {
+  position: absolute;
+  background-image: v-bind(computedTexture.crew);
+  background-repeat:no-repeat;
+  background-size: 408px;
+  width: 408px;
+  height: 283px;
+  left: 289px;
+  top: 8px
+}
+
+#blasterPass {
+  position: absolute;
+  background-image: url("@/assets/sdvx/profile/blpass_on.png");
+  background-repeat: no-repeat;
+  background-size: 244px;
+  width: 244px;
+  height: 69px;
+  left: 435px;
+  top: 195px;
+}
+
+#blasterPassBg {
+  position: absolute;
+  background-image: url("@/assets/sdvx/profile/blpass_bg.png");
+  background-repeat: no-repeat;
+  background-size: 322px;
+  width: 322px;
+  height: 130px;
+  left: 374px;
+  top: 137px;
+}
+
+#appealCard {
+  position: absolute;
+  background-image: v-bind(computedTexture.appealCard);
+  background-repeat: no-repeat;
+  background-size: 100px;
+  width: 100px;
+  height: 140px;
+  left: 41px;
+  top: 125px;
+}
+
+#profileBox1 {
+  position: relative;
+  background-image: url("@/assets/sdvx/profile/box_playdata2.png");
+  width: 252px;
+  height: 152px;
+  background-size: 252px;
+  left: 163px;
+  top: 113px
+}
+
+.profileFont {
+  font-family: '_Continuum Medium', '_DFHSMaruGothic W4 Reform', sans-serif;
+  user-select: none;
+  color: white;
+}
+
+#akaName {
+  position: absolute;
+  font-size: 14px;
+  left: 8px;
+  top: 7px;
+}
+
+#profileName {
+  position: absolute;
+  font-size: 26px;
+  left: 8px;
+  top: 31px;
+}
+
+#shopName {
+  position: absolute;
+  font-size: 14px;
+  left: 8px;
+  top: 71px;
+}
+
+#skillBanner {
+  position: absolute;
+  background-image: v-bind(computedTexture.skillBanner);
+  background-repeat: no-repeat;
+  background-size: 103px;
+  width: 103px;
+  height: 50px;
+  left: 11px;
+  top: 111px;
+}
+
+#skillFrame {
+  position: absolute;
+  background-image: v-bind(computedTexture.skillFrame);
+  background-repeat: no-repeat;
+  background-size: 135px;
+  width: 135px;
+  height: 150px;
+  left: -5px;
+  top: 84px;
+}
+
+#volForceBanner {
+  position: absolute;
+  background-image: v-bind(computedTexture.volForceBanner);
+  background-repeat: no-repeat;
+  background-size: 46px;
+  width: 46px;
+  height: 150px;
+  left: 134px;
+  top: 95px;
+}
+
+#volForceStarGroup {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  width: 50px;
+  height: 9px;
+  left: 132px;
+  top: 134px;
+}
+
+#volForceStar {
+  background-image: v-bind(computedTexture.volForceStar.texture);
+  background-size: 9px;
+  width: 9px;
+  margin: 0;
+}
+
+#volForceName {
+  position: absolute;
+  font-size: 8px;
+  line-height: 11px;
+  left: 175px;
+  top: 107px;
+}
+
+#volForce {
+  position: absolute;
+  font-size: 15px;
+  left: 174px;
+  top: 128px;
+}
 
 </style>
