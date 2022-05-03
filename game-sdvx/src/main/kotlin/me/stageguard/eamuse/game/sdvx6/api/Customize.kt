@@ -17,14 +17,14 @@
 package me.stageguard.eamuse.game.sdvx6.api
 
 import io.netty.handler.codec.http.FullHttpRequest
+import io.netty.handler.codec.http.HttpMethod
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import me.stageguard.eamuse.database.Database
-import me.stageguard.eamuse.game.sdvx6.SDVX6APIHandler
+import me.stageguard.eamuse.game.sdvx6.*
 import me.stageguard.eamuse.game.sdvx6.model.UserProfileTable
-import me.stageguard.eamuse.game.sdvx6.sdvx6AppealCards
 import me.stageguard.eamuse.json
 import org.ktorm.dsl.eq
 import org.ktorm.entity.find
@@ -40,6 +40,7 @@ data class CustomizeData(
     val bgm: Int,
     val subbg: Int,
     val stamp: List<Int>,
+    val crew: Int,
     // identifier
     val result: Int = 0,
 )
@@ -51,7 +52,7 @@ class Customize {
                 ?: return apiError("USER_NOT_FOUND")
             return json.encodeToString(CustomizeData(
                 profile.name, profile.appeal, profile.akaname, profile.nemsys, profile.bgm, profile.subbg,
-                listOf(profile.stampA, profile.stampB, profile.stampC, profile.stampD)
+                listOf(profile.stampA, profile.stampB, profile.stampC, profile.stampD), profile.crew
             ))
 
         }
@@ -61,6 +62,7 @@ class Customize {
         private val NAME_REGEX_REV = Regex("[^A-Za-z\\d!\\?#\\\$&\\*-\\.\\s]{1,8}")
 
         override suspend fun handle0(refId: String, request: FullHttpRequest): String {
+            if (request.method() != HttpMethod.POST) return apiError("ILLEGAL_PARAM")
             val data = try {
                 json.decodeFromString<CustomizeData>(request.content().toString(Charset.defaultCharset()))
             } catch (ex: SerializationException) {
@@ -75,16 +77,21 @@ class Customize {
             profile.name = data.name
             if (sdvx6AppealCards[data.appeal] == null) return apiError("ILLEGAL_APPEAL")
             profile.appeal = data.appeal
+            if (sdvx6AkaNames[data.akaName] == null) return apiError("ILLEGAL_AKANAME")
             profile.akaname = data.akaName
+            if (sdvx6Nemsys[data.nemsys] == null) return apiError("ILLEGAL_NEMSYS")
             profile.nemsys = data.nemsys
             profile.bgm = data.bgm
             profile.subbg = data.subbg
             data.stamp.run {
+                forEach { if (sdvx6ChatStamp[it] == null) return apiError("ILLEGAL_CHAT_STAMP") }
                 profile.stampA = get(0)
                 profile.stampB = get(1)
                 profile.stampC = get(2)
                 profile.stampD = get(3)
             }
+            if (sdvx6Crews[data.crew] == null) return apiError("ILLEGAL_CREW")
+            profile.crew = data.crew
             profile.flushChanges()
 
             return ok()
