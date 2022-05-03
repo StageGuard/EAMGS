@@ -1,0 +1,109 @@
+{
+  "crew": [
+    {
+      "id": 116,
+      "texture_id": "0001",
+      "name": "grace (グレイス)"
+    },
+    {
+      "id": 95,
+      "texture_id": "0002",
+      "name": "rasis (レイシス)"
+    },
+    {
+      "id": 96,
+      "texture_id": "0003",
+      "name": "kureha (紅刃)"
+    },
+    {
+      "id": 100,
+      "texture_id": "0004",
+      "name": "reimu (博麗 霊夢)"
+    },
+    {
+      "id": 101,
+      "texture_id": "0005",
+      "name": "right (嬬武器 雷刀)"
+    },
+    {
+      "id": 102,
+      "texture_id": "0006",
+      "name": "grace-yukata (グレイス-浴衣)"
+    },
+    {
+      "id": 103,
+      "texture_id": "0007",
+      "name": "near & noah (ニア & ノア)"
+    },
+    {
+      "id": 104,
+      "texture_id": "0008",
+      "name": "nana (虹霓・シエル・奈奈)"
+    },
+    {
+      "id": 105,
+      "texture_id": "0009",
+      "name": "left (嬬武器烈風刀)"
+    },
+    {
+      "id": 106,
+      "texture_id": "0010",
+      "name": "natsuhi (夏陽)"
+    },
+    {
+      "id": 107,
+      "texture_id": "0011",
+      "name": "cocona (心菜)"
+    },
+    {
+      "id": 109,
+      "texture_id": "0012",
+      "name": "kac 666 kureha"
+    },
+    {
+      "id": 112,
+      "texture_id": "0013",
+      "name": "konoha (恋刃)"
+    },
+    {
+      "id": 113,
+      "texture_id": "0014",
+      "name": "rasis (レイシス)"
+    },
+    {
+      "id": 117,
+      "texture_id": "0015",
+      "name": "grace (グレイス)"
+    },
+    {
+      "id": 118,
+      "texture_id": "0016",
+      "name": "april-fool-grace"
+    },
+    {
+      "id": 119,
+      "texture_id": "0017",
+      "name": "tsumabuki (つまぶき)"
+    },
+    {
+      "id": 120,
+      "texture_id": "0018",
+      "name": "near & noah (ニア & ノア)"
+    },
+    {
+      "id": 121,
+      "texture_id": "0019",
+      "name": "cawol & ashita (カヲル&アシタ)"
+    },
+    {
+      "id": 124,
+      "texture_id": "0022",
+      "name": "hiyuki-chan (氷雪ちゃん)"
+    },
+    {
+      "id": 128,
+      "texture_id": "0023",
+      "name": "kac chrono-capsule rasis"
+    }
+  ]
+}
