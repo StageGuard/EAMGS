@@ -215,7 +215,7 @@ internal val sdvx6AkaNames by lazy {
 internal val SDVX_DIFFICULTY_VALUE = arrayOf("novice", "advanced", "exhaust", "infinite", "maximum")
 internal val sdvx6MusicLibrary by lazy {
     val musicLibs: MutableMap<Int, SDVX6Music> = mutableMapOf()
-    sdvx6Config.value.musicDatabase.forEach _ignore@{ file ->
+    sdvx6Config.musicDatabase.forEach _ignore@{ file ->
         getResourceOrExport("sdvx6", file) {
             Common::class.java.getResourceAsStream("/sdvx6/$file") ?: run {
                 LOGGER.warn("Music database $file is not found either jar or data folder, please check your config.")

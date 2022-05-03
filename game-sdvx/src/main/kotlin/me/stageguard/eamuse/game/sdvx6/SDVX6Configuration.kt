@@ -33,7 +33,7 @@ data class SDVX6Configuration(
     val musicDatabase: List<String> = listOf("music_db.xml", "music_db.merged.xml"),
 )
 
-val sdvx6Config = lazy {
+val sdvx6Config by lazy {
     val file = File("data/sdvx6/config.json")
     try {
         if (file.exists() && !file.isDirectory) {

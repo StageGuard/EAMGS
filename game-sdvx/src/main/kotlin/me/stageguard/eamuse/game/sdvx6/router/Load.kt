@@ -63,13 +63,13 @@ object Load : SDVX6RouteHandler("load") {
         }
         params.getOrNull(customizeParamIndex)?.param = customize
 
-        if (sdvx6Config.value.unlockAllNavigators) {
+        if (sdvx6Config.unlockAllNavigators) {
             repeat(300) { items.add(Item { type = 11; id = it.toLong(); param = 15 }) }
             // 10 genesis card for MITSURU's voice
             items.add(Item { type = 4; id = 599; param = 10; })
         }
 
-        if (sdvx6Config.value.unlockAllAppealCards) {
+        if (sdvx6Config.unlockAllAppealCards) {
             sdvx6AppealCards.forEach { (id, _) -> items.add(Item { type = 1; this.id = id.toLong(); param = 1 }) }
         }
 
@@ -113,7 +113,7 @@ object Load : SDVX6RouteHandler("load") {
 
             .e("ea_shop")
             .s32("packet_booster", 1).up()
-            .bool("blaster_pass_enable", sdvx6Config.value.useBlasterPass).up()
+            .bool("blaster_pass_enable", sdvx6Config.useBlasterPass).up()
             .u64("blaster_pass_limit_date", timestampAfterOneAndAHalfDay).up()
             .up()
 

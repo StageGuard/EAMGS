@@ -44,11 +44,30 @@ object Common : SDVX6RouteHandler("common") {
         resp = resp.up()
 
         // extend
-        resp = resp.e("extend").up()
+        resp = resp.e("extend")
+
+        if (sdvx6Config.customEntryInformation.run { isNotBlank() && isNotEmpty() }) {
+            resp = resp.e("info")
+                .u32("extend_id", 1).up()
+                .u32("extend_type", 1).up()
+                .s32("param_num_1", 1).up()
+                .s32("param_num_2", (System.currentTimeMillis() / 1000).toInt()).up()
+                .s32("param_num_3", 1).up()
+                .s32("param_num_4", 1).up()
+                .s32("param_num_5", 31).up()
+                .str("param_str_1", "[f:0]EAG SERVER INFORMATION").up()
+                .str("param_str_2", sdvx6Config.customEntryInformation).up()
+                .str("param_str_3", "").up()
+                .str("param_str_4", "").up()
+                .str("param_str_5", "").up()
+            resp = resp.up()
+        }
+
+        resp = resp.up()
 
         // music library
         resp = resp.e("music_limited")
-        if (sdvx6Config.value.unlockAllSongs) {
+        if (sdvx6Config.unlockAllSongs) {
             songsToUnlock.forEach { (mid, type) ->
                 resp = resp.e("info")
                     .s32("music_id", mid).up()
