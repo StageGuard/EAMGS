@@ -114,6 +114,15 @@ object Save : SDVX6RouteHandler("save") {
                 val paramId = param.childNodeValue("id")?.toInt() ?: return@forEach
                 val paramParam = param.childNodeValue("param") ?: return@forEach
 
+                if (paramId == 1 && paramType == 2) {
+                    Database.query { db ->
+                        db.sequenceOf(UserProfileTable).find { it.refId eq refId }?.apply {
+                            crew = paramParam.split(" ").map { it.trim().toInt() }[24]
+                            flushChanges()
+                        }
+                    }
+                }
+
                 val find = existParams.find { it.id == paramId && it.type == paramType }
                 if (find != null) {
                     find._param = paramParam
