@@ -51,6 +51,7 @@ object Load : SDVX6RouteHandler("load") {
 
         val timestampAfterOneAndAHalfDay = System.currentTimeMillis() + 1000 * 60 * 60 * 36
 
+        // customize data
         val customize = listOf(
             profile.bgm, profile.subbg, profile.nemsys,
             profile.stampA, profile.stampB, profile.stampC, profile.stampD
@@ -61,7 +62,15 @@ object Load : SDVX6RouteHandler("load") {
             params.add(Param { type = 2; id = 2; _param = "" })
             customizeParamIndex = params.indexOfFirst { it.type == 2 && it.id == 2 }
         }
-        params.getOrNull(customizeParamIndex)?.param = customize
+        params[customizeParamIndex].apply {
+            param = customize
+            flushChanges()
+        }
+
+        params.find { it.id == 1 && it.type == 2 }?.apply {
+            param = param.toMutableList().apply { set(24, profile.crew) }
+            flushChanges()
+        }
 
         if (sdvx6Config.unlockAllNavigators) {
             repeat(300) { items.add(Item { type = 11; id = it.toLong(); param = 15 }) }
@@ -189,6 +198,7 @@ object Load : SDVX6RouteHandler("load") {
 
 }
 
+// TODO: create another table to load this
 @RouteModel(SDVX6_20210831, SDVX6_20210830, SDVX6_20211020, SDVX6_20211124, SDVX6_20220214, SDVX6_20220308)
 object LoadScore : SDVX6RouteHandler("load_m") {
     override suspend fun handle(gameNode: Element): KXmlBuilder {

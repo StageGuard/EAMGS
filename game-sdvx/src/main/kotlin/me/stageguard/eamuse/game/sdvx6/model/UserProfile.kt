@@ -54,6 +54,7 @@ object UserProfileTable : AddableTable<UserProfile>("sdvx6_profile") {
     val stampB = int("stampB").bindTo { it.stampB }
     val stampC = int("stampC").bindTo { it.stampC }
     val stampD = int("stampD").bindTo { it.stampD }
+    val crew = int("crew").bindTo { it.crew }
     val headphone = int("headphone").bindTo { it.headphone }
     val musicID = int("musicID").bindTo { it.musicID }
     val musicType = int("musicType").bindTo { it.musicType }
@@ -89,6 +90,7 @@ object UserProfileTable : AddableTable<UserProfile>("sdvx6_profile") {
         set(stampB, element.stampB)
         set(stampC, element.stampC)
         set(stampD, element.stampD)
+        set(crew, element.crew)
         set(headphone, element.headphone)
         set(musicID, element.musicID)
         set(musicType, element.musicType)
@@ -126,6 +128,7 @@ object UserProfileTable : AddableTable<UserProfile>("sdvx6_profile") {
         `stampB` int NOT NULL,
         `stampC` int NOT NULL,
         `stampD` int NOT NULL,
+        `crew` int NOT NULL,
         `headphone` int NOT NULL,
         `musicID` int NOT NULL,
         `musicType` int NOT NULL,
@@ -168,6 +171,7 @@ interface UserProfile : Entity<UserProfile> {
     var stampB: Int
     var stampC: Int
     var stampD: Int
+    var crew: Int
     var headphone: Int
     var musicID: Int
     var musicType: Int
