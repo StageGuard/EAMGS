@@ -24,6 +24,7 @@ import me.stageguard.eamuse.game.sdvx6.*
 import me.stageguard.eamuse.game.sdvx6.model.*
 import me.stageguard.eamuse.server.InvalidRequestException
 import me.stageguard.eamuse.server.RouteModel
+import org.ktorm.dsl.and
 import org.ktorm.dsl.eq
 import org.ktorm.dsl.notEq
 import org.ktorm.entity.*
@@ -62,14 +63,24 @@ object Load : SDVX6RouteHandler("load") {
             params.add(Param { type = 2; id = 2; _param = "" })
             customizeParamIndex = params.indexOfFirst { it.type == 2 && it.id == 2 }
         }
-        params[customizeParamIndex].apply {
+        params[customizeParamIndex].apply p@{
             param = customize
-            flushChanges()
+            ParamTable.batchUpdate {
+                item {
+                    set(ParamTable._param, this@p._param)
+                    where { ParamTable.refId eq this@p.refId and (ParamTable.type eq this@p.type) and (ParamTable.id eq this@p.id) }
+                }
+            }
         }
 
-        params.find { it.id == 1 && it.type == 2 }?.apply {
+        params.find { it.id == 1 && it.type == 2 }?.apply p@{
             param = param.toMutableList().apply { set(24, profile.crew) }
-            flushChanges()
+            ParamTable.batchUpdate {
+                item {
+                    set(ParamTable._param, this@p._param)
+                    where { ParamTable.refId eq this@p.refId and (ParamTable.type eq this@p.type) and (ParamTable.id eq this@p.id) }
+                }
+            }
         }
 
         if (sdvx6Config.unlockAllNavigators) {

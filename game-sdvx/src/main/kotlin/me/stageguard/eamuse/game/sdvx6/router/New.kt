@@ -85,6 +85,7 @@ object New : SDVX6RouteHandler("new") {
             stampB = 0
             stampC = 0
             stampD = 0
+            crew = 113
             headphone = 0
             musicID = 0
             musicType = 0
