@@ -104,6 +104,11 @@
       "id": 128,
       "texture_id": "0023",
       "name": "kac chrono-capsule rasis"
+    },
+    {
+      "id": 129,
+      "texture_id": "0024",
+      "name": "kac mixxion grace"
     }
   ]
 }
