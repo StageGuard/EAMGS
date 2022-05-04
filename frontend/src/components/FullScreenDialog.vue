@@ -28,7 +28,7 @@
       </div>
       <div id="dialog-content" v-else></div>
       <div id="dialog-footer">
-        <button class="selection-button" v-for="(item, index) in selectionItems" :key="index"
+        <button class="apply-button" v-for="(item, index) in selectionItems" :key="index"
                 @click="handleSelect(index)">
           {{ item }}
         </button>
@@ -124,7 +124,6 @@ setTimeout(() => {
 
 function handleSelect (index: number) {
   callbackEmits('onSelect', index, inputItems()?.map(e => e.value), (closeDialog: boolean) => {
-    if (closeDialog === undefined) closeDialog = true
     if (index < 0) closeDialog = true
 
     if (closeDialog) dismissDialog()
@@ -254,7 +253,7 @@ function handleSelect (index: number) {
   border: 1px solid transparent;
 }
 
-.selection-button {
+.apply-button {
   float: right;
   margin-bottom: 20px;
   outline: none;
@@ -270,16 +269,16 @@ function handleSelect (index: number) {
   transition: all 0.1s linear;
 }
 
-.selection-button:hover {
+.apply-button:hover {
   background-color: rgb(21, 88, 199);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2), 0 2px 10px 0 rgba(0, 0, 0, .1);
 }
 
-.selection-button:disabled {
+.apply-button:disabled {
   background-color: rgb(101, 155, 245);
 }
 
-.selection-button:active {
+.apply-button:active {
   background-color: rgb(10, 57, 137);
 }
 
