@@ -131,10 +131,10 @@ function openSelectBox () {
     selectBoxOpened.value = true
     selectBox.value.style.opacity = '0'
 
-    const popupBoxTop = selectBoxRect.top - selectBoxHeight() * currentShowingSlot.value
+    const popupBoxTop = selectBoxRect.top - selectBoxHeight() * currentShowingSlot.value + window.scrollY
 
     const openAnim = popupBox.value.animate(
-      [{ top: `${selectBoxRect.top}px`, height: `${selectBoxHeight()}px` },
+      [{ top: `${selectBoxRect.top + window.scrollY}px`, height: `${selectBoxHeight()}px` },
         { top: `${popupBoxTop}px`, height: `${selectBoxHeight() * showItemsCount}px` }],
       { easing: 'ease-out', duration: animDuration })
     openAnim.onfinish = () => {
@@ -265,6 +265,7 @@ function handleSelect (index: number, item: any) {
   -ms-overflow-style: none;
   /*noinspection CssUnknownProperty*/
   scrollbar-width: none;
+  transition: all 0.2s ease-in-out;
 }
 
 #popup-box::-webkit-scrollbar {
