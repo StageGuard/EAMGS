@@ -21,7 +21,13 @@ import me.stageguard.eamuse.game.sdvx6.*
 import me.stageguard.eamuse.server.RouteModel
 import org.w3c.dom.Element
 
-@RouteModel(SDVX6_20210831, SDVX6_20210830, SDVX6_20211020, SDVX6_20211124, SDVX6_20220214, SDVX6_20220308)
+@RouteModel(SDVX6_20210831,
+    SDVX6_20210830,
+    SDVX6_20211020,
+    SDVX6_20211124,
+    SDVX6_20220214,
+    SDVX6_20220308,
+    SDVX6_20220425)
 object Longue : SDVX6RouteHandler("lounge") {
     private const val INTERVAL = 30.toLong()
 

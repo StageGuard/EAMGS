@@ -109,4 +109,29 @@
 			<id __type="u32">1150</id>
 		</related_music>
 	</info>
+	<info>
+		<id __type="u16">21</id>
+		<texture_name>nemsys_0021</texture_name>
+		<io_type_suffix>i</io_type_suffix>
+	</info>
+	<info>
+		<id __type="u16">22</id>
+		<texture_name>nemsys_0022</texture_name>
+		<io_type_suffix>i</io_type_suffix>
+	</info>
+	<info>
+		<id __type="u16">23</id>
+		<texture_name>nemsys_0023</texture_name>
+		<io_type_suffix>ii</io_type_suffix>
+	</info>
+	<info>
+		<id __type="u16">24</id>
+		<texture_name>nemsys_0024</texture_name>
+		<io_type_suffix>iii</io_type_suffix>
+	</info>
+	<info>
+		<id __type="u16">25</id>
+		<texture_name>nemsys_0025</texture_name>
+		<io_type_suffix>iv</io_type_suffix>
+	</info>
 </custom_nemsys_data>

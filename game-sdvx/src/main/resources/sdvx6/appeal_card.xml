@@ -33616,4 +33616,180 @@
 			<limited __type="u8">2</limited>
 		</info>
 	</card>
+	<card id="5503">
+		<info>
+			<texture>ap_06_R0003</texture>
+			<title>The 10th KAC フリー部門 CHAMPION[br:0]～MixxioN～</title>
+			<message_a>The 10th KAC フリー部門[br:0]CHAMPION ゆーいち よ!</message_a>
+			<message_b>どう？これが私の[br:0]最強の武奏よ！</message_b>
+			<message_c>この私が胸を[br:0]かしてあげるわ！</message_c>
+			<message_d>私のMixxioNを[br:0]クリアできるかしら？</message_d>
+			<message_e>あーっははは！[br:0]やっぱり私が最強ね！</message_e>
+			<message_f>ふ…ふっふふふ……な、[br:0]なかなかやるじゃない。</message_f>
+			<message_g>私に本気を出させた[br:0]こと、褒めてあげるわ！</message_g>
+			<message_h>ふふん、またいつでも[br:0]挑んできなさい！</message_h>
+			<illustrator>スティンガー</illustrator>
+			<distribution_date __type="u32">0</distribution_date>
+			<rarity __type="u8">5</rarity>
+			<generator_no __type="u8">0</generator_no>
+			<is_default __type="u8">0</is_default>
+			<sort_no __type="u16">14503</sort_no>
+			<genre __type="u8">0</genre>
+			<limited __type="u8">2</limited>
+		</info>
+	</card>
+	<card id="5504">
+		<info>
+			<texture>ap_06_R0004</texture>
+			<title>The 10th KAC フリー部門 FINALIST[br:0]～銃王無尽：グレイス～</title>
+			<message_a>The 10th KAC フリー部門[br:0]ファイナリストよ！</message_a>
+			<message_b>#いろいろなせんば…[br:0]1008.BOT！</message_b>
+			<message_c>三十代代表…[br:0]PICOLTEX！</message_c>
+			<message_d>かね虎視眈々…[br:0]CH！</message_d>
+			<message_e>トルネード…[br:0]MURAKAMI！</message_e>
+			<message_f>Expiation…[br:0]PCH！</message_f>
+			<message_g>Lovesick…[br:0]LEON！</message_g>
+			<message_h>T. K.…[br:0]スケット！</message_h>
+			<illustrator>スティンガー</illustrator>
+			<distribution_date __type="u32">0</distribution_date>
+			<rarity __type="u8">5</rarity>
+			<generator_no __type="u8">0</generator_no>
+			<is_default __type="u8">0</is_default>
+			<sort_no __type="u16">14504</sort_no>
+			<genre __type="u8">0</genre>
+			<limited __type="u8">2</limited>
+		</info>
+	</card>
+	<card id="5505">
+		<info>
+			<texture>ap_06_R0005</texture>
+			<title>The 10th KAC 女性部門 CHAMPION[br:0]～XHRONOXAPSULΞ～</title>
+			<message_a>The 10th KAC 女性部門[br:0]初代CHAMPION CLOEL.C デス！</message_a>
+			<message_b>サウンドボルテックス、[br:0]起動シマス！</message_b>
+			<message_c>さぁ、私について[br:0]きてください～☆</message_c>
+			<message_d>もっともっと、[br:0]がんばっちゃいマス！</message_d>
+			<message_e>皆サンの応援のおかげで[br:0]勝利できマシタ！</message_e>
+			<message_f>きゃ～！離れちゃ[br:0]ダメです～！</message_f>
+			<message_g>10年の軌跡、[br:0]重ねる奇跡…</message_g>
+			<message_h>昔も、今も、この先も…[br:0]ワタシは此処に居マス！</message_h>
+			<illustrator>アユタ meets スティンガー</illustrator>
+			<distribution_date __type="u32">0</distribution_date>
+			<rarity __type="u8">5</rarity>
+			<generator_no __type="u8">0</generator_no>
+			<is_default __type="u8">0</is_default>
+			<sort_no __type="u16">14505</sort_no>
+			<genre __type="u8">0</genre>
+			<limited __type="u8">2</limited>
+		</info>
+	</card>
+	<card id="5506">
+		<info>
+			<texture>ap_06_R0006</texture>
+			<title>The 10th KAC 女性部門 FINALIST[br:0]～MION meets RASIS～</title>
+			<message_a>The 10th KAC　女性部門[br:0]ファイナリスト です～☆</message_a>
+			<message_b>縦連人fromOkinawa！[br:0]MAHINA！</message_b>
+			<message_c>地域の変わり者…[br:0]USHI！</message_c>
+			<message_d>縦連Burning!![br:0]SHOKO！</message_d>
+			<message_e>のびまる大将…[br:0]Mぷに！</message_e>
+			<message_f>草むしり検定1級…[br:0]TOA！</message_f>
+			<message_g>ぽんぽんぺいん…[br:0]GM！</message_g>
+			<message_h>雷刀くんを愛し、雷刀くんに[br:0]愛された女(自称)…XD*SHN！</message_h>
+			<illustrator>アユタ</illustrator>
+			<distribution_date __type="u32">0</distribution_date>
+			<rarity __type="u8">5</rarity>
+			<generator_no __type="u8">0</generator_no>
+			<is_default __type="u8">0</is_default>
+			<sort_no __type="u16">14506</sort_no>
+			<genre __type="u8">0</genre>
+			<limited __type="u8">2</limited>
+		</info>
+	</card>
+	<card id="5507">
+		<info>
+			<texture>ap_06_R0007</texture>
+			<title>It&apos;s Showtime★</title>
+			<message_a>(^▽^)/ゴルジェ！</message_a>
+			<message_b>リシュナ ノ サーカス[br:0]VVelcome!!</message_b>
+			<message_c>アナタ　会エテ[br:0]ゴルオジ　嬉シソウ！</message_c>
+			<message_d>ジュンビ　OK？[br:0]It&apos;s Showtime★</message_d>
+			<message_e>リシュナ ゼッコウチョ！[br:0](^▽^)/ゴルジェ！</message_e>
+			<message_f>アナタ　スゴイ！[br:0]ゴルジェテック　来ル？</message_f>
+			<message_g>タノシカッタ！[br:0]一緒　オドロー！</message_g>
+			<message_h>アナタ　マタ来ル！[br:0]リシュナ　嬉シイ！</message_h>
+			<illustrator>スティンガー</illustrator>
+			<distribution_date __type="u32">0</distribution_date>
+			<rarity __type="u8">5</rarity>
+			<generator_no __type="u8">0</generator_no>
+			<is_default __type="u8">0</is_default>
+			<sort_no __type="u16">14507</sort_no>
+			<genre __type="u8">0</genre>
+			<limited __type="u8">2</limited>
+		</info>
+	</card>
+	<card id="5508">
+		<info>
+			<texture>ap_06_R0008</texture>
+			<title>The scream in my soul</title>
+			<message_a>（…愚かな冒険者が[br:0]また一人…）</message_a>
+			<message_b>＼The scream in my soul／</message_b>
+			<message_c>ドドドドドドドドドドド[br:0]ドドドドドドドドドドド</message_c>
+			<message_d>（…絶望を与えよう…）</message_d>
+			<message_e>ヴィー↑↑ｗｗｗ</message_e>
+			<message_f>ドゥーン……↓↓</message_f>
+			<message_g>＼Faster／</message_g>
+			<message_h>（…何度でも[br:0]挑んでくるが良い…）</message_h>
+			<illustrator>アユタ</illustrator>
+			<distribution_date __type="u32">0</distribution_date>
+			<rarity __type="u8">5</rarity>
+			<generator_no __type="u8">0</generator_no>
+			<is_default __type="u8">0</is_default>
+			<sort_no __type="u16">14508</sort_no>
+			<genre __type="u8">0</genre>
+			<limited __type="u8">2</limited>
+		</info>
+	</card>
+	<card id="5509">
+		<info>
+			<texture>ap_06_R0009</texture>
+			<title>∞∞(σ∀σ)∞∞ 私からの挑戦状よ！</title>
+			<message_a>∞∞(σ∀σ)∞∞[br:0]グレイスよ！</message_a>
+			<message_b>私からの挑戦状…[br:0]受けて立ちなさい！</message_b>
+			<message_c>ふふっ、[br:0]腕に自信があるようね…！</message_c>
+			<message_d>手加減なしでいくわよ…[br:0]覚悟しなさいよね！</message_d>
+			<message_e>∞∞(σ∀σ)∞∞[br:0]ふふふっ！当然ね！</message_e>
+			<message_f>なかなかやるわね…[br:0]次は負けないわよ！</message_f>
+			<message_g>この感じ…久しぶりね！</message_g>
+			<message_h>また挑戦しに来なさい！[br:0]相手になってあげるわ！</message_h>
+			<illustrator>スティンガー</illustrator>
+			<distribution_date __type="u32">0</distribution_date>
+			<rarity __type="u8">5</rarity>
+			<generator_no __type="u8">0</generator_no>
+			<is_default __type="u8">0</is_default>
+			<sort_no __type="u16">14509</sort_no>
+			<genre __type="u8">0</genre>
+			<limited __type="u8">2</limited>
+		</info>
+	</card>
+	<card id="5510">
+		<info>
+			<texture>ap_06_R0010</texture>
+			<title>EG式タオル型武奏</title>
+			<message_a>*△ このタオルで、[br:0]限界を拭う…！</message_a>
+			<message_b>(&quot;Λ´ｖ｀） 使ってヨシ、[br:0]飾ってヨシ…デス♪ </message_b>
+			<message_c>†△ ボルテをする際の[br:0]必須アイテムですね！</message_c>
+			<message_d>∞∞(σ∀σ)∞∞ ふふん！[br:0]良いマフラー替わりね！</message_d>
+			<message_e>(&quot;Λ´∇｀)ノ はわわ～！[br:0]いい汗かきまシタ♪</message_e>
+			<message_f>∞(づへσ)∞なによ…[br:0]な、泣いてないわよ！</message_f>
+			<message_g>*△ 燃えたなー！[br:0]このタオルで汗ふけよ！</message_g>
+			<message_h>†△ 使用後はちゃんと[br:0]洗濯しましょうね</message_h>
+			<illustrator>スティンガー＆minoru</illustrator>
+			<distribution_date __type="u32">0</distribution_date>
+			<rarity __type="u8">5</rarity>
+			<generator_no __type="u8">0</generator_no>
+			<is_default __type="u8">0</is_default>
+			<sort_no __type="u16">14510</sort_no>
+			<genre __type="u8">0</genre>
+			<limited __type="u8">2</limited>
+		</info>
+	</card>
 </appeal_card_data>

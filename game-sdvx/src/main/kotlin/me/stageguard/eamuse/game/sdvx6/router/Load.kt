@@ -31,7 +31,13 @@ import org.ktorm.entity.*
 import org.w3c.dom.Element
 import java.util.concurrent.atomic.AtomicInteger
 
-@RouteModel(SDVX6_20210831, SDVX6_20210830, SDVX6_20211020, SDVX6_20211124, SDVX6_20220214, SDVX6_20220308)
+@RouteModel(SDVX6_20210831,
+    SDVX6_20210830,
+    SDVX6_20211020,
+    SDVX6_20211124,
+    SDVX6_20220214,
+    SDVX6_20220308,
+    SDVX6_20220425)
 object Load : SDVX6RouteHandler("load") {
     override suspend fun handle(gameNode: Element): KXmlBuilder {
         val refId = gameNode.childNodeValue("refid")
@@ -210,7 +216,13 @@ object Load : SDVX6RouteHandler("load") {
 }
 
 // TODO: create another table to load this
-@RouteModel(SDVX6_20210831, SDVX6_20210830, SDVX6_20211020, SDVX6_20211124, SDVX6_20220214, SDVX6_20220308)
+@RouteModel(SDVX6_20210831,
+    SDVX6_20210830,
+    SDVX6_20211020,
+    SDVX6_20211124,
+    SDVX6_20220214,
+    SDVX6_20220308,
+    SDVX6_20220425)
 object LoadScore : SDVX6RouteHandler("load_m") {
     override suspend fun handle(gameNode: Element): KXmlBuilder {
         val refId = gameNode.childNodeValue("refid")
@@ -252,7 +264,13 @@ object LoadScore : SDVX6RouteHandler("load_m") {
     }
 }
 
-@RouteModel(SDVX6_20210831, SDVX6_20210830, SDVX6_20211020, SDVX6_20211124, SDVX6_20220214, SDVX6_20220308)
+@RouteModel(SDVX6_20210831,
+    SDVX6_20210830,
+    SDVX6_20211020,
+    SDVX6_20211124,
+    SDVX6_20220214,
+    SDVX6_20220308,
+    SDVX6_20220425)
 object LoadRival : SDVX6RouteHandler("load_r") {
     override suspend fun handle(gameNode: Element): KXmlBuilder {
         val refId = gameNode.childNodeValue("refid")

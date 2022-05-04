@@ -1188,6 +1188,18 @@
 			<word>（…絶望を与えよう…）</word>
 			<default __type="u8">0</default>
 	</part>
+	<part id="10297">
+			<word>紡がれた時を束ねた力で。</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10298">
+			<word>ただ、すこし、懐かしくって…</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="10299">
+			<word>MODE：Extermination起動！</word>
+			<default __type="u8">0</default>
+	</part>
 	<part id="30001">
 			<word>炎の申し子</word>
 			<default __type="u8">0</default>
@@ -1548,6 +1560,98 @@
 			<word>The 9th KAC セミファイナリスト</word>
 			<default __type="u8">0</default>
 	</part>
+	<part id="30092">
+			<word>#いろいろなせんば</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30093">
+			<word>三十代代表</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30094">
+			<word>かね虎視眈々</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30095">
+			<word>トルネード</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30096">
+			<word>［ここに称号を入力］</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30097">
+			<word>Expiation</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30098">
+			<word>Lovesick</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30099">
+			<word>(∩∵)∩ゆういちです。</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30100">
+			<word>T. K.</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30101">
+			<word>すとらチャン...だよね？</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30102">
+			<word>野増菜かなでちゃんの旦那様</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30103">
+			<word>七転び八寝る</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30104">
+			<word>南西の愚者</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30105">
+			<word>縦連人(たてれんちゅ)from Okinawa</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30106">
+			<word>地域の変わり者</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30107">
+			<word>縦連Burning!!</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30108">
+			<word>のびまる大将</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30109">
+			<word>草むしり検定1級</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30110">
+			<word>ぽんぽんぺいん</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30111">
+			<word>雷刀くんを愛し、雷刀くんに愛された女(自称)</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30112">
+			<word>ヤギ</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30113">
+			<word>兵庫のソロプレイヤー</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="30114">
+			<word>まんまる戦車</word>
+			<default __type="u8">0</default>
+	</part>
 	<part id="40001">
 			<word>第十四回博麗神社例大祭</word>
 			<default __type="u8">0</default>
@@ -1674,6 +1778,22 @@
 	</part>
 	<part id="40032">
 			<word>初代マッチング神</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40033">
+			<word>初代アルティメットランク勢</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40034">
+			<word>初代アルティメットランク団長</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40035">
+			<word>初代アルティメットランク王</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40036">
+			<word>初代アルティメットランク神</word>
 			<default __type="u8">0</default>
 	</part>
 </akaname_parts>
