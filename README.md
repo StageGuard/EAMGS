@@ -60,3 +60,14 @@ in order to change server plugins folder to `game-*/build/libs/` for developing 
 
 See more
 at: [server/src/main/kotlin/me/stageguard/eamuse/ApplicationMain.kt](server/src/main/kotlin/me/stageguard/eamuse/ApplicationMain.kt)
+
+# Disclaimer
+
+**All media resources in [frontend/src/assets/sdvx](frontend/src/assets/sdvx) and game data
+in [game-sdvx/src/main/resources/sdvx6](game-sdvx/src/main/resources/sdvx6) are copyrighted by © Konami Amusement and
+don't obey the [AGPLv3](LICENSE) open-source license.**
+
+Some source code is transmitted from [asphyxia-core/plugins](https://github.com/asphyxia-core/plugins).
+
+**This project is developed only for educational and test purpose and for full stack programming practice.**
+    
