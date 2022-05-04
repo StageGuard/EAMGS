@@ -15,13 +15,15 @@
   -->
 
 <template>
-  <div id="select-box" class="box-style" @click="openSelectBox()" ref="selectBox">
+  <div>
+    <div id="select-box" class="box-style" @click="openSelectBox()" ref="selectBox">
     <span style="margin: auto; user-select: none">{{
         props.display ? props.display(options[currentSelection]) : options[currentSelection].toString()
       }}</span>
-  </div>
-  <div id="popup-box" class="box-style" ref="popupBox" v-show="selectBoxOpened">
-    <div v-for="(item, index) in options" id='' :key="index" class="box-item" :class="{
+    </div>
+    <teleport to="#app">
+      <div id="popup-box" class="box-style" ref="popupBox" v-show="selectBoxOpened">
+        <div v-for="(item, index) in options" id='' :key="index" class="box-item" :class="{
         'box-item-singleton': options.length === 1,
         'box-item-head': index === 0,
         'box-item-tail': index === options.length - 1
@@ -29,7 +31,9 @@
       <span id="text" style="margin: auto; user-select: none">{{
           props.display ? props.display(item) : item.toString()
         }}</span>
-    </div>
+        </div>
+      </div>
+    </teleport>
   </div>
 </template>
 
@@ -252,7 +256,7 @@ function handleSelect (index: number, item: any) {
   display: flex;
   align-items: center;
   padding: 15px;
-  width: v-bind(selectBoxWidth)
+  width: v-bind(selectBoxWidth);
 }
 
 #popup-box {
