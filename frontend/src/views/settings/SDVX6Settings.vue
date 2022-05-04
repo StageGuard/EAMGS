@@ -15,27 +15,29 @@
   -->
 
 <template>
-  <div id="profilePreview">
-    <div id="profilePanel">
+  <div id="profilePreview" ref="divProfileBg">
+    <div id="profilePanel" ref="divProfilePanel">
       <div id="blasterPassBg"/>
-      <div id="profileCrew" v-if="data.crew"/>
+      <div id="profileCrew" v-if="data.crew" ref="divProfileCrew"/>
       <div id="blasterPass"></div>
-      <div id="appealCard" v-if="data.appealCards"/>
+      <div id="appealCard" v-if="data.appealCards" ref="divProfileAppealCard"/>
       <div id="profileBox1">
-        <span id="akaName" class="profileFont" v-if="data.akaName">{{ computedTexture.akaName }}</span>
-        <span id="profileName" class="profileFont">{{ customizeData.name }}</span>
+        <span id="akaName" class="profileFont" v-if="data.akaName" ref="divProfileAkaName">{{ computedTexture.akaName }}</span>
+        <span id="profileName" class="profileFont" ref="divProfileName">{{ customizeData.name }}</span>
         <span id="shopName" class="profileFont">SG EAG</span>
-        <div id="skillBanner"/>
-        <div id="skillFrame" v-if="skill.level !== 0"/>
-        <div id="volForceBanner"></div>
-        <div id="volForceStarGroup">
+        <div id="skillBanner" ref="divProfileSkillBanner"/>
+        <div id="skillFrame" v-if="skill.level !== 0" ref="divProfileSkillFrame"/>
+        <div id="volForceBanner" ref="divProfileVolForceBanner"></div>
+        <div id="volForceStarGroup" ref="divProfileVolForceStarGroup">
           <div id="volForceStar" v-for="(_, i) in computedTexture.volForceStar.count" :key="i"/>
         </div>
-        <span id="volForceName" class="profileFont" v-html="computedTexture.volForceName"></span>
-        <span id="volForce" class="profileFont">{{ skill.volForce.toFixed(3) }}</span>
-
+        <span id="volForceName" class="profileFont" v-html="computedTexture.volForceName" ref="divProfileVolForceName"></span>
+        <span id="volForce" class="profileFont" ref="divProfileVolForce">{{ skill.volForce.toFixed(3) }}</span>
       </div>
     </div>
+  </div>
+  <div id="settings">
+
   </div>
 </template>
 
@@ -80,6 +82,19 @@ const refId = computed(() => {
   if (_refId === undefined) throw new Error('refId is not injected.')
   return _refId.value
 })
+
+const divProfileBg = ref<HTMLDivElement | null>(null)
+const divProfilePanel = ref<HTMLDivElement | null>(null)
+const divProfileCrew = ref<HTMLDivElement | null>(null)
+const divProfileAppealCard = ref<HTMLDivElement | null>(null)
+const divProfileName = ref<HTMLSpanElement | null>(null)
+const divProfileAkaName = ref<HTMLSpanElement | null>(null)
+const divProfileSkillBanner = ref<HTMLDivElement | null>(null)
+const divProfileSkillFrame = ref<HTMLDivElement | null>(null)
+const divProfileVolForceBanner = ref<HTMLDivElement | null>(null)
+const divProfileVolForceStarGroup = ref<HTMLDivElement | null>(null)
+const divProfileVolForceName = ref<HTMLSpanElement | null>(null)
+const divProfileVolForce = ref<HTMLSpanElement | null>(null)
 
 const data = reactive({
   appealCards: (() => {
@@ -270,38 +285,86 @@ const computedTexture = reactive({
   subBg: computed(() => {
     const id = customizeData.subBg.toString().padStart(4, '0')
     const url = `${config.assetsHost}/sdvx/submonitor_bg/subbg_${id}.png`
+    if (divProfileBg.value !== null) {
+      divProfileBg.value.animate(
+        [{ opacity: 0 }, { opacity: 1 }],
+        { easing: 'ease-in-out', duration: 150 }
+      ).play()
+    }
     return `url("${url}")`
   }),
   crew: computed(() => {
     const crewData = data.crew.get(customizeData.crew)
     const id = crewData ? crewData.texture.toString().padStart(4, '0') : '0014'
     const url = `${config.assetsHost}/sdvx/psd_crew/psd_crew_${id}.png`
+    if (divProfileCrew.value !== null) {
+      divProfileCrew.value.animate(
+        [{ opacity: 0 }, { opacity: 1 }],
+        { easing: 'ease-in-out', duration: 150 }
+      ).play()
+    }
     return `url("${url}")`
   }),
   appealCard: computed(() => {
     const appeal = data.appealCards.get(customizeData.appealCard)
     const texture = appeal ? appeal.texture : 'ap_06_0001'
     const url = `${config.assetsHost}/sdvx/ap_card/${texture}.png`
+    if (divProfileAppealCard.value !== null) {
+      divProfileAppealCard.value.animate(
+        [{ opacity: 0 }, { opacity: 1 }],
+        { easing: 'ease-in-out', duration: 150 }
+      ).play()
+    }
     return `url("${url}")`
   }),
   akaName: computed(() => {
     const akaName = data.akaName.get(customizeData.akaName)
+    if (divProfileAkaName.value !== null) {
+      divProfileAkaName.value.animate(
+        [{ opacity: 0 }, { opacity: 1 }],
+        { easing: 'ease-in-out', duration: 150 }
+      ).play()
+    }
     return akaName || 'よろしくお願いします' // default
   }),
   skillBanner: computed(() => {
     const level = skill.value.level
+    if (divProfileSkillBanner.value !== null) {
+      divProfileSkillBanner.value.animate(
+        [{ opacity: 0 }, { opacity: 1 }],
+        { easing: 'ease-in-out', duration: 150 }
+      ).play()
+    }
     return `url("${config.assetsHost}/sdvx/skill/skill_${level ? level.toString().padStart(2, '0') : 'none'}.png")`
   }),
   skillFrame: computed(() => {
     const p = skill.value.passedAllSkillSeason
+    if (divProfileSkillFrame.value !== null) {
+      divProfileSkillFrame.value.animate(
+        [{ opacity: 0 }, { opacity: 1 }],
+        { easing: 'ease-in-out', duration: 150 }
+      ).play()
+    }
     return `url("${config.assetsHost}/sdvx/skill/skill_frame${p ? '' : '_nomal'}.png")`
   }),
   volForceBanner: computed(() => {
     const bannerIndex = Math.max(1, Math.floor(Math.max(0, skill.value.volForce - 10.0)))
+    if (divProfileVolForceBanner.value !== null) {
+      divProfileVolForceBanner.value.animate(
+        [{ opacity: 0 }, { opacity: 1 }],
+        { easing: 'ease-in-out', duration: 150 }
+      ).play()
+    }
     return `url("${config.assetsHost}/sdvx/force/em6_s${bannerIndex.toString().padStart(2, '0')}_i_eab.png")`
   }),
   volForceStar: computed(() => {
     const bannerIndex = Math.max(1, Math.floor(Math.max(0, skill.value.volForce - 10.0)))
+    if (divProfileVolForceStarGroup.value !== null) {
+      divProfileVolForceStarGroup.value.animate(
+        [{ opacity: 0 }, { opacity: 1 }],
+        { easing: 'ease-in-out', duration: 150 }
+      ).play()
+    }
     if (bannerIndex <= 5) {
       return {
         count: new Array<number>(Math.max(1, bannerIndex)).fill(0),
@@ -328,6 +391,12 @@ const computedTexture = reactive({
       ['IMPERIAL', '#b159ff']
     ]
     const index = Math.max(0, Math.floor(Math.max(0, skill.value.volForce - 11.0)))
+    if (divProfileVolForceName.value !== null) {
+      divProfileVolForceName.value.animate(
+        [{ opacity: 0 }, { opacity: 1 }],
+        { easing: 'ease-in-out', duration: 150 }
+      ).play()
+    }
     return `VOLFORCE</br><span style="color: ${mapping[index][1]}">${mapping[index][0]}</span>`
   })
 })
@@ -504,4 +573,8 @@ const computedTexture = reactive({
   top: 128px;
 }
 
+#settings {
+  padding: 20px;
+  margin-top: 15px;
+}
 </style>
