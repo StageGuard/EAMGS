@@ -18,12 +18,12 @@
   <div id="profilePreview" ref="divProfileBg">
     <div id="profilePanel" ref="divProfilePanel">
       <div id="blasterPassBg"/>
-      <div id="profileCrew" v-if="data.crew" ref="divProfileCrew"/>
+      <div id="profileCrew" v-if="data.crew.size" ref="divProfileCrew"/>
       <div id="blasterPass"></div>
-      <div id="appealCard" v-if="data.appealCards" ref="divProfileAppealCard"/>
+      <div id="appealCard" v-if="data.appealCards.size" ref="divProfileAppealCard"/>
       <div id="profileBox1">
-        <span id="akaName" class="profileFont" v-if="data.akaName" ref="divProfileAkaName">{{ computedTexture.akaName }}</span>
-        <span id="profileName" class="profileFont" ref="divProfileName">{{ customizeData.name }}</span>
+        <span id="akaName" class="profileFont" v-if="data.akaName.size" ref="divProfileAkaName">{{ computedTexture.akaName }}</span>
+        <span id="profileName" class="profileFont" v-if="customizeData.name" ref="divProfileName">{{ customizeData.name }}</span>
         <span id="shopName" class="profileFont">SG EAG</span>
         <div id="skillBanner" ref="divProfileSkillBanner"/>
         <div id="skillFrame" v-if="skill.level !== 0" ref="divProfileSkillFrame"/>
@@ -36,9 +36,79 @@
       </div>
     </div>
   </div>
-  <div id="settings">
-
+  <div id="gamePreview">
+    <div id="nemsysPreview" ref="divNemsys"/>
+    <div id="chatStampGroup">
+      <div v-for="(s, index) in ['A', 'B', 'C', 'D']" :key="index">
+        <div style="font-size: 18px; text-align: center; margin: auto auto 15px;">stamp{{ s }}</div>
+        <div class="chatStamp" :style="{ 'background-image': computedTexture.stamp[index] }"/>
+      </div>
+    </div>
   </div>
+  <div id="settings">
+    <div class="settings-title">Profile name</div>
+    <input type="text" class="input" name="input"
+           ref="profileNameInput" :value="customizeData.name"
+           onchange = "value=value.replace(/[^A-Za-z\d!?#$&*-.\s]{1,8}/g,'')"
+           @input="customizeData.name = profileNameInput?.value.replace(/[^A-Za-z\d!?#$&*-.\s]{1,8}/g,'')">
+    <div class="settings-title"  v-if="data.appealCards.size">Appeal card</div>
+    <select-box v-if="data.appealCards.size"
+                :width="580"
+                :options="Array.from(data.appealCards.entries())"
+                :display="([_, card]) => card.name"
+                :current="([id, _]) => id === customizeData.appeal"
+                @on-select="(_, v) => customizeData.appeal = v[0]"
+    />
+    <div class="settings-title" v-if="data.akaName.size">Aka name</div>
+    <select-box v-if="data.akaName.size"
+                :width="580"
+                :options="Array.from(data.akaName.entries())"
+                :display="([_, akaName]) => akaName"
+                :current="([id, _]) => id === customizeData.akaName"
+                @on-select="(_, v) => customizeData.akaName = v[0]"/>
+    <div class="settings-title" v-if="data.crew.size">Crew (Navigator)</div>
+    <select-box v-if="data.crew.size"
+                :width="580"
+                :options="Array.from(data.crew.entries())"
+                :display="([_, c]) => c.name"
+                :current="([id, _]) => id === customizeData.crew"
+                @on-select="(_, v) => customizeData.crew = v[0]"/>
+    <div class="settings-title">Sub monitor background</div>
+    <select-box :width="580"
+                :options="Array.from(Array(data.subbg).keys())"
+                :current="b => b === customizeData.subbg"
+                @on-select="b => customizeData.subbg = b"/>
+    <div class="settings-title">Nemsys</div>
+    <select-box v-if="data.nemsys.size"
+                :width="580"
+                :options="Array.from(data.nemsys.entries())"
+                :display="([_, n]) => n"
+                :current="([id, _]) => id === customizeData.nemsys"
+                @on-select="(_, v) => customizeData.nemsys = v[0]"/>
+    <div v-for="(s, index) in ['A', 'B', 'C', 'D']" :key="index">
+      <div class="settings-title">Stamp BT-{{ s }}</div>
+      <select-box v-if="data.chatStamps.size"
+                  :width="580"
+                  :options="(() => {
+                    const r = Array.from(data.chatStamps.entries())
+                    r.unshift([0, 'no_stamp'])
+                    return r
+                  })()"
+                  :display="([_, n]) => n"
+                  :current="([id, _]) => id === customizeData.stamp[index]"
+                  @on-select="(_, v) => customizeData.stamp[index] = v[0]"/>
+    </div>
+  </div>
+  <button class="apply-button" @click="handleApplySettings">Save</button>
+  <div style="height: 300px"/>
+  <full-screen-dialog
+    ref="confirmDialog"
+    type="confirm"
+    :title="dialogProperty.title"
+    :desc="dialogProperty.desc"
+    :selection="['Close']"
+    @on-select="handleCloseDialog"
+  ></full-screen-dialog>
 </template>
 
 <script setup lang="ts">
@@ -47,6 +117,8 @@ import { computed, inject, reactive, ref, Ref } from 'vue'
 import config from '@/config'
 import { GameInfo } from '@/props/game-info'
 import bgmData from '@/assets/sdvx/bgm.json'
+import SelectBox from '@/components/SelectBox.vue'
+import FullScreenDialog from '@/components/FullScreenDialog.vue'
 
 interface AppealCard {
   name: string,
@@ -95,6 +167,13 @@ const divProfileVolForceBanner = ref<HTMLDivElement | null>(null)
 const divProfileVolForceStarGroup = ref<HTMLDivElement | null>(null)
 const divProfileVolForceName = ref<HTMLSpanElement | null>(null)
 const divProfileVolForce = ref<HTMLSpanElement | null>(null)
+const divNemsys = ref<HTMLSpanElement | null>(null)
+const profileNameInput = ref<HTMLInputElement | null>(null)
+const confirmDialog = ref<InstanceType<typeof FullScreenDialog> | null>(null)
+const dialogProperty = reactive({
+  title: '',
+  desc: ''
+})
 
 const data = reactive({
   appealCards: (() => {
@@ -193,6 +272,7 @@ const data = reactive({
     return m
   })(),
   bgm: new Map(bgmData.bgm.map(v => [v.value, v.name])),
+  subbg: 129,
   crew: (() => {
     const m = globalPool.value.get('sdvx_crew') as Map<number, Crew> || new Map()
 
@@ -222,13 +302,14 @@ const data = reactive({
 })
 
 const customizeData = reactive({
-  name: 'SDVX6',
-  appealCard: 5001,
-  chatStamp: new Array<number>(4).fill(0),
+  name: '',
+  appeal: 5001,
+  stamp: new Array<number>(4).fill(0),
   akaName: 10001,
   nemsys: 0,
-  subBg: 0,
-  crew: 113
+  subbg: 0,
+  crew: 113,
+  bgm: 0
 })
 const skill = ref<Skill>({
   volForce: 0,
@@ -242,11 +323,11 @@ if (game.value.api.customize.get !== null) {
   fetch(`${config.host}/${game.value.api.customize.get}?refId=${refId.value}`).then(r => r.json()).then(r => {
     if (r.result !== -1) {
       customizeData.name = r.name
-      customizeData.appealCard = r.appeal || 5001 // g6 initial ap card default
+      customizeData.appeal = r.appeal || 5001 // g6 initial ap card default
       customizeData.nemsys = r.nemsys
       customizeData.akaName = r.akaName || 10001 // default
-      customizeData.subBg = r.subbg
-      customizeData.chatStamp = r.stamp
+      customizeData.subbg = r.subbg
+      customizeData.stamp = r.stamp
       customizeData.crew = r.crew || 113 // g6 rasis default
     } else {
       console.warn(`Failed to fetch profile custom settings: ${r.message}`)
@@ -283,12 +364,12 @@ if (game.value.api.profile !== null) {
 
 const computedTexture = reactive({
   subBg: computed(() => {
-    const id = customizeData.subBg.toString().padStart(4, '0')
+    const id = customizeData.subbg.toString().padStart(4, '0')
     const url = `${config.assetsHost}/sdvx/submonitor_bg/subbg_${id}.png`
     if (divProfileBg.value !== null) {
       divProfileBg.value.animate(
         [{ opacity: 0 }, { opacity: 1 }],
-        { easing: 'ease-in-out', duration: 150 }
+        { easing: 'ease-in-out', duration: 250 }
       ).play()
     }
     return `url("${url}")`
@@ -306,7 +387,7 @@ const computedTexture = reactive({
     return `url("${url}")`
   }),
   appealCard: computed(() => {
-    const appeal = data.appealCards.get(customizeData.appealCard)
+    const appeal = data.appealCards.get(customizeData.appeal)
     const texture = appeal ? appeal.texture : 'ap_06_0001'
     const url = `${config.assetsHost}/sdvx/ap_card/${texture}.png`
     if (divProfileAppealCard.value !== null) {
@@ -398,10 +479,55 @@ const computedTexture = reactive({
       ).play()
     }
     return `VOLFORCE</br><span style="color: ${mapping[index][1]}">${mapping[index][0]}</span>`
+  }),
+  nemsys: computed(() => {
+    const texture = data.nemsys.get(customizeData.nemsys) || 'nemsys_0000'
+    if (divNemsys.value !== null) {
+      divNemsys.value.animate(
+        [{ opacity: 0 }, { opacity: 1 }],
+        { easing: 'ease-in-out', duration: 250 }
+      ).play()
+    }
+    return `url("${config.assetsHost}/sdvx/nemsys/${texture}.png")`
+  }),
+  stamp: computed(() => {
+    const stamps = customizeData.stamp.map(v => data.chatStamps.get(v) || 'no_stamp')
+    return stamps.map(s => {
+      return `url("${config.assetsHost}/sdvx/chat_stamp/${s}.png")`
+    })
   })
 })
 
-// scale: 0.78125
+function handleCloseDialog (index: number, input?: string[], shouldClose?: (r: boolean) => void) {
+  if (shouldClose) shouldClose(true)
+}
+
+function handleApplySettings () {
+  if (!game.value) throw new Error('Game is not injected.')
+  if (game.value.api.customize.update !== null) {
+    fetch(`${config.host}/${game.value.api.customize.update}?refId=${refId.value}`, {
+      method: 'POST',
+      body: JSON.stringify(customizeData)
+    }).then(r => r.json()).then(r => {
+      if (r.result !== -1) {
+        dialogProperty.title = 'Success'
+        dialogProperty.desc = 'Update your profile settings successfully.'
+        confirmDialog.value?.show()
+      } else {
+        dialogProperty.title = 'Failure'
+        dialogProperty.desc = `Failed to update profile settings: ${r.message}`
+        console.warn(`Failed to update profile settings: ${r.message}`)
+        confirmDialog.value?.show()
+      }
+    }).catch(r => {
+      dialogProperty.title = 'Failure'
+      dialogProperty.desc = `Failed to update profile settings: ${r}`
+      console.warn(`Failed to update profile settings: ${r}`)
+      confirmDialog.value?.show()
+    })
+  }
+}
+
 </script>
 
 <!--suppress CssUnknownTarget -->
@@ -573,8 +699,120 @@ const computedTexture = reactive({
   top: 128px;
 }
 
+#gamePreview {
+  height: 224px;
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+}
+
+#nemsysPreview {
+  background-image: v-bind(computedTexture.nemsys);
+  background-repeat: no-repeat;
+  background-size: 425px;
+  width: 425px;
+  height: 224px;
+}
+
+#chatStampGroup {
+  display: flex;
+  height: 224px;
+  align-items: center;
+  justify-content: center;
+}
+
+.chatStamp {
+  background-size: 100px;
+  width: 100px;
+  height: 100px;
+  vertical-align: center;
+  margin-left: 4px;
+  margin-right: 4px;
+}
+
 #settings {
   padding: 20px;
   margin-top: 15px;
+}
+
+.settings-title {
+  font-size: 20px;
+  display: block;
+  margin-top: 25px;
+  margin-bottom: 7px
+}
+
+.input {
+  appearance: none;
+  background-clip: padding-box;
+  border: 1px solid rgb(189, 189, 189);
+  background-color: rgb(255, 255, 255);
+  border-image-repeat: stretch;
+  border-image-source: none;
+  border-radius: 4px;
+  box-sizing: border-box;
+  color: rgb(79, 79, 79);
+  cursor: text;
+  display: block;
+  font-family: '_Gilroy Medium', serif;
+  font-size: 16px;
+  font-stretch: 100%;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 400;
+  letter-spacing: 1px;
+  line-height: 34px;
+  min-height: 0;
+  overflow-wrap: break-word;
+  padding: 4px 16px 3px;
+  text-align: start;
+  text-indent: 0;
+  text-rendering: auto;
+  text-shadow: none;
+  text-size-adjust: 100%;
+  text-transform: none;
+  transition: all 0.1s linear;
+  width: 390px;
+  height: 45px;
+  word-spacing: 0;
+  writing-mode: horizontal-tb;
+  -webkit-box-direction: normal;
+  -webkit-rtl-ordering: logical;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-border-image: none;
+}
+
+.input:focus {
+  border-color: #1266f1;
+  border-width: 2px;
+  outline: none !important;
+}
+
+.apply-button {
+  margin-top: 40px;
+  outline: none;
+  background-color: rgb(18, 102, 241);
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .2), 0 2px 10px 0 rgba(0, 0, 0, .1);
+  color: white;
+  font-family: '_Gilroy Medium', serif;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 10px 24px 8px;
+  transition: all 0.1s linear;
+}
+
+.apply-button:hover {
+  background-color: rgb(21, 88, 199);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2), 0 2px 10px 0 rgba(0, 0, 0, .1);
+}
+
+.apply-button:disabled {
+  background-color: rgb(101, 155, 245);
+}
+
+.apply-button:active {
+  background-color: rgb(10, 57, 137);
 }
 </style>

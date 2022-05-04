@@ -66,15 +66,15 @@ class Customize {
             val data = try {
                 json.decodeFromString<CustomizeData>(request.content().toString(Charset.defaultCharset()))
             } catch (ex: SerializationException) {
-                return apiError("ILLEGAL_PARAM")
+                return apiError("ILLEGAL_PARAM:$ex")
             }
             require(data.stamp.size == 4) { return apiError("ILLEGAL_PARAM") }
 
             val profile = Database.query { db -> db.sequenceOf(UserProfileTable).find { it.refId eq refId } }
                 ?: return apiError("USER_NOT_FOUND")
 
-            if (profile.name.matches(NAME_REGEX_REV)) return apiError("ILLEGAL_NAME")
-            profile.name = data.name
+            if (data.name.matches(NAME_REGEX_REV)) return apiError("ILLEGAL_NAME")
+            profile.name = data.name.run { if (isBlank() || isEmpty()) "SDVX6" else this }
             if (sdvx6AppealCards[data.appeal] == null) return apiError("ILLEGAL_APPEAL")
             profile.appeal = data.appeal
             if (sdvx6AkaNames[data.akaName] == null) return apiError("ILLEGAL_AKANAME")
