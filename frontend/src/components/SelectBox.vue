@@ -16,15 +16,19 @@
 
 <template>
   <div id="select-box" class="box-style" @click="openSelectBox()" ref="selectBox">
-    <span style="margin: auto; user-select: none">{{ options[currentSelection] }}</span>
+    <span style="margin: auto; user-select: none">{{
+        props.display ? props.display(options[currentSelection]) : options[currentSelection].toString()
+      }}</span>
   </div>
   <div id="popup-box" class="box-style" ref="popupBox" v-show="selectBoxOpened">
     <div v-for="(item, index) in options" id='' :key="index" class="box-item" :class="{
         'box-item-singleton': options.length === 1,
         'box-item-head': index === 0,
         'box-item-tail': index === options.length - 1
-      }" @click="handleSelect(index)">
-      <span id="text" style="margin: auto; user-select: none">{{ item }}</span>
+      }" @click="handleSelect(index, item)">
+      <span id="text" style="margin: auto; user-select: none">{{
+          props.display ? props.display(item) : item.toString()
+        }}</span>
     </div>
   </div>
 </template>
@@ -36,13 +40,13 @@ import $ from 'jquery'
 import { lazy } from '@/utils/Lazy'
 
 const props = defineProps<{
-  options: string[],
-  current: number,
+  options: any[],
+  display?:(item: any) => string,
+  current: number | ((item: any) => boolean),
   showItemsCount?: number
 }>()
 
 if (props.options.length < 2) throw Error('Select box should contains more than 1 option')
-if (props.current > props.options.length - 1) throw Error('Current selection is out of index of options')
 
 // count of items showing in select box, default: 5
 const showItemsCount = (() => {
@@ -50,12 +54,19 @@ const showItemsCount = (() => {
   return Math.min(opCount, props.options.length)
 })()
 
-const callbackEmit = defineEmits<{(e: 'onSelect', index: number): void }>()
+const callbackEmit = defineEmits<{(e: 'onSelect', index: number, item: any): void }>()
 
 const popupBox = ref<HTMLDivElement | null>(null)
 const selectBox = ref<HTMLDivElement | null>(null)
 const selectBoxOpened = ref<boolean>(false)
-const currentSelection = ref<number>(props.current)
+const currentSelection = ref<number>((typeof props.current === 'number')
+  ? props.current
+  : (() => {
+      for (let i = 0; i < props.options.length; i++) {
+        if (props.current((props.options[i]))) return i
+      }
+      return 0
+    })())
 let animPlaying = false
 const animDuration = 150
 
@@ -184,7 +195,7 @@ function openSelectBox () {
           if (!(
             (ev.clientX >= popupBoxRect.left && ev.clientX <= popupBoxRect.right) &&
             (ev.clientY >= popupBoxRect.top && ev.clientY <= popupBoxRect.bottom)
-          )) handleSelect(-1)
+          )) handleSelect(-1, null)
         }
         window.onclick = prevWindowClickEvent
       }
@@ -194,7 +205,7 @@ function openSelectBox () {
   }
 }
 
-function handleSelect (index: number) {
+function handleSelect (index: number, item: any) {
   if (selectBox.value == null) throw new Error('Cannot handle select element of select box')
   if (popupBox.value == null) throw new Error('Cannot handle popup element of select box')
   if (animPlaying) return
@@ -204,7 +215,7 @@ function handleSelect (index: number) {
 
   if (index >= 0) {
     currentSelection.value = index
-    callbackEmit('onSelect', currentSelection.value)
+    callbackEmit('onSelect', currentSelection.value, item)
   }
   animPlaying = true
   const closeAnim = popupBox.value.animate(
