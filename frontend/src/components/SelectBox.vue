@@ -43,7 +43,8 @@ const props = defineProps<{
   options: any[],
   display?:(item: any) => string,
   current: number | ((item: any) => boolean),
-  showItemsCount?: number
+  showItemsCount?: number,
+  width?: number
 }>()
 
 if (props.options.length < 2) throw Error('Select box should contains more than 1 option')
@@ -90,6 +91,8 @@ const currentShowingSlot = computed<number>(() => {
   }
 })
 
+const selectBoxWidth = computed(() => props.width ? `${Math.max(props.width - 30, 0)}px` : 'fit-content')
+
 const selectBoxHeight = lazy(() => {
   if (selectBox.value == null) throw new Error('Cannot handle select element of select box')
   const selectBoxRect = selectBox.value.getBoundingClientRect()
@@ -109,7 +112,7 @@ function setItemWidth (w: number) {
   for (let i = 0; i < props.options.length; i++) {
     if (popupBox.value == null) throw new Error('Cannot handle popup element of select box')
     const item = popupBox.value.children.item(i) as HTMLDivElement | null
-    if (item != null) item.style.width = `${w}px`
+    if (item != null) item.style.width = `${props.width ? props.width : w}px`
   }
 }
 
@@ -248,7 +251,8 @@ function handleSelect (index: number, item: any) {
 #select-box {
   display: flex;
   align-items: center;
-  padding: 15px
+  padding: 15px;
+  width: v-bind(selectBoxWidth)
 }
 
 #popup-box {
