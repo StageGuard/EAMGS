@@ -14,7 +14,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import definedGameModules from '@/modules'
 import { getCookie } from '@/utils/cookie'
 
@@ -55,6 +55,6 @@ const routes: Array<RouteRecordRaw> = [
   }
 ]
 
-const router = createRouter({ history: createWebHistory(process.env.BASE_URL), routes })
+const router = createRouter({ history: createWebHashHistory(process.env.BASE_URL), routes })
 
 export default router
