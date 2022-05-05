@@ -84,7 +84,7 @@ class Customize {
             profile.bgm = data.bgm
             profile.subbg = data.subbg
             data.stamp.run {
-                forEach { if (sdvx6ChatStamp[it] == null) return apiError("ILLEGAL_CHAT_STAMP") }
+                forEach { if (it != 0 && sdvx6ChatStamp[it] == null) return apiError("ILLEGAL_CHAT_STAMP") }
                 profile.stampA = get(0)
                 profile.stampB = get(1)
                 profile.stampC = get(2)
