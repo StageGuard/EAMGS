@@ -1,5 +1,5 @@
-<!--
-  - Copyright (c) 2022 StageGuard
+`<!--
+ 0 - Copyright (c) 2022 StageGuard
   - This program is free software: you can redistribute it and/or modify
   - it under the terms of the GNU Affero General Public License as published
   - by the Free Software Foundation, either version 3 of the License, or
@@ -18,12 +18,12 @@
   <div id="profilePreview" ref="divProfileBg">
     <div id="profilePanel" ref="divProfilePanel">
       <div id="blasterPassBg"/>
-      <div id="profileCrew" v-if="data.crew.size" ref="divProfileCrew"/>
+      <div id="profileCrew" v-if="data.crew.size && customizeData.crew !== null" ref="divProfileCrew"/>
       <div id="blasterPass"></div>
-      <div id="appealCard" v-if="data.appealCards.size" ref="divProfileAppealCard"/>
+      <div id="appealCard" v-if="data.appealCards.size && customizeData.appeal !== null" ref="divProfileAppealCard"/>
       <div id="profileBox1">
-        <span id="akaName" class="profileFont" v-if="data.akaName.size" ref="divProfileAkaName">{{ computedTexture.akaName }}</span>
-        <span id="profileName" class="profileFont" v-if="customizeData.name" ref="divProfileName">{{ customizeData.name }}</span>
+        <span id="akaName" class="profileFont" v-if="data.akaName.size && customizeData.akaName !== null" ref="divProfileAkaName">{{ computedTexture.akaName }}</span>
+        <span id="profileName" class="profileFont" v-if="customizeData.name && customizeData.name !== null" ref="divProfileName">{{ customizeData.name }}</span>
         <span id="shopName" class="profileFont">SG EAG</span>
         <div id="skillBanner" ref="divProfileSkillBanner"/>
         <div id="skillFrame" v-if="skill.level !== 0" ref="divProfileSkillFrame"/>
@@ -51,50 +51,51 @@
            ref="profileNameInput" :value="customizeData.name"
            onchange = "value=value.replace(/[^A-Za-z\d!?#$&*-.\s]{1,8}/g,'')"
            @input="customizeData.name = profileNameInput?.value.replace(/[^A-Za-z\d!?#$&*-.\s]{1,8}/g,'')">
-    <div class="settings-title"  v-if="data.appealCards.size">Appeal card</div>
-    <select-box v-if="data.appealCards.size"
+    <div class="settings-title"  v-if="data.appealCards.size && customizeData.appeal !== null">Appeal card</div>
+    <select-box v-if="data.appealCards.size && customizeData.appeal !== null"
                 :width="580"
                 :options="Array.from(data.appealCards.entries())"
                 :display="([_, card]) => card.name"
                 :current="([id, _]) => id === customizeData.appeal"
                 @on-select="(_, v) => customizeData.appeal = v[0]"
     />
-    <div class="settings-title" v-if="data.akaName.size">Aka name</div>
-    <select-box v-if="data.akaName.size"
+    <div class="settings-title" v-if="data.akaName.size && customizeData.akaName !== null">Aka name</div>
+    <select-box v-if="data.akaName.size && customizeData.akaName !== null"
                 :width="580"
                 :options="Array.from(data.akaName.entries())"
                 :display="([_, akaName]) => akaName"
                 :current="([id, _]) => id === customizeData.akaName"
                 @on-select="(_, v) => customizeData.akaName = v[0]"/>
-    <div class="settings-title" v-if="data.crew.size">Crew (Navigator)</div>
-    <select-box v-if="data.crew.size"
+    <div class="settings-title" v-if="data.crew.size && customizeData.crew !== null">Crew (Navigator)</div>
+    <select-box v-if="data.crew.size && customizeData.crew !== null"
                 :width="580"
                 :options="Array.from(data.crew.entries())"
                 :display="([_, c]) => c.name"
                 :current="([id, _]) => id === customizeData.crew"
                 @on-select="(_, v) => customizeData.crew = v[0]"/>
-    <div class="settings-title">Sub monitor background</div>
-    <select-box :width="580"
+    <div class="settings-title" v-if="customizeData.subbg !== null">Sub monitor background</div>
+    <select-box v-if="customizeData.subbg !== null"
+                :width="580"
                 :options="Array.from(Array(data.subbg).keys())"
                 :current="b => b === customizeData.subbg"
                 @on-select="b => customizeData.subbg = b"/>
-    <div class="settings-title">Nemsys</div>
-    <select-box v-if="data.nemsys.size"
+    <div class="settings-title" v-if="data.nemsys.size && customizeData.nemsys !== null">Nemsys</div>
+    <select-box v-if="data.nemsys.size && customizeData.nemsys !== null"
                 :width="580"
                 :options="Array.from(data.nemsys.entries())"
                 :display="([_, n]) => n"
                 :current="([id, _]) => id === customizeData.nemsys"
                 @on-select="(_, v) => customizeData.nemsys = v[0]"/>
     <div v-for="(s, index) in ['A', 'B', 'C', 'D']" :key="index">
-      <div class="settings-title">Stamp BT-{{ s }}</div>
-      <select-box v-if="data.chatStamps.size"
+      <div class="settings-title" v-if="data.chatStamps.size && customizeData.stamp !== null">Stamp BT-{{ s }}</div>
+      <select-box v-if="data.chatStamps.size && customizeData.stamp !== null"
                   :width="580"
                   :options="(() => {
                     const r = Array.from(data.chatStamps.entries())
                     r.unshift([0, 'no_stamp'])
                     return r
                   })()"
-                  :display="([_, n]) => n"
+                  :display="([i, n]) => i === 0 ? n : n.split('/')[1]"
                   :current="([id, _]) => id === customizeData.stamp[index]"
                   @on-select="(_, v) => customizeData.stamp[index] = v[0]"/>
     </div>
@@ -301,15 +302,24 @@ const data = reactive({
   })()
 })
 
-const customizeData = reactive({
-  name: '',
-  appeal: 5001,
-  stamp: new Array<number>(4).fill(0),
-  akaName: 10001,
-  nemsys: 0,
-  subbg: 0,
-  crew: 113,
-  bgm: 0
+const customizeData = reactive<{
+  name: string | null,
+  appeal: number | null,
+  stamp: number[] | null,
+  akaName: number | null,
+  nemsys: number | null,
+  subbg: number | null,
+  crew: number | null,
+  bgm: number | null
+}>({
+  name: null,
+  appeal: null,
+  stamp: null,
+  akaName: null,
+  nemsys: null,
+  subbg: null,
+  crew: null,
+  bgm: null
 })
 const skill = ref<Skill>({
   volForce: 0,
@@ -329,6 +339,7 @@ if (game.value.api.customize.get !== null) {
       customizeData.subbg = r.subbg
       customizeData.stamp = r.stamp
       customizeData.crew = r.crew || 113 // g6 rasis default
+      customizeData.bgm = r.bgm
     } else {
       console.warn(`Failed to fetch profile custom settings: ${r.message}`)
     }
@@ -364,7 +375,7 @@ if (game.value.api.profile !== null) {
 
 const computedTexture = reactive({
   subBg: computed(() => {
-    const id = customizeData.subbg.toString().padStart(4, '0')
+    const id = (customizeData.subbg || 0).toString().padStart(4, '0')
     const url = `${config.assetsHost}/sdvx/submonitor_bg/subbg_${id}.png`
     if (divProfileBg.value !== null) {
       divProfileBg.value.animate(
@@ -375,7 +386,7 @@ const computedTexture = reactive({
     return `url("${url}")`
   }),
   crew: computed(() => {
-    const crewData = data.crew.get(customizeData.crew)
+    const crewData = data.crew.get(customizeData.crew || 113)
     const id = crewData ? crewData.texture.toString().padStart(4, '0') : '0014'
     const url = `${config.assetsHost}/sdvx/psd_crew/psd_crew_${id}.png`
     if (divProfileCrew.value !== null) {
@@ -387,7 +398,7 @@ const computedTexture = reactive({
     return `url("${url}")`
   }),
   appealCard: computed(() => {
-    const appeal = data.appealCards.get(customizeData.appeal)
+    const appeal = data.appealCards.get(customizeData.appeal || 5001)
     const texture = appeal ? appeal.texture : 'ap_06_0001'
     const url = `${config.assetsHost}/sdvx/ap_card/${texture}.png`
     if (divProfileAppealCard.value !== null) {
@@ -399,7 +410,7 @@ const computedTexture = reactive({
     return `url("${url}")`
   }),
   akaName: computed(() => {
-    const akaName = data.akaName.get(customizeData.akaName)
+    const akaName = data.akaName.get(customizeData.akaName || 10001)
     if (divProfileAkaName.value !== null) {
       divProfileAkaName.value.animate(
         [{ opacity: 0 }, { opacity: 1 }],
@@ -481,7 +492,7 @@ const computedTexture = reactive({
     return `VOLFORCE</br><span style="color: ${mapping[index][1]}">${mapping[index][0]}</span>`
   }),
   nemsys: computed(() => {
-    const texture = data.nemsys.get(customizeData.nemsys) || 'nemsys_0000'
+    const texture = data.nemsys.get(customizeData.nemsys || 0) || 'nemsys_0000'
     if (divNemsys.value !== null) {
       divNemsys.value.animate(
         [{ opacity: 0 }, { opacity: 1 }],
@@ -491,7 +502,7 @@ const computedTexture = reactive({
     return `url("${config.assetsHost}/sdvx/nemsys/${texture}.png")`
   }),
   stamp: computed(() => {
-    const stamps = customizeData.stamp.map(v => data.chatStamps.get(v) || 'no_stamp')
+    const stamps = (customizeData.stamp || [0, 0, 0, 0]).map(v => data.chatStamps.get(v) || 'no_stamp')
     return stamps.map(s => {
       return `url("${config.assetsHost}/sdvx/chat_stamp/${s}.png")`
     })
