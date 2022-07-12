@@ -33792,4 +33792,26 @@
 			<limited __type="u8">2</limited>
 		</info>
 	</card>
+	<card id="5511">
+		<info>
+			<texture>ap_06_R0011</texture>
+			<title>Red Bull 5G 2022 参加賞</title>
+			<message_a>レッドブルで[br:0]エナジーチャージ！</message_a>
+			<message_b>SDVXに翼をさずける！</message_b>
+			<message_c>レッドブルを飲んで[br:0]君もPUC！</message_c>
+			<message_d>もうレッドブルで[br:0]エナジーチャージした？</message_d>
+			<message_e>縦連が早くなりたい？[br:0]そんな時はレッドブル！</message_e>
+			<message_f>┏┳甘&lt; レッドブル</message_f>
+			<message_g>Gives you wings!!</message_g>
+			<message_h>これからも[br:0]レッドブルをよろしくゥ</message_h>
+			<illustrator>-</illustrator>
+			<distribution_date __type="u32">0</distribution_date>
+			<rarity __type="u8">5</rarity>
+			<generator_no __type="u8">0</generator_no>
+			<is_default __type="u8">0</is_default>
+			<sort_no __type="u16">14511</sort_no>
+			<genre __type="u8">0</genre>
+			<limited __type="u8">2</limited>
+		</info>
+	</card>
 </appeal_card_data>
