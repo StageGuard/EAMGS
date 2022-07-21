@@ -134,4 +134,31 @@
 		<texture_name>nemsys_0025</texture_name>
 		<io_type_suffix>iv</io_type_suffix>
 	</info>
+	<info>
+		<id __type="u16">26</id>
+		<texture_name>nemsys_0026</texture_name>
+		<io_type_suffix>v</io_type_suffix>
+		<related_music>480</related_music>
+	</info>
+	<info>
+		<id __type="u16">27</id>
+		<texture_name>nemsys_0027</texture_name>
+		<io_type_suffix>v</io_type_suffix>
+	</info>
+	<info>
+		<id __type="u16">28</id>
+		<texture_name>nemsys_0028</texture_name>
+		<io_type_suffix>v</io_type_suffix>
+	</info>
+	<info>
+		<id __type="u16">29</id>
+		<texture_name>nemsys_0029</texture_name>
+		<io_type_suffix>v</io_type_suffix>
+		<related_music>1543</related_music>
+	</info>
+	<info>
+		<id __type="u16">30</id>
+		<texture_name>nemsys_0030</texture_name>
+		<io_type_suffix>v</io_type_suffix>
+	</info>
 </custom_nemsys_data>

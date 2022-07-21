@@ -37,7 +37,7 @@ import java.util.concurrent.atomic.AtomicInteger
     SDVX6_20211124,
     SDVX6_20220214,
     SDVX6_20220308,
-    SDVX6_20220425)
+    SDVX6_20220425, SDVX6_20220628)
 object Load : SDVX6RouteHandler("load") {
     override suspend fun handle(gameNode: Element): KXmlBuilder {
         val refId = gameNode.childNodeValue("refid")
@@ -222,7 +222,7 @@ object Load : SDVX6RouteHandler("load") {
     SDVX6_20211124,
     SDVX6_20220214,
     SDVX6_20220308,
-    SDVX6_20220425)
+    SDVX6_20220425, SDVX6_20220628)
 object LoadScore : SDVX6RouteHandler("load_m") {
     override suspend fun handle(gameNode: Element): KXmlBuilder {
         val refId = gameNode.childNodeValue("refid")
@@ -270,7 +270,7 @@ object LoadScore : SDVX6RouteHandler("load_m") {
     SDVX6_20211124,
     SDVX6_20220214,
     SDVX6_20220308,
-    SDVX6_20220425)
+    SDVX6_20220425, SDVX6_20220628)
 object LoadRival : SDVX6RouteHandler("load_r") {
     override suspend fun handle(gameNode: Element): KXmlBuilder {
         val refId = gameNode.childNodeValue("refid")

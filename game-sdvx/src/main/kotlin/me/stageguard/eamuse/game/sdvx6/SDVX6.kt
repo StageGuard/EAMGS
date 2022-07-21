@@ -49,6 +49,7 @@ const val SDVX6_20211124 = "KFC:20211124"
 const val SDVX6_20220214 = "KFC:20220214"
 const val SDVX6_20220308 = "KFC:20220308"
 const val SDVX6_20220425 = "KFC:20220425"
+const val SDVX6_20220628 = "KFC:20220628"
 
 object SDVX6 : EAmPlugin {
     override val id: String = "sdvx6"

@@ -27,7 +27,7 @@ import org.w3c.dom.Element
     SDVX6_20211124,
     SDVX6_20220214,
     SDVX6_20220308,
-    SDVX6_20220425)
+    SDVX6_20220425, SDVX6_20220628)
 object Longue : SDVX6RouteHandler("lounge") {
     private const val INTERVAL = 30.toLong()
 

@@ -31,7 +31,7 @@ import org.ktorm.entity.sequenceOf
     SDVX6_20211124,
     SDVX6_20220214,
     SDVX6_20220308,
-    SDVX6_20220425)
+    SDVX6_20220425, SDVX6_20220628)
 object SDVX6ProfileChecker : ProfileChecker {
     override suspend fun check(cardInfo: EAmuseCard) =
         Database.query { db -> db.sequenceOf(UserProfileTable).any { it.refId eq cardInfo.refId } } ?: false

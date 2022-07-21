@@ -40,7 +40,7 @@ import org.w3c.dom.Element
     SDVX6_20211124,
     SDVX6_20220214,
     SDVX6_20220308,
-    SDVX6_20220425)
+    SDVX6_20220425, SDVX6_20220628)
 object Save : SDVX6RouteHandler("save") {
     override suspend fun handle(gameNode: Element): KXmlBuilder {
         val refId = gameNode.childNodeValue("refid")
@@ -175,7 +175,7 @@ object Save : SDVX6RouteHandler("save") {
     SDVX6_20211124,
     SDVX6_20220214,
     SDVX6_20220308,
-    SDVX6_20220425)
+    SDVX6_20220425, SDVX6_20220628)
 object SaveScore : SDVX6RouteHandler("save_m") {
     override suspend fun handle(gameNode: Element): KXmlBuilder {
         val refId = gameNode.childNodeValue("refid")
@@ -218,7 +218,7 @@ object SaveScore : SDVX6RouteHandler("save_m") {
     SDVX6_20211124,
     SDVX6_20220214,
     SDVX6_20220308,
-    SDVX6_20220425)
+    SDVX6_20220425, SDVX6_20220628)
 object SaveCourse : SDVX6RouteHandler("save_c") {
     override suspend fun handle(gameNode: Element): KXmlBuilder {
         val refId = gameNode.childNodeValue("refid")

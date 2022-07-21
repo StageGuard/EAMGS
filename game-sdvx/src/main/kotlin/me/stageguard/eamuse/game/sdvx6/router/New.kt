@@ -41,7 +41,7 @@ import kotlin.random.Random
     SDVX6_20211124,
     SDVX6_20220214,
     SDVX6_20220308,
-    SDVX6_20220425)
+    SDVX6_20220425, SDVX6_20220628)
 object New : SDVX6RouteHandler("new") {
     override suspend fun handle(gameNode: Element): KXmlBuilder {
         val refId = gameNode.childNodeValue("refid")
