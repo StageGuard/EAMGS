@@ -42,7 +42,7 @@ fun defaultSDVX6Router(vararg method: String): Array<out SDVX6RouteHandler> {
             SDVX6_20211124,
             SDVX6_20220214,
             SDVX6_20220308,
-            SDVX6_20220425)
+            SDVX6_20220425, SDVX6_20220628)
         object : SDVX6RouteHandler(m) {
             override suspend fun handle(gameNode: Element): KXmlBuilder {
                 return createGameResponseNode()

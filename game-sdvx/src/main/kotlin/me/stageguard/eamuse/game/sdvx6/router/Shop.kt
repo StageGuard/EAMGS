@@ -27,7 +27,7 @@ import org.w3c.dom.Element
     SDVX6_20211124,
     SDVX6_20220214,
     SDVX6_20220308,
-    SDVX6_20220425)
+    SDVX6_20220425, SDVX6_20220628)
 object Shop : SDVX6RouteHandler("shop") {
     private const val SHOP_NXT_TIME = (1000 * 5 * 60).toLong()
 

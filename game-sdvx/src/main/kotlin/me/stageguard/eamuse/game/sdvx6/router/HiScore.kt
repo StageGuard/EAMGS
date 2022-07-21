@@ -32,7 +32,7 @@ import org.w3c.dom.Element
     SDVX6_20211124,
     SDVX6_20220214,
     SDVX6_20220308,
-    SDVX6_20220425)
+    SDVX6_20220425, SDVX6_20220628)
 object HiScore : SDVX6RouteHandler("hiscore") {
     override suspend fun handle(gameNode: Element): KXmlBuilder {
         val allRecords = Database.query { db -> db.sequenceOf(PlayRecordTable).toList() } ?: listOf()
