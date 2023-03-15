@@ -1200,6 +1200,10 @@
 			<word>MODE：Extermination起動！</word>
 			<default __type="u8">0</default>
 	</part>
+	<part id="10300">
+			<word>一緒に飛んでみるだか？</word>
+			<default __type="u8">0</default>
+	</part>
 	<part id="30001">
 			<word>炎の申し子</word>
 			<default __type="u8">0</default>
@@ -1781,19 +1785,59 @@
 			<default __type="u8">0</default>
 	</part>
 	<part id="40033">
-			<word>初代アルティメットランク勢</word>
+			<word>[ds:1][dsc:3333][ol:2][olc:9973,9642][c:fff,fff,dd9,bb6]第１回アルティメットマッチ　１位[/c][/olc][/ol][/dsc][/ds]</word>
 			<default __type="u8">0</default>
 	</part>
 	<part id="40034">
-			<word>初代アルティメットランク団長</word>
+			<word>[ds:1][dsc:3333][ol:2][olc:9973,9642][c:fff,fff,dd9,bb6]第１回アルティメットマッチ　２位[/c][/olc][/ol][/dsc][/ds]</word>
 			<default __type="u8">0</default>
 	</part>
 	<part id="40035">
-			<word>初代アルティメットランク王</word>
+			<word>[ds:1][dsc:3333][ol:2][olc:9973,9642][c:fff,fff,dd9,bb6]第１回アルティメットマッチ　３位[/c][/olc][/ol][/dsc][/ds]</word>
 			<default __type="u8">0</default>
 	</part>
 	<part id="40036">
-			<word>初代アルティメットランク神</word>
+			<word>[ds:1][dsc:3333][ol:2][olc:9fbf,9d9d][c:fff,9fff]第１回アルティメットマッチ　TOP10[/c][/olc][/ol][/dsc][/ds]</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40037">
+			<word>[ds:1][dsc:3333][ol:2][olc:9fbf,9d9d][c:fff,9fff]第１回アルティメットマッチ　TOP20[/c][/olc][/ol][/dsc][/ds]</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40038">
+			<word>[ds:1][dsc:3333][ol:2][olc:9fbf,9d9d][c:fff,9fff]第１回アルティメットマッチ　TOP30[/c][/olc][/ol][/dsc][/ds]</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40039">
+			<word>[ds:1][dsc:3333][ol:2][olc:9fbf,9d9d][c:fff,9fff]第１回アルティメットマッチ　TOP40[/c][/olc][/ol][/dsc][/ds]</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40040">
+			<word>[ds:1][dsc:3333][ol:2][olc:9fbf,9d9d][c:fff,9fff]第１回アルティメットマッチ　TOP50[/c][/olc][/ol][/dsc][/ds]</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40041">
+			<word>[ds:1][dsc:3333][c:fff,fcf]第１回アルティメットマッチ　TOP60[/c][/dsc][/ds]</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40042">
+			<word>[ds:1][dsc:3333][c:fff,fcf]第１回アルティメットマッチ　TOP70[/c][/dsc][/ds]</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40043">
+			<word>[ds:1][dsc:3333][c:fff,fcf]第１回アルティメットマッチ　TOP80[/c][/dsc][/ds]</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40044">
+			<word>[ds:1][dsc:3333][c:fff,fcf]第１回アルティメットマッチ　TOP90[/c][/dsc][/ds]</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40045">
+			<word>[ds:1][dsc:3333][c:fff,fcf]第１回アルティメットマッチ　TOP100[/c][/dsc][/ds]</word>
+			<default __type="u8">0</default>
+	</part>
+	<part id="40046">
+			<word>第１回アルティメットマッチ</word>
 			<default __type="u8">0</default>
 	</part>
 </akaname_parts>
